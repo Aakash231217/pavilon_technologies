@@ -1,5 +1,5 @@
 // src/data/teamData.ts
-import rahulImg from '../Images/team/rahul1.png';
+import rahulImg from '../Images/team/rahul1.jpg';
 import priyanshuImg from '../Images/team/priyanshu2.jpg';
 
 export interface Member {

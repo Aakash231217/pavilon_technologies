@@ -69,7 +69,7 @@ const Hero: React.FC = () => {
             </div>
 
             {/* Stats */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="mt-16 grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
                 <div className="text-gray-600">Projects</div>
@@ -78,10 +78,7 @@ const Hero: React.FC = () => {
                 <div className="text-4xl font-bold text-pink-600 mb-2">30+</div>
                 <div className="text-gray-600">Clients</div>
               </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-yellow-600 mb-2">5+</div>
-                <div className="text-gray-600">Years Exp</div>
-              </div>
+             
               <div className="text-center">
                 <div className="text-4xl font-bold text-blue-600 mb-2">100%</div>
                 <div className="text-gray-600">Satisfaction</div>
