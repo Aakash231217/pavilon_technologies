@@ -200,14 +200,7 @@ const Services = () => {
 
   const [activeCategory, setActiveCategory] = useState('all'); // Initialize with 'all'
 
-  const getUniqueCategories = () => {
-    const categories = techStack.map(tech => tech.category);
-    return ['All', ...new Set(categories)].map(cat => cat.charAt(0).toUpperCase() + cat.slice(1));
-  };
-
-  const filteredTechStack = activeCategory === 'all'
-    ? techStack
-    : techStack.filter(tech => tech.category === activeCategory);
+  const filteredTechStack = techStack;
 
   return (
     <section id="services" className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
@@ -297,25 +290,6 @@ const Services = () => {
               We utilize cutting-edge technologies to build efficient, scalable, and modern digital solutions.
             </p>
           </motion.div>
-
-          {/* Category Filter Buttons */}
-          <div className="flex justify-center gap-3 mb-12 flex-wrap">
-            {getUniqueCategories().map(category => (
-              <motion.button
-                key={category}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setActiveCategory(category.toLowerCase())}
-                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300
-                  ${activeCategory === category.toLowerCase()
-                    ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]'
-                    : 'bg-white/5 backdrop-blur-md text-gray-300 border border-white/10 hover:border-white/30 hover:bg-white/10'
-                  }`}
-              >
-                {category}
-              </motion.button>
-            ))}
-          </div>
 
           {/* Technology Grid */}
           <motion.div 
