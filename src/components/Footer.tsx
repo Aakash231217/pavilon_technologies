@@ -1,5 +1,6 @@
 import { Twitter, Linkedin, Instagram, Facebook, ArrowUp, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import logo from '../Images/logo.png';
 
 const Footer = () => {
@@ -10,13 +11,13 @@ const Footer = () => {
   };
 
   const siteMapLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'AI', href: '#ai' },
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Blog', href: '/blog' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '#home', isRoute: false },
+    { name: 'About', href: '#about', isRoute: false },
+    { name: 'Services', href: '#services', isRoute: false },
+    { name: 'AI', href: '#ai', isRoute: false },
+    { name: 'Portfolio', href: '#portfolio', isRoute: false },
+    { name: 'Blog', href: '/blog', isRoute: true },
+    { name: 'Contact', href: '#contact', isRoute: false },
   ];
 
   const serviceLinks = [
@@ -125,10 +126,17 @@ const Footer = () => {
             <ul className="space-y-3">
               {siteMapLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 text-sm flex items-center gap-2 group">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-indigo-400 transition-colors"></span>
-                    {link.name}
-                  </a>
+                  {link.isRoute ? (
+                    <Link to={link.href} className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 text-sm flex items-center gap-2 group">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-indigo-400 transition-colors"></span>
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a href={link.href} className="text-gray-400 hover:text-indigo-400 transition-colors duration-300 text-sm flex items-center gap-2 group">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-indigo-400 transition-colors"></span>
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
