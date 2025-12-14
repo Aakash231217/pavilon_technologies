@@ -1,11 +1,10 @@
 // src/components/About.tsx
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Award, Target, Zap, Users, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { teamMembers } from '../data/teamData';
 import creativeImg from '../Images/pavion1.png';
-import Scene3D from './3d/FloatingShapes';
 
 type Highlight = { icon: React.ReactNode; title: string; description: string; gradient: string };
 
@@ -34,11 +33,6 @@ const About: React.FC = () => {
     <>
       {/* --- ABOUT SECTION --- */}
       <section id="about" className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 text-white overflow-hidden">
-        {/* 3D Background */}
-        <Suspense fallback={null}>
-          <Scene3D variant="about" />
-        </Suspense>
-
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]" />

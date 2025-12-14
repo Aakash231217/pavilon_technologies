@@ -3,35 +3,6 @@ import { ExternalLink, Github, X, CheckCircle2, ArrowRightCircle, Lightbulb, Pen
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { Float, MeshDistortMaterial } from '@react-three/drei';
-
-// 3D Background Scene
-const Scene3D = () => (
-  <>
-    <ambientLight intensity={0.3} />
-    <pointLight position={[10, 10, 10]} intensity={0.8} color="#818cf8" />
-    <pointLight position={[-10, -10, -10]} intensity={0.5} color="#f472b6" />
-    <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
-      <mesh position={[-4, 2, -5]} scale={1.5}>
-        <icosahedronGeometry args={[1, 1]} />
-        <MeshDistortMaterial color="#6366f1" transparent opacity={0.3} distort={0.4} speed={2} />
-      </mesh>
-    </Float>
-    <Float speed={1.5} rotationIntensity={0.8} floatIntensity={1.2}>
-      <mesh position={[4, -1, -4]} scale={1.2}>
-        <octahedronGeometry args={[1]} />
-        <MeshDistortMaterial color="#ec4899" transparent opacity={0.3} distort={0.3} speed={3} />
-      </mesh>
-    </Float>
-    <Float speed={2.5} rotationIntensity={0.3} floatIntensity={0.8}>
-      <mesh position={[0, 3, -6]} scale={0.8}>
-        <dodecahedronGeometry args={[1]} />
-        <MeshDistortMaterial color="#f59e0b" transparent opacity={0.25} distort={0.5} speed={2.5} />
-      </mesh>
-    </Float>
-  </>
-);
 
 const Portfolio = () => {
   const navigate = useNavigate();
@@ -216,13 +187,6 @@ const Portfolio = () => {
 
   return (
     <section id="portfolio" className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/50 to-slate-950 relative overflow-hidden">
-      {/* 3D Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas camera={{ position: [0, 0, 8], fov: 60 }}>
-          <Scene3D />
-        </Canvas>
-      </div>
-
       {/* Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/80 z-[1]" />
       <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-indigo-600/10 blur-[120px] rounded-full z-0" />

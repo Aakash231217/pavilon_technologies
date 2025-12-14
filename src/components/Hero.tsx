@@ -1,8 +1,7 @@
 // src/components/Hero.tsx
-import React, { Suspense } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Code, Sparkles, ChevronDown, User, FileCheck, Lightbulb, Link, Building2, Smartphone, Cloud, Database, Zap, Globe } from 'lucide-react';
-import Scene3D from './3d/FloatingShapes';
 
 const services = [
   { icon: <User size={24} />, title: 'AI & ML' },
