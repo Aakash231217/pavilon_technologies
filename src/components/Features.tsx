@@ -1,108 +1,147 @@
-import { Rocket, Shield, Headphones, Clock, TrendingUp, CheckCircle } from 'lucide-react';
+import { Rocket, Shield, Headphones, Clock, TrendingUp, CheckCircle, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Features = () => {
   const features = [
     {
-      icon: <Rocket size={40} />,
+      icon: <Rocket size={32} />,
       title: 'Innovative Solutions',
       description: 'Cutting-edge technology and creative approaches to solve complex problems',
-      color: 'blue',
+      gradient: 'from-indigo-500 to-blue-600',
     },
     {
-      icon: <Shield size={40} />,
+      icon: <Shield size={32} />,
       title: 'Secure & Reliable',
       description: 'Built with security best practices and robust error handling',
-      color: 'pink',
+      gradient: 'from-pink-500 to-rose-600',
     },
     {
-      icon: <Clock size={40} />,
+      icon: <Clock size={32} />,
       title: 'Timely Delivery',
       description: 'Consistent on-time project delivery with transparent communication',
-      color: 'yellow',
+      gradient: 'from-amber-500 to-orange-600',
     },
     {
-      icon: <Headphones size={40} />,
+      icon: <Headphones size={32} />,
       title: '24/7 Support',
       description: 'Dedicated support and maintenance for all your projects',
-      color: 'blue',
+      gradient: 'from-emerald-500 to-teal-600',
     },
     {
-      icon: <TrendingUp size={40} />,
+      icon: <TrendingUp size={32} />,
       title: 'Scalable Architecture',
       description: 'Future-proof solutions that grow with your business needs',
-      color: 'pink',
+      gradient: 'from-violet-500 to-purple-600',
     },
     {
-      icon: <CheckCircle size={40} />,
+      icon: <CheckCircle size={32} />,
       title: 'Quality Assurance',
       description: 'Rigorous testing and quality checks at every development stage',
-      color: 'yellow',
+      gradient: 'from-cyan-500 to-blue-600',
     },
   ];
 
-  const colorMap = {
-    blue: {
-      bg: 'bg-blue-600',
-      text: 'text-blue-600',
-      border: 'border-blue-200',
-    },
-    pink: {
-      bg: 'bg-pink-600',
-      text: 'text-pink-600',
-      border: 'border-pink-200',
-    },
-    yellow: {
-      bg: 'bg-yellow-500',
-      text: 'text-yellow-600',
-      border: 'border-yellow-200',
-    },
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
   return (
-    <section id="features" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Why <span className="text-yellow-500">Choose Us</span>
+    <section id="features" className="relative py-24 bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-950 overflow-hidden">
+      {/* Animated background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-20 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[150px]" />
+        <div className="absolute bottom-20 left-20 w-[400px] h-[400px] bg-pink-500/10 rounded-full blur-[120px]" />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-amber-300">
+            <Sparkles size={14} />
+            Why Work With Us
+          </span>
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Why <span className="bg-gradient-to-r from-amber-400 to-pink-400 bg-clip-text text-transparent">Choose Us</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Professional features that set my services apart
+          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full" />
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Professional features that set our services apart from the competition
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => {
-            const colors = colorMap[feature.color as keyof typeof colorMap];
-            return (
-              <div
-                key={index}
-                className={`group bg-gray-50 rounded-2xl p-8 hover:bg-white transition-all duration-300 transform hover:-translate-y-2 hover:shadow-2xl border-2 ${colors.border}`}
-              >
-                <div className={`inline-block p-4 rounded-xl ${colors.bg} text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="group relative bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-white/20 transition-all duration-500 overflow-hidden"
+            >
+              {/* Hover glow effect */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+              
+              <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                {feature.icon}
               </div>
-            );
-          })}
-        </div>
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                {feature.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">{feature.description}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-        <div className="mt-16 grid md:grid-cols-3 gap-8">
-          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center border-2 border-blue-200">
-            <div className="text-5xl font-bold text-blue-600 mb-2">99%</div>
-            <div className="text-gray-700 font-medium">Client Satisfaction</div>
-          </div>
-          <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-8 text-center border-2 border-pink-200">
-            <div className="text-5xl font-bold text-pink-600 mb-2">20+</div>
-            <div className="text-gray-700 font-medium">Projects Completed</div>
-          </div>
-          <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-8 text-center border-2 border-yellow-200">
-            <div className="text-5xl font-bold text-yellow-600 mb-2">24h</div>
-            <div className="text-gray-700 font-medium">Average Response</div>
-          </div>
-        </div>
+        {/* Stats */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 grid md:grid-cols-3 gap-6"
+        >
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="bg-gradient-to-br from-indigo-500/20 to-blue-500/10 backdrop-blur-md rounded-2xl p-8 text-center border border-white/10"
+          >
+            <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent mb-2">99%</div>
+            <div className="text-gray-400 font-medium">Client Satisfaction</div>
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="bg-gradient-to-br from-pink-500/20 to-rose-500/10 backdrop-blur-md rounded-2xl p-8 text-center border border-white/10"
+          >
+            <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-2">50+</div>
+            <div className="text-gray-400 font-medium">Projects Completed</div>
+          </motion.div>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="bg-gradient-to-br from-amber-500/20 to-orange-500/10 backdrop-blur-md rounded-2xl p-8 text-center border border-white/10"
+          >
+            <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent mb-2">24h</div>
+            <div className="text-gray-400 font-medium">Average Response</div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

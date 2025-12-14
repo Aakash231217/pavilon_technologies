@@ -9,13 +9,15 @@ import {
   X,
   CheckCircle2,
   ArrowRightCircle,
-  // Generic icons to use as placeholders for tech stack, as the specific ones are not in lucide-react
-  Code,       // For ReactJs, NextJs, AngularJs, VueJs, Svelte (generic code/dev icon)
-  Box,        // For ThreeJs (representing 3D/components)
-  SquareStack, // For TailwindCss, Bootstrap, MaterialUi (representing frameworks/libraries)
-  GitFork,    // For Redux (representing state management/flow)
+  Code,
+  Box,
+  SquareStack,
+  GitFork,
+  Sparkles,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Scene3D from './3d/FloatingShapes';
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
@@ -176,192 +178,283 @@ const Services = () => {
     : techStack.filter(tech => tech.category === activeCategory);
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="services" className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
+      {/* 3D Background */}
+      <Suspense fallback={null}>
+        <Scene3D variant="services" />
+      </Suspense>
+
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-40 left-10 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-40 right-10 w-[500px] h-[500px] bg-pink-500/10 rounded-full blur-[150px]" />
+      </div>
+
+      {/* Grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Our<span className="text-pink-600"> Services</span>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
+          <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-indigo-300">
+            <Sparkles size={14} />
+            What We Offer
+          </span>
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Our <span className="bg-gradient-to-r from-pink-500 to-amber-500 bg-clip-text text-transparent">Services</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-pink-600 mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full" />
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
             Because in today's market, "good enough" isn't good enough. We architect solutions that drive measurable, tangible results.
           </p>
-        </div>
+        </motion.div>
 
         {/* Service Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const colors = colorMap[service.color];
             return (
-              <div
+              <motion.div
                 key={index}
-                className={`bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border-2 border-transparent ${colors.hover} cursor-pointer group`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                whileHover={{ y: -10 }}
+                className="group relative bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-white/20 cursor-pointer transition-all duration-500 overflow-hidden"
                 onClick={() => openModal(service)}
               >
-                <div className={`inline-block p-4 rounded-xl bg-gradient-to-br ${colors.gradient} mb-6 group-hover:scale-110 transition-transform`}>
-                  <div className={colors.text}>{service.icon}</div>
+                {/* Hover glow effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                
+                <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${colors.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                  {service.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{service.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed line-clamp-3">{service.description}</p>
-                <div className={`flex items-center ${colors.text} font-semibold`}>
-                  Learn More <ArrowRightCircle size={20} className="ml-2" />
+                <h3 className="text-2xl font-bold text-white mb-3 group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                  {service.title}
+                </h3>
+                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors">
+                  {service.description}
+                </p>
+                <div className="flex items-center text-indigo-400 font-semibold group-hover:text-pink-400 transition-colors">
+                  Learn More 
+                  <ArrowRightCircle size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Our Technology Stack Section */}
-        <div className="mt-20">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Our<span className="text-pink-600"> Technology Stack</span>
+        <div className="mt-24">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-pink-300">
+              Technologies We Master
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Our <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">Technology Stack</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-pink-600 mx-auto mb-6"></div>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full" />
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               We utilize cutting-edge technologies to build efficient, scalable, and modern digital solutions.
             </p>
-          </div>
+          </motion.div>
 
           {/* Category Filter Buttons */}
-          <div className="flex justify-center gap-4 mb-12 flex-wrap">
+          <div className="flex justify-center gap-3 mb-12 flex-wrap">
             {getUniqueCategories().map(category => (
-              <button
+              <motion.button
                 key={category}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveCategory(category.toLowerCase())}
-                className={`px-6 py-3 rounded-full font-semibold transition-colors duration-300
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-300
                   ${activeCategory === category.toLowerCase()
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-500 hover:text-blue-600'
+                    ? 'bg-gradient-to-r from-indigo-600 to-pink-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]'
+                    : 'bg-white/5 backdrop-blur-md text-gray-300 border border-white/10 hover:border-white/30 hover:bg-white/10'
                   }`}
               >
                 {category}
-              </button>
+              </motion.button>
             ))}
           </div>
 
           {/* Technology Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            {filteredTechStack.map((tech, index) => (
-              <div key={index} className="flex flex-col items-center justify-center bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300">
-                <div className="mb-4">{tech.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900">{tech.name}</h3>
-              </div>
-            ))}
-          </div>
-          {/* A "View More" button might not be needed if all technologies are displayed based on filters.
-              You can re-implement it if you have a partial display for 'All' category and want to show more. */}
+          <motion.div 
+            layout
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
+          >
+            <AnimatePresence mode="popLayout">
+              {filteredTechStack.map((tech, index) => (
+                <motion.div 
+                  key={tech.name}
+                  layout
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ delay: index * 0.05 }}
+                  whileHover={{ y: -5, scale: 1.05 }}
+                  className="flex flex-col items-center justify-center bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition-all duration-300"
+                >
+                  <div className="mb-4 text-indigo-400">{tech.icon}</div>
+                  <h3 className="text-base font-semibold text-white">{tech.name}</h3>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-pink-600 rounded-2xl p-8 md:p-12 text-center text-white">
-          <h3 className="text-3xl md:text-4xl font-bold mb-4">
-            Need a Custom Solution?
-          </h3>
-          <p className="text-xl mb-8 opacity-90">
-            Let's discuss your project and find the perfect solution together
-          </p>
-          <a
-            href="#contact"
-            className="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-          >
-            Start a Project
-          </a>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-20 relative overflow-hidden"
+        >
+          <div className="bg-gradient-to-r from-indigo-600/90 via-pink-600/90 to-amber-600/90 backdrop-blur-xl rounded-3xl p-10 md:p-14 text-center border border-white/20">
+            {/* Decorative elements */}
+            <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
+            
+            <h3 className="text-3xl md:text-5xl font-bold mb-4 text-white relative z-10">
+              Need a Custom Solution?
+            </h3>
+            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto relative z-10">
+              Let's discuss your project and find the perfect solution together
+            </p>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative z-10 inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-white/20"
+            >
+              Start a Project
+              <ArrowRightCircle size={20} />
+            </motion.a>
+          </div>
+        </motion.div>
       </div>
 
       {/* Full Screen Modal */}
-      {selectedService && (
-        <div className="fixed inset-0 z-[100] flex justify-center items-start md:items-center bg-black/60 backdrop-blur-sm overflow-y-auto py-4 md:py-8">
-          {/* Modal Container */}
-          <div className="bg-white w-full mx-4 md:mx-auto md:max-w-5xl rounded-3xl shadow-2xl relative animate-fadeIn overflow-hidden">
-            
-            {/* Close Button */}
-            <button
-              className="absolute top-6 right-6 text-gray-400 hover:text-gray-800 transition-colors bg-gray-100 rounded-full p-2 z-10"
-              onClick={closeModal}
+      <AnimatePresence>
+        {selectedService && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex justify-center items-start md:items-center bg-black/80 backdrop-blur-md overflow-y-auto py-4 md:py-8"
+            onClick={closeModal}
+          >
+            {/* Modal Container */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 50 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="bg-slate-900 w-full mx-4 md:mx-auto md:max-w-5xl rounded-3xl shadow-2xl relative overflow-hidden border border-white/10"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X size={28} />
-            </button>
+              
+              {/* Close Button */}
+              <button
+                className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-2 z-10 backdrop-blur-md"
+                onClick={closeModal}
+              >
+                <X size={24} />
+              </button>
 
-            {(() => {
-              const colors = colorMap[selectedService.color];
-              return (
-                <div className="flex flex-col md:flex-row">
-                  {/* Left Sidebar with Gradient and Icon */}
-                  <div className={`bg-gradient-to-br ${colors.gradient} p-8 md:p-12 md:w-1/3 flex flex-col justify-between text-white`}>
-                    <div>
-                      <div className={`inline-block p-4 rounded-2xl ${colors.iconBg} mb-8 shadow-md`}>
-                        <div className={colors.text}>{selectedService.icon}</div>
+              {(() => {
+                const colors = colorMap[selectedService.color];
+                return (
+                  <div className="flex flex-col md:flex-row">
+                    {/* Left Sidebar with Gradient and Icon */}
+                    <div className={`bg-gradient-to-br ${colors.gradient} p-8 md:p-12 md:w-1/3 flex flex-col justify-between text-white relative overflow-hidden`}>
+                      {/* Decorative elements */}
+                      <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
+                      
+                      <div className="relative z-10">
+                        <div className="inline-flex p-4 rounded-2xl bg-white/20 backdrop-blur-md mb-8 shadow-xl">
+                          {selectedService.icon}
+                        </div>
+                        <h3 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">{selectedService.title}</h3>
+                        <p className="text-lg opacity-90 md:pr-4">{selectedService.description}</p>
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">{selectedService.title}</h3>
-                      <p className="text-lg opacity-90 md:pr-4">{selectedService.description}</p>
-                    </div>
-                      <div className="mt-12 hidden md:block">
-                          <p className="font-semibold uppercase tracking-wider mb-4 opacity-80">Core Competencies</p>
+                      <div className="mt-12 hidden md:block relative z-10">
+                        <p className="font-semibold uppercase tracking-wider mb-4 opacity-80 text-sm">Core Competencies</p>
                         <ul className="space-y-3">
-                            {selectedService.features.map((feature, idx) => (
+                          {selectedService.features.map((feature: string, idx: number) => (
                             <li key={idx} className="flex items-center">
-                                <CheckCircle2 size={20} className="mr-3 opacity-80" />
-                                <span>{feature}</span>
+                              <CheckCircle2 size={18} className="mr-3 opacity-80" />
+                              <span className="text-sm">{feature}</span>
                             </li>
-                            ))}
+                          ))}
                         </ul>
                       </div>
-                  </div>
-
-                  {/* Right Content Area with Detailed Data */}
-                  <div className="p-8 md:p-12 md:w-2/3 bg-white">
-                      {/* Detailed Description */}
-                    <div className="mb-12">
-                        <h4 className="text-2xl font-bold text-gray-900 mb-6">Service Overview</h4>
-                        <p className="text-lg text-gray-700 leading-relaxed">
-                        {selectedService.longDescription}
-                        </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-10">
+                    {/* Right Content Area with Detailed Data */}
+                    <div className="p-8 md:p-12 md:w-2/3 bg-slate-900">
+                      {/* Detailed Description */}
+                      <div className="mb-10">
+                        <h4 className="text-2xl font-bold text-white mb-4">Service Overview</h4>
+                        <p className="text-gray-400 leading-relaxed">
+                          {selectedService.longDescription}
+                        </p>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-8">
                         {/* Key Benefits Section */}
                         <div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
-                                Key Benefits
-                            </h4>
-                            <ul className="space-y-4">
-                                {selectedService.benefits.map((benefit, idx) => (
-                                <li key={idx} className="flex items-start">
-                                    {/* Using the service color for the checkmark */}
-                                    <CheckCircle2 size={22} className={`${colors.text} mr-3 flex-shrink-0 mt-1`} />
-                                    <span className="text-gray-700 font-medium">{benefit}</span>
-                                </li>
-                                ))}
-                            </ul>
+                          <h4 className="text-xl font-bold text-white mb-5 flex items-center">
+                            Key Benefits
+                          </h4>
+                          <ul className="space-y-4">
+                            {selectedService.benefits.map((benefit: string, idx: number) => (
+                              <li key={idx} className="flex items-start">
+                                <CheckCircle2 size={20} className="text-emerald-400 mr-3 flex-shrink-0 mt-0.5" />
+                                <span className="text-gray-300">{benefit}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
 
                         {/* Our Process Section */}
                         <div>
-                            <h4 className="text-xl font-bold text-gray-900 mb-6"> Our Process</h4>
-                            <ol className="relative border-l border-gray-200 dark:border-gray-700 ml-3 space-y-6">
-                                {selectedService.process.map((step, idx) => (
-                                <li key={idx} className="ml-6">
-                                    <span className={`absolute flex items-center justify-center w-8 h-8 ${colors.iconBg} ${colors.text} rounded-full -left-11 ring-4 ring-white font-bold`}>
-                                        {idx + 1}
-                                    </span>
-                                    <h5 className="flex items-center mb-1 text-lg font-semibold text-gray-900">
-                                        {step}
-                                    </h5>
-                                </li>
-                                ))}
-                            </ol>
+                          <h4 className="text-xl font-bold text-white mb-5">Our Process</h4>
+                          <ol className="relative border-l border-white/20 ml-3 space-y-6">
+                            {selectedService.process.map((step: string, idx: number) => (
+                              <li key={idx} className="ml-6">
+                                <span className="absolute flex items-center justify-center w-8 h-8 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-full -left-4 ring-4 ring-slate-900 text-white font-bold text-sm">
+                                  {idx + 1}
+                                </span>
+                                <h5 className="text-gray-300 font-medium">
+                                  {step}
+                                </h5>
+                              </li>
+                            ))}
+                          </ol>
                         </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })()}
-          </div>
-        </div>
-      )}
+                );
+              })()}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

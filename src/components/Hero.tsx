@@ -1,18 +1,8 @@
 // src/components/Hero.tsx
-import React from 'react';
-import { ArrowRight, Code } from 'lucide-react';
-import {
-  User,
-  FileCheck,
-  Lightbulb,
-  Link,
-  Building2,
-  Smartphone,
-  Cloud,
-  Database,
-  Zap,
-  Globe,
-} from 'lucide-react';
+import React, { Suspense } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight, Code, Sparkles, ChevronDown, User, FileCheck, Lightbulb, Link, Building2, Smartphone, Cloud, Database, Zap, Globe } from 'lucide-react';
+import Scene3D from './3d/FloatingShapes';
 
 const services = [
   { icon: <User size={24} />, title: 'AI & ML' },
@@ -29,122 +19,217 @@ const services = [
 ];
 
 const Hero: React.FC = () => {
+  const stats = [
+    { value: '50+', label: 'Projects Delivered', color: 'from-blue-500 to-indigo-600' },
+    { value: '30+', label: 'Happy Clients', color: 'from-pink-500 to-rose-600' },
+    { value: '5+', label: 'Years Experience', color: 'from-amber-500 to-orange-600' },
+    { value: '100%', label: 'Client Satisfaction', color: 'from-emerald-500 to-teal-600' },
+  ];
+
+  const floatingIcons = [
+    { icon: '⚛️', delay: 0, position: 'top-20 left-[10%]' },
+    { icon: '🚀', delay: 0.5, position: 'top-40 right-[15%]' },
+    { icon: '💡', delay: 1, position: 'bottom-32 left-[20%]' },
+    { icon: '⚡', delay: 1.5, position: 'bottom-48 right-[10%]' },
+    { icon: '🎯', delay: 2, position: 'top-60 left-[5%]' },
+  ];
+
   return (
     <>
-      {/* Hero Section */}
       <section
         id="home"
-        className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 via-white to-blue-50 pt-16"
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        {/* 3D Background disabled to remove circular shapes */}
+        {/* <Suspense fallback={null}>
+          <Scene3D variant="hero" />
+        </Suspense> */}
+
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black,transparent)]" />
+
+        {/* Floating emoji icons */}
+        {floatingIcons.map((item, index) => (
+          <motion.div
+            key={index}
+            className={`absolute ${item.position} text-4xl hidden lg:block`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: 1, 
+              y: [0, -20, 0],
+            }}
+            transition={{
+              delay: item.delay,
+              duration: 3,
+              repeat: Infinity,
+              repeatType: 'loop',
+            }}
+          >
+            {item.icon}
+          </motion.div>
+        ))}
+
+        {/* Main Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
           <div className="text-center">
-            <h5 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-              Transforming Ideas Into Intelligent Products.
-            </h5>
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="inline-flex items-center gap-2 px-4 py-2 mb-8 bg-white/5 backdrop-blur-md border border-white/10 rounded-full"
+            >
+              <Sparkles size={16} className="text-yellow-400 animate-pulse" />
+              <span className="text-sm font-medium bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
+                Transforming Ideas Into Reality
+              </span>
+            </motion.div>
 
-            <div className="block bg-gradient-to-r from-blue-600 via-pink-600 to-yellow-500 bg-clip-text text-transparent text-4xl md:text-6xl font-extrabold mt-2">
-              Code. Create. Scale.
-            </div>
+            {/* Main Heading */}
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight"
+            >
+              <span className="text-white">We Build</span>
+              <br />
+              <span className="relative">
+                <span className="bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-400 bg-clip-text text-transparent">
+                  Digital Excellence
+                </span>
+                <motion.span
+                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-400 rounded-full"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 1, delay: 1 }}
+                />
+              </span>
+            </motion.h1>
 
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            {/* Tagline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex items-center justify-center gap-4 mb-8"
+            >
+              <span className="text-2xl md:text-4xl font-bold text-indigo-400">Code</span>
+              <span className="w-2 h-2 rounded-full bg-pink-500" />
+              <span className="text-2xl md:text-4xl font-bold text-pink-400">Create</span>
+              <span className="w-2 h-2 rounded-full bg-amber-500" />
+              <span className="text-2xl md:text-4xl font-bold text-amber-400">Scale</span>
+            </motion.div>
+
+            {/* Description */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="text-lg md:text-xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed"
+            >
               Creating exceptional digital experiences through innovative software
-              solutions and cutting-edge web development
-            </p>
+              solutions, cutting-edge AI, and stunning web development that drives
+              your business forward.
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+            >
               <a
                 href="#portfolio"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="group relative inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-pink-600 text-white rounded-full font-semibold overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_8px_rgba(99,102,241,0.3)] hover:scale-105"
               >
-                View Our Work
-                <ArrowRight size={20} />
+                <span className="relative z-10">View Our Work</span>
+                <ArrowRight size={20} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-gray-800 rounded-lg border-2 border-gray-800 hover:bg-gray-800 hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                className="group inline-flex items-center gap-2 px-8 py-4 bg-white/5 backdrop-blur-md text-white rounded-full font-semibold border border-white/20 hover:bg-white/10 hover:border-white/40 transition-all duration-300 hover:scale-105"
               >
-                <Code size={20} />
-                Get In Touch
+                <Code size={20} className="group-hover:rotate-12 transition-transform" />
+                <span>Start a Project</span>
               </a>
-            </div>
+            </motion.div>
 
             {/* Stats */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">50+</div>
-                <div className="text-gray-600">Projects</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-pink-600 mb-2">30+</div>
-                <div className="text-gray-600">Clients</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-yellow-600 mb-2">5+</div>
-                <div className="text-gray-600">Years Exp</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">100%</div>
-                <div className="text-gray-600">Satisfaction</div>
-              </div>
-            </div>
-
-            {/* Google Reviews and Trusted Section */}
-            <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-8">
-              <div className="flex items-center gap-3">
-                {/* <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                  alt="Google Logo"
-                  className="w-10 h-10"
-                /> */}
-                <div className="text-left">
-                  <div className="flex items-center">
-                    
-                        <path
-                          fillRule="evenodd"
-                          d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.007z"
-                          clipRule="evenodd"
-                        />
-                      
-                    
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto"
+            >
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                  className="group relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:scale-105"
+                >
+                  <div className={`text-3xl md:text-4xl font-bold bg-gradient-to-r ${stat.color} bg-clip-text text-transparent mb-2`}>
+                    {stat.value}
                   </div>
-                  {/* <p className="text-gray-600 text-sm">50+ reviews</p> */}
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-green-100 rounded-full">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-6 h-6 text-green-600"
+                  <div className="text-sm text-gray-400 font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Trusted By Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 1.5 }}
+              className="mt-20"
+            >
+              <p className="text-gray-500 text-sm uppercase tracking-wider mb-6">Technologies We Master</p>
+              <div className="flex flex-wrap justify-center items-center gap-8 opacity-60">
+                {['React', 'Node.js', 'Python', 'AWS', 'TypeScript', 'Next.js'].map((tech, index) => (
+                  <span
+                    key={index}
+                    className="text-gray-400 text-lg font-semibold hover:text-white transition-colors cursor-default"
                   >
-                    <path
-                      fillRule="evenodd"
-                      d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </div>
-                <p className="text-gray-600 text-lg font-medium">
-                  Trusted by 20+ Startups
-                </p>
+                    {tech}
+                  </span>
+                ))}
               </div>
-            </div>
+            </motion.div>
           </div>
+
+          {/* Scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ 
+              opacity: { delay: 2, duration: 1 },
+              y: { delay: 2, duration: 2, repeat: Infinity }
+            }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <a href="#about" className="flex flex-col items-center text-gray-500 hover:text-white transition-colors">
+              <span className="text-sm mb-2">Scroll to explore</span>
+              <ChevronDown size={24} />
+            </a>
+          </motion.div>
         </div>
       </section>
 
       {/* Marquee Section */}
-      <section className="bg-[#0A1128] py-6 overflow-hidden">
+      <section className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 py-6 overflow-hidden border-y border-white/10">
         <div className="flex animate-marquee whitespace-nowrap">
           {/* First set of items */}
           <div className="flex min-w-[200%] justify-start items-center space-x-32 px-8 text-white">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="flex items-center gap-3 text-lg font-medium flex-shrink-0"
+                className="flex items-center gap-3 text-lg font-medium flex-shrink-0 text-gray-300"
               >
-                {service.icon}
+                <span className="text-indigo-400">{service.icon}</span>
                 {service.title}
               </div>
             ))}
@@ -154,9 +239,9 @@ const Hero: React.FC = () => {
             {services.map((service, index) => (
               <div
                 key={`duplicate-${index}`}
-                className="flex items-center gap-3 text-lg font-medium flex-shrink-0"
+                className="flex items-center gap-3 text-lg font-medium flex-shrink-0 text-gray-300"
               >
-                {service.icon}
+                <span className="text-pink-400">{service.icon}</span>
                 {service.title}
               </div>
             ))}
