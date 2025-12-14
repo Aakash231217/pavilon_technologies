@@ -14,6 +14,8 @@ import {
   SquareStack,
   GitFork,
   Sparkles,
+  Link2,
+  Cpu,
 } from 'lucide-react';
 import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -114,6 +116,26 @@ const Services = () => {
       process: ['AI Strategy & Use Case Discovery', 'Data Collection & Preparation', 'Model Development & Training', 'Integration & Deployment', 'Continuous Monitoring & Improvement'],
       color: 'purple',
       features: ['LLM Integration (GPT, Claude, Gemini)', 'Custom Chatbots & AI Agents', 'RAG & Knowledge Bases', 'Predictive Analytics'],
+    },
+    {
+      icon: <Link2 size={40} />,
+      title: 'Blockchain & Web3',
+      description: 'Decentralized applications and smart contracts for the next generation of the web.',
+      longDescription: 'Step into the future with blockchain technology and Web3 solutions. We develop secure, transparent, and decentralized applications that leverage the power of blockchain. From smart contract development on Ethereum and Solana to building NFT marketplaces and DeFi platforms, we help you navigate the Web3 landscape. Our expertise includes tokenization, wallet integration, and creating immersive metaverse experiences.',
+      benefits: ['Enhanced security through decentralization', 'Transparent and immutable transactions', 'Reduced intermediary costs', 'Global accessibility and interoperability'],
+      process: ['Blockchain Feasibility Analysis', 'Smart Contract Development', 'Security Audit & Testing', 'DApp Deployment', 'Ongoing Maintenance & Updates'],
+      color: 'blue',
+      features: ['Smart Contracts (Solidity, Rust)', 'NFT Marketplaces', 'DeFi Applications', 'Wallet Integration'],
+    },
+    {
+      icon: <Cpu size={40} />,
+      title: 'DevOps Solutions',
+      description: 'Streamlined CI/CD pipelines and infrastructure automation for faster, reliable deployments.',
+      longDescription: 'Accelerate your development lifecycle with our comprehensive DevOps solutions. We implement modern DevOps practices including continuous integration and continuous deployment (CI/CD), infrastructure as code (IaC), containerization with Docker and Kubernetes, and automated monitoring. Our DevOps approach reduces deployment time, minimizes errors, and ensures your applications run smoothly in production with 24/7 reliability.',
+      benefits: ['Faster release cycles and time-to-market', 'Improved collaboration between teams', 'Automated testing and deployment', 'Enhanced system reliability and uptime'],
+      process: ['Infrastructure Assessment', 'CI/CD Pipeline Setup', 'Containerization & Orchestration', 'Monitoring & Logging Implementation', 'Continuous Optimization'],
+      color: 'pink',
+      features: ['CI/CD Automation', 'Docker & Kubernetes', 'Infrastructure as Code (Terraform)', 'Monitoring & Alerting'],
     },
   ];
 

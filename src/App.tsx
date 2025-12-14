@@ -12,7 +12,8 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import TeamMemberDetail from './components/TeamMemberDetail';
-import ProcessView from './components/ProcessView'; // <-- New import
+import ProcessView from './components/ProcessView';
+import BlogPage from './components/BlogPage';
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
 
           {/* ProcessView Route */}
           <Route path="/process" element={<ProcessView />} />
+
+          {/* Blog Page Route */}
+          <Route path="/blog" element={<BlogPage />} />
           
         </Routes>
 

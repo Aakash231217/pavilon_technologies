@@ -21,7 +21,6 @@ const Hero: React.FC = () => {
   const stats = [
     { value: '50+', label: 'Projects Delivered', color: 'from-blue-500 to-indigo-600' },
     { value: '30+', label: 'Happy Clients', color: 'from-pink-500 to-rose-600' },
-    { value: '5+', label: 'Years Experience', color: 'from-amber-500 to-orange-600' },
     { value: '100%', label: 'Client Satisfaction', color: 'from-emerald-500 to-teal-600' },
   ];
 
@@ -161,7 +160,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 max-w-3xl mx-auto"
             >
               {stats.map((stat, index) => (
                 <motion.div

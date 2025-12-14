@@ -105,16 +105,7 @@ const About: React.FC = () => {
               </div>
               
               {/* Floating badge */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="absolute -bottom-6 -right-6 bg-gradient-to-r from-indigo-600 to-pink-600 rounded-2xl p-6 shadow-2xl"
-              >
-                <div className="text-4xl font-bold text-white">5+</div>
-                <div className="text-sm text-white/80">Years of Excellence</div>
-              </motion.div>
+              
             </motion.div>
 
             {/* Right block (text + tech chips) */}
