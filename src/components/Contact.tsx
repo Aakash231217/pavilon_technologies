@@ -125,9 +125,9 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/50 to-slate-950 relative overflow-hidden">
+    <section id="contact" className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/40 to-slate-950 relative overflow-hidden">
       {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/80 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/40 z-[1]" />
       <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-pink-600/10 blur-[120px] rounded-full z-0" />
       <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-indigo-600/10 blur-[120px] rounded-full z-0" />
 
@@ -152,7 +152,7 @@ const Contact: React.FC = () => {
             Get In <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Touch</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
             Let's discuss your project and bring your ideas to life
           </p>
         </motion.div>
@@ -191,7 +191,7 @@ const Contact: React.FC = () => {
             transition={{ duration: 0.6 }}
           >
             <h3 className="text-3xl font-bold text-white mb-6">Let's Connect</h3>
-            <p className="text-gray-400 mb-8 leading-relaxed text-lg">
+            <p className="text-gray-200 mb-8 leading-relaxed text-lg">
               We're always excited to work on new projects and collaborate with innovative teams.
               Whether you have a question or want to discuss a potential project, feel free to reach out!
             </p>
@@ -204,18 +204,18 @@ const Contact: React.FC = () => {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/20 transition-all group"
+                  className="flex items-start gap-4 p-4 rounded-xl bg-white/10 border border-white/20 hover:border-white/30 transition-all group"
                 >
                   <div
                     className={`p-3 rounded-xl ${getInfoColorClass(
                       info.color as 'blue' | 'pink' | 'yellow'
-                    )} border border-white/10 group-hover:scale-110 transition-transform`}
+                    )} border border-white/20 group-hover:scale-110 transition-transform`}
                   >
                     {info.icon}
                   </div>
                   <div>
                     <div className="font-semibold text-white mb-1">{info.title}</div>
-                    <div className="text-gray-400">{info.value}</div>
+                    <div className="text-gray-200">{info.value}</div>
                   </div>
                 </motion.div>
               ))}
@@ -232,7 +232,7 @@ const Contact: React.FC = () => {
                     rel="noopener noreferrer"
                     whileHover={{ y: -5, scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="p-4 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all duration-300"
+                    className="p-4 rounded-xl bg-white/10 border border-white/20 text-gray-200 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all duration-300"
                   >
                     {social.icon}
                   </motion.a>
@@ -246,7 +246,7 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-slate-900/50 backdrop-blur-xl rounded-3xl p-8 border border-white/10 shadow-2xl"
+            className="bg-slate-900/70 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl"
           >
             <form onSubmit={handleSubmit}>
               <div className="mb-6">
@@ -260,7 +260,7 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-500"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
                   placeholder="John Doe"
                 />
               </div>
@@ -276,7 +276,7 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-500"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
                   placeholder="john@example.com"
                 />
               </div>
@@ -292,7 +292,7 @@ const Contact: React.FC = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-500"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
                   placeholder="Project Inquiry"
                 />
               </div>
@@ -308,7 +308,7 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-500 resize-none"
+                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400 resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>

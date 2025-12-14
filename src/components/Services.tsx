@@ -15,12 +15,22 @@ import {
   GitFork,
   Sparkles,
 } from 'lucide-react';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Scene3D from './3d/FloatingShapes';
+
+interface Service {
+  icon: ReactNode;
+  title: string;
+  description: string;
+  longDescription: string;
+  benefits: string[];
+  process: string[];
+  color: 'blue' | 'pink' | 'yellow' | 'purple';
+  features: string[];
+}
 
 const Services = () => {
-  const [selectedService, setSelectedService] = useState(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   // Handle body scroll lock when modal is open
   useEffect(() => {
@@ -34,7 +44,7 @@ const Services = () => {
     };
   }, [selectedService]);
 
-  const services = [
+  const services: Service[] = [
     {
       icon: <Code2 size={40} />,
       title: 'Software Development',
@@ -138,7 +148,7 @@ const Services = () => {
     },
   };
 
-  const openModal = (service) => {
+  const openModal = (service: Service) => {
     setSelectedService(service);
   };
 
@@ -179,11 +189,6 @@ const Services = () => {
 
   return (
     <section id="services" className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
-      {/* 3D Background */}
-      <Suspense fallback={null}>
-        <Scene3D variant="services" />
-      </Suspense>
-
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-40 left-10 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px]" />

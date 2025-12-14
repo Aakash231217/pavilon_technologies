@@ -31,8 +31,8 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled
-          ? 'bg-slate-900/80 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.3)]'
-          : 'bg-transparent'
+          ? 'bg-gradient-to-r from-slate-900/85 via-indigo-950/75 to-slate-900/85 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.35)]'
+          : 'bg-slate-900/40 backdrop-blur-xl border-b border-white/5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,7 +104,7 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="md:hidden overflow-hidden"
           >
-            <div className="bg-slate-900/95 backdrop-blur-xl border-t border-white/10 px-4 py-6 space-y-2">
+            <div className="bg-gradient-to-b from-slate-900/95 to-indigo-950/90 backdrop-blur-xl border-t border-white/10 px-4 py-6 space-y-2">
               {navLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
