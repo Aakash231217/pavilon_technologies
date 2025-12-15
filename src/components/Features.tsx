@@ -124,7 +124,7 @@ const Features = () => {
             whileHover={{ scale: 1.05 }}
             className="bg-gradient-to-br from-indigo-500/20 to-blue-500/10 backdrop-blur-md rounded-2xl p-8 text-center border border-white/10"
           >
-            <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent mb-2">99%</div>
+            <div className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-400 to-blue-400 bg-clip-text text-transparent mb-2">100%</div>
             <div className="text-gray-400 font-medium">Client Satisfaction</div>
           </motion.div>
           <motion.div 
