@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Award, Target, Zap, Users, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { teamMembers } from '../data/teamData';
-import creativeImg from '../Images/pavion1.png';
+import creativeImg from '../Images/pavion.jpg';
 
 type Highlight = { icon: React.ReactNode; title: string; description: string; gradient: string };
 

@@ -157,13 +157,13 @@ const Portfolio = () => {
       stars: 5,
       quote: "Pavion Techniologies helped us launch our fintech app in record time. Their React Native expertise and backend integration were outstanding.",
       author: "Aakash Sharma",
-      role: "Co-founder of Alpha Labs",
+      role: "Co-founder",
     },
     {
       stars: 5,
       quote: "Pavion Technologies built a robust CRM customized for our real estate operations. It streamlined sales tracking and team management.",
       author: "Gaurav Shokanda",
-      role: "Head of IT Company",
+      role: "Head of IT",
     },
     {
       stars: 5,
@@ -175,13 +175,13 @@ const Portfolio = () => {
       stars: 5,
       quote: "Our e-learning platform needed a major overhaul, and otech delivered beyond expectations. User engagement has skyrocketed!",
       author: "Rajesh Kumar",
-      role: "CEO of EduFuture",
+      role: "CEO",
     },
     {
       stars: 5,
       quote: "The custom inventory management system developed by otech has significantly reduced our operational costs and improved efficiency.",
       author: "Aaksh Singh",
-      role: "Logistics Head at Global Supply",
+      role: "Logistics Head",
     },
   ];
 
