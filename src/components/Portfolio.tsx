@@ -505,16 +505,6 @@ const Portfolio = () => {
 
                       {/* --- BUTTON SECTION --- */}
                       <div className="flex flex-col gap-4 relative z-10 mt-auto">
-                        <motion.button
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          onClick={handleLiveDemoClick}
-                          className="flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl hover:bg-gray-100 transition-colors font-semibold shadow-lg cursor-pointer"
-                        >
-                          <ExternalLink size={20} />
-                          <span>Live Demo</span>
-                        </motion.button>
-
                         <motion.a 
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
