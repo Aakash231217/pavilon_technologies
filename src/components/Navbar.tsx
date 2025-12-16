@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <motion.div 
-            className="flex-shrink-0 flex items-center"
+            className="flex-shrink-0 flex items-center -ml-4"
             whileHover={{ scale: 1.02 }}
             transition={{ type: 'spring', stiffness: 400 }}
           >

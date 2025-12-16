@@ -1,7 +1,7 @@
 // src/components/Hero.tsx
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Code, Sparkles, ChevronDown, User, FileCheck, Lightbulb, Link, Building2, Smartphone, Cloud, Database, Zap, Globe } from 'lucide-react';
+import { ArrowRight, Code, Sparkles, User, FileCheck, Lightbulb, Link, Building2, Smartphone, Cloud, Database, Zap, Globe } from 'lucide-react';
 
 const services = [
   { icon: <User size={24} />, title: 'AI & ML' },
@@ -198,22 +198,6 @@ const Hero: React.FC = () => {
               </div>
             </motion.div>
           </div>
-
-          {/* Scroll indicator */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, y: [0, 10, 0] }}
-            transition={{ 
-              opacity: { delay: 2, duration: 1 },
-              y: { delay: 2, duration: 2, repeat: Infinity }
-            }}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2"
-          >
-            <a href="#about" className="flex flex-col items-center text-gray-500 hover:text-white transition-colors">
-              <span className="text-sm mb-2">Scroll to explore</span>
-              <ChevronDown size={24} />
-            </a>
-          </motion.div>
         </div>
       </section>
 
