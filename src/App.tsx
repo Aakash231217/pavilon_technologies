@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import TeamMemberDetail from './components/TeamMemberDetail';
 import ProcessView from './components/ProcessView';
 import BlogPage from './components/BlogPage';
+import SEO from './components/SEO';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           {/* Main Home Page Route */}
           <Route path="/" element={
             <>
+              <SEO />
               <Hero />
               <About />
               <Services />
@@ -39,10 +41,31 @@ function App() {
           <Route path="/team/:id" element={<TeamMemberDetail />} />
 
           {/* ProcessView Route */}
-          <Route path="/process" element={<ProcessView />} />
+          <Route path="/process" element={
+            <>
+              <SEO 
+                title="Our Development Process - Pavion Technologies"
+                description="Discover Pavion Technologies' proven software development methodology. From consultation to deployment, we ensure quality, transparency, and timely delivery."
+                canonical="https://paviontechnologies.com/process"
+                ogUrl="https://paviontechnologies.com/process"
+              />
+              <ProcessView />
+            </>
+          } />
 
           {/* Blog Page Route */}
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog" element={
+            <>
+              <SEO 
+                title="Tech Insights & Blog - Pavion Technologies"
+                description="Stay updated with latest technology trends, AI innovations, software development best practices, and industry insights from Pavion Technologies experts."
+                keywords="technology blog, AI insights, software development trends, tech articles, programming best practices, digital transformation"
+                canonical="https://paviontechnologies.com/blog"
+                ogUrl="https://paviontechnologies.com/blog"
+              />
+              <BlogPage />
+            </>
+          } />
           
         </Routes>
 
