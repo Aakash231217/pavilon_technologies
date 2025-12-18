@@ -96,9 +96,7 @@ const About: React.FC = () => {
                       >
                         Creative Development
                       </motion.div>
-                      <p className="text-gray-300 text-lg">
-                        Building Digital Excellence Since 2019
-                      </p>
+                     
                     </div>
                   </div>
                 </div>
