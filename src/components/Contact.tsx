@@ -85,13 +85,13 @@ const Contact: React.FC = () => {
     {
       icon: <Mail size={24} />,
       title: 'Email',
-      value: 'account@paviontechnologies.com',
+      value: 'Contact@paviontechnologies.com',
       color: 'blue',
     },
     {
       icon: <Phone size={24} />,
       title: 'Phone',
-      value: '7455975301 , 9528991434',
+      value: '+91 7455975301 , +91 9528991434',
       color: 'pink',
     },
     {
