@@ -146,14 +146,14 @@ const Contact: React.FC = () => {
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-sm font-medium mb-6"
           >
             <Sparkles size={16} />
-            Let's Connect
+            Ready to Transform Your Business?
           </motion.span>
           <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Get In <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Touch</span>
+            Let's Start Your <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Project</span>
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-auto mb-6 rounded-full" />
           <p className="text-xl text-gray-200 max-w-3xl mx-auto">
-            Let's discuss your project and bring your ideas to life
+            Partner with us to build innovative digital solutions that drive your business forward
           </p>
         </motion.div>
 
@@ -190,10 +190,11 @@ const Contact: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-3xl font-bold text-white mb-6">Let's Connect</h3>
+            <h3 className="text-3xl font-bold text-white mb-6">Start Your Digital Journey</h3>
             <p className="text-gray-200 mb-8 leading-relaxed text-lg">
-              We're always excited to work on new projects and collaborate with innovative teams.
-              Whether you have a question or want to discuss a potential project, feel free to reach out!
+              Ready to elevate your business with cutting-edge technology? We're here to help you build 
+              custom software solutions, AI-powered applications, and scalable platforms. Share your vision 
+              with us, and let's create something extraordinary together.
             </p>
 
             <div className="space-y-6 mb-10">
@@ -283,7 +284,7 @@ const Contact: React.FC = () => {
 
               <div className="mb-6">
                 <label htmlFor="subject" className="block text-gray-300 font-medium mb-2">
-                  Subject
+                  Project Type
                 </label>
                 <input
                   type="text"
@@ -293,13 +294,13 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
-                  placeholder="Project Inquiry"
+                  placeholder="e.g., Web Development, Mobile App, AI Solution"
                 />
               </div>
 
               <div className="mb-6">
                 <label htmlFor="message" className="block text-gray-300 font-medium mb-2">
-                  Message
+                  Project Details
                 </label>
                 <textarea
                   id="message"
@@ -309,7 +310,7 @@ const Contact: React.FC = () => {
                   required
                   rows={5}
                   className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400 resize-none"
-                  placeholder="Tell us about your project..."
+                  placeholder="Tell us about your project requirements, goals, and timeline..."
                 />
               </div>
 
@@ -344,7 +345,7 @@ const Contact: React.FC = () => {
                 ) : (
                   <Send size={20} />
                 )}
-                {submitStatus === 'loading' ? 'Sending...' : 'Send Message'}
+                {submitStatus === 'loading' ? 'Sending...' : 'Start Your Project'}
               </motion.button>
             </form>
           </motion.div>

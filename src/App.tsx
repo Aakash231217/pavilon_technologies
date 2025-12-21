@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 import TeamMemberDetail from './components/TeamMemberDetail';
 import ProcessView from './components/ProcessView';
 import BlogPage from './components/BlogPage';
+import Careers from './components/Careers';
 import SEO from './components/SEO';
 
 function App() {
@@ -64,6 +65,20 @@ function App() {
                 ogUrl="https://paviontechnologies.com/blog"
               />
               <BlogPage />
+            </>
+          } />
+
+          {/* Careers Page Route */}
+          <Route path="/careers" element={
+            <>
+              <SEO 
+                title="Careers - Join Pavion Technologies"
+                description="Build your career with Pavion Technologies. Explore exciting opportunities in software development, AI, and innovation. Apply now to join our talented team."
+                keywords="careers, jobs, software developer jobs, AI careers, tech jobs, join pavion technologies"
+                canonical="https://paviontechnologies.com/careers"
+                ogUrl="https://paviontechnologies.com/careers"
+              />
+              <Careers />
             </>
           } />
           

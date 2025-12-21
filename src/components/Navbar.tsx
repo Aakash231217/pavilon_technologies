@@ -26,6 +26,7 @@ const Navbar = () => {
     { name: 'Features', href: '#features', isAnchor: true },
     { name: 'Portfolio', href: '#portfolio', isAnchor: true },
     { name: 'Blog', href: '/blog', isAnchor: false },
+    { name: 'Careers', href: '/careers', isAnchor: false },
     { name: 'Contact', href: '#contact', isAnchor: true },
   ];
 
