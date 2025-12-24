@@ -25,6 +25,8 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
+const MAIL_HOST = process.env.MAIL_HOST;
+const MAIL_PORT = process.env.MAIL_PORT;
 const MAIL_USER = process.env.MAIL_USER;
 const MAIL_PASS = process.env.MAIL_PASS;
 
@@ -33,13 +35,13 @@ if (!API_KEY || !MAIL_USER || !MAIL_PASS) {
   process.exit(1);
 }
 
-// CORS allow – dev main tumhara frontend localhost:5173 par chal raha hai
+// CORS allow
 app.use(
   cors({
     origin: [
-      'http://localhost:5173',                     // dev ke liye
-      'https://melodic-tapioca-fbbff4.netlify.app', // Netlify URL
-      'https://paviontechnologies.com',            // tumhara domain
+      'http://localhost:5173',                     // dev
+      'https://melodic-tapioca-fbbff4.netlify.app', // Netlify
+      'https://paviontechnologies.com',            // domain
     ],
   })
 );
@@ -47,14 +49,24 @@ app.use(
 // JSON body parse
 app.use(express.json());
 
-// Test route (optional)
+// Transporter Configuration (Using Custom SMTP)
+const transporter = nodemailer.createTransport({
+  host: MAIL_HOST, 
+  port: MAIL_PORT, 
+  secure: true, // true for port 465
+  auth: {
+    user: MAIL_USER,
+    pass: MAIL_PASS, 
+  },
+});
+
+// Test route
 app.get('/', (req, res) => {
   res.send('Contact backend is running ✅');
 });
 
 // MAIN CONTACT ROUTE
 app.post('/api/contact', async (req, res) => {
-  // Pass-key / API-key check
   const clientKey = req.headers['x-api-key'];
 
   if (!clientKey || clientKey !== API_KEY) {
@@ -68,18 +80,9 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    // Nodemailer transporter (Gmail)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: MAIL_USER,
-        pass: MAIL_PASS, // Gmail App Password
-      },
-    });
-
     const mailOptions = {
       from: `"Pavion Website" <${MAIL_USER}>`,
-      to: 'paviontechnologies@gmail.com', // jahan tum email chahte ho
+      to: 'contact@paviontechnologies.com', // ✅ Yahan mail aayega
       replyTo: email,
       subject: `New message from ${name} - ${subject}`,
       text: `
@@ -101,8 +104,7 @@ ${message}
     };
 
     await transporter.sendMail(mailOptions);
-
-    console.log('✅ Email sent from', email);
+    console.log('✅ Contact email sent from', email);
     return res.json({ success: true, message: 'Email sent successfully' });
   } catch (err) {
     console.error('❌ Mail error:', err);
@@ -112,7 +114,6 @@ ${message}
 
 // CAREERS APPLICATION ROUTE
 app.post('/api/careers', upload.single('resume'), async (req, res) => {
-  // Pass-key / API-key check
   const clientKey = req.headers['x-api-key'];
 
   if (!clientKey || clientKey !== API_KEY) {
@@ -126,18 +127,9 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
   }
 
   try {
-    // Nodemailer transporter (Gmail)
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: MAIL_USER,
-        pass: MAIL_PASS, // Gmail App Password
-      },
-    });
-
     const mailOptions = {
       from: `"Pavion Careers" <${MAIL_USER}>`,
-      to: 'paviontechnologies@gmail.com', // HR email
+      to: 'contact@paviontechnologies.com', // ✅ Yahan application aayegi
       replyTo: email,
       subject: `New Job Application from ${fullName}`,
       text: `
@@ -155,7 +147,6 @@ ${coverLetter}
       html: `
         <h2>🎯 New Job Application - Pavion Technologies</h2>
         <hr style="border: 1px solid #eee;" />
-        
         <h3>Applicant Details:</h3>
         <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
           <tr>
@@ -179,12 +170,10 @@ ${coverLetter}
             <td style="padding: 10px; background: #f9f9f9;">${linkedinUrl ? `<a href="${linkedinUrl}" target="_blank">${linkedinUrl}</a>` : 'Not provided'}</td>
           </tr>
         </table>
-        
         <h3 style="margin-top: 20px;">Cover Letter / Why Join Us:</h3>
         <div style="padding: 15px; background: #f5f5f5; border-left: 4px solid #6366f1; margin: 10px 0;">
           ${coverLetter.replace(/\n/g, '<br/>')}
         </div>
-        
         <p style="margin-top: 20px; color: #666; font-size: 12px;">
           ${req.file ? '📎 Resume attached to this email' : '⚠️ No resume attached'}
         </p>
@@ -199,7 +188,6 @@ ${coverLetter}
     };
 
     await transporter.sendMail(mailOptions);
-
     console.log('✅ Career application email sent from', email);
     return res.json({ success: true, message: 'Application submitted successfully' });
   } catch (err) {

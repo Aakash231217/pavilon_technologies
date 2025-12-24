@@ -25,7 +25,7 @@ interface FormData {
 // 👇 Ye pass-key frontend wali (backend ke CONTACT_API_KEY se match honi chahiye)
 const FRONTEND_API_KEY = 'my-secret-key-123'; // ✅ same as backend .env
 
-const API_BASE_URL = 'https://pavion-backend-1.onrender.com/'; 
+const API_BASE_URL = 'https://pavilon-technologies.onrender.com'; 
 
 const Contact: React.FC = () => {
   // State for form data
