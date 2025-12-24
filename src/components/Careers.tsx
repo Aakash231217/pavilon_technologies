@@ -28,7 +28,7 @@ interface CareerFormData {
 }
 
 const FRONTEND_API_KEY = 'my-secret-key-123';
-const API_BASE_URL = 'https://pavilon-technologies.onrender.com';
+const API_BASE_URL = 'https://idurar-backend-1c2u.onrender.com';
 
 const Careers: React.FC = () => {
   const [formData, setFormData] = useState<CareerFormData>({
