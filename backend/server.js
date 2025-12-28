@@ -25,8 +25,6 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
-const MAIL_HOST = process.env.MAIL_HOST;
-const MAIL_PORT = process.env.MAIL_PORT;
 const MAIL_USER = process.env.MAIL_USER;
 const MAIL_PASS = process.env.MAIL_PASS;
 
@@ -54,14 +52,12 @@ app.use(
 // JSON body parse
 app.use(express.json());
 
-// Transporter Configuration (Using Custom SMTP)
+// Transporter Configuration (Using Gmail)
 const transporter = nodemailer.createTransport({
-  host: MAIL_HOST, 
-  port: MAIL_PORT, 
-  secure: true, // true for port 465
+  service: 'gmail',
   auth: {
     user: MAIL_USER,
-    pass: MAIL_PASS, 
+    pass: MAIL_PASS, // Gmail App Password
   },
 });
 
