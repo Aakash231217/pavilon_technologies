@@ -40,9 +40,14 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',                     // dev
+      'http://127.0.0.1:5173',                      // dev with IP address
       'https://melodic-tapioca-fbbff4.netlify.app', // Netlify
       'https://paviontechnologies.com',            // domain
+      'https://www.paviontechnologies.com',        // www version of domain
     ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'x-api-key', 'Authorization'],
   })
 );
 
