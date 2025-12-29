@@ -83,7 +83,7 @@ app.post('/api/contact', async (req, res) => {
   try {
     const mailOptions = {
       from: `"Pavion Website" <${MAIL_USER}>`,
-      to: 'contact@paviontechnologies.com', // ✅ Yahan mail aayega
+      to: MAIL_USER, // Send to the same Gmail account
       replyTo: email,
       subject: `New message from ${name} - ${subject}`,
       text: `
@@ -108,8 +108,8 @@ ${message}
     console.log('✅ Contact email sent from', email);
     return res.json({ success: true, message: 'Email sent successfully' });
   } catch (err) {
-    console.error('❌ Mail error:', err);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    console.error('❌ Mail error:', err.message, err.code);
+    return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
 
