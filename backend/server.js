@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { Resend } = require('resend');
+const nodemailer = require('nodemailer');
 const multer = require('multer');
 
 const app = express();
@@ -25,26 +25,50 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const MAIL_TO = process.env.MAIL_TO || 'paviontechnologies@gmail.com';
+const MAIL_USER = process.env.MAIL_USER;
+const MAIL_PASS = process.env.MAIL_PASS;
+const MAIL_TO = process.env.MAIL_TO || MAIL_USER;
 
-if (!API_KEY || !RESEND_API_KEY) {
-  console.error('❌ Please set CONTACT_API_KEY and RESEND_API_KEY in .env');
+if (!API_KEY || !MAIL_USER || !MAIL_PASS) {
+  console.error('❌ Please set CONTACT_API_KEY, MAIL_USER, MAIL_PASS in .env');
   process.exit(1);
 }
 
-// Initialize Resend
-const resend = new Resend(RESEND_API_KEY);
+// Gmail SMTP Transporter with explicit settings for cloud servers
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // Use TLS
+  auth: {
+    user: MAIL_USER,
+    pass: MAIL_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false // Allow self-signed certificates
+  },
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
+});
+
+// Verify transporter connection on startup
+transporter.verify((error, success) => {
+  if (error) {
+    console.error('❌ SMTP connection error:', error.message);
+  } else {
+    console.log('✅ SMTP server is ready to send emails');
+  }
+});
 
 // CORS allow
 app.use(
   cors({
     origin: [
-      'http://localhost:5173',                     // dev
-      'http://127.0.0.1:5173',                      // dev with IP address
-      'https://melodic-tapioca-fbbff4.netlify.app', // Netlify
-      'https://paviontechnologies.com',            // domain
-      'https://www.paviontechnologies.com',        // www version of domain
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      'https://melodic-tapioca-fbbff4.netlify.app',
+      'https://paviontechnologies.com',
+      'https://www.paviontechnologies.com',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -75,11 +99,12 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const { data, error } = await resend.emails.send({
-      from: 'Pavion Website <onboarding@resend.dev>', // Use Resend's default domain
-      to: [MAIL_TO],
+    const mailOptions = {
+      from: `"Pavion Website" <${MAIL_USER}>`,
+      to: MAIL_TO,
       replyTo: email,
       subject: `New message from ${name} - ${subject}`,
+      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
       html: `
         <h2>New message from Pavion Technologies website</h2>
         <p><strong>Name:</strong> ${name}</p>
@@ -88,17 +113,13 @@ app.post('/api/contact', async (req, res) => {
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br/>')}</p>
       `,
-    });
+    };
 
-    if (error) {
-      console.error('❌ Resend error:', error);
-      return res.status(500).json({ success: false, message: 'Server error', error: error.message });
-    }
-
-    console.log('✅ Contact email sent from', email, 'ID:', data.id);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Contact email sent from', email, 'MessageID:', info.messageId);
     return res.json({ success: true, message: 'Email sent successfully' });
   } catch (err) {
-    console.error('❌ Mail error:', err.message);
+    console.error('❌ Mail error:', err.message, err.code);
     return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
@@ -118,11 +139,12 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
   }
 
   try {
-    const emailOptions = {
-      from: 'Pavion Careers <onboarding@resend.dev>',
-      to: [MAIL_TO],
+    const mailOptions = {
+      from: `"Pavion Careers" <${MAIL_USER}>`,
+      to: MAIL_TO,
       replyTo: email,
       subject: `New Job Application from ${fullName}`,
+      text: `Full Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nLocation: ${location}\nLinkedIn: ${linkedinUrl || 'Not provided'}\n\nCover Letter:\n${coverLetter}`,
       html: `
         <h2>🎯 New Job Application - Pavion Technologies</h2>
         <hr style="border: 1px solid #eee;" />
@@ -157,27 +179,18 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
           ${req.file ? '📎 Resume attached to this email' : '⚠️ No resume attached'}
         </p>
       `,
-    };
-
-    // Add attachment if resume is uploaded
-    if (req.file) {
-      emailOptions.attachments = [{
+      attachments: req.file ? [{
         filename: req.file.originalname,
         content: req.file.buffer,
-      }];
-    }
+        contentType: req.file.mimetype,
+      }] : [],
+    };
 
-    const { data, error } = await resend.emails.send(emailOptions);
-
-    if (error) {
-      console.error('❌ Resend career error:', error);
-      return res.status(500).json({ success: false, message: 'Server error', error: error.message });
-    }
-
-    console.log('✅ Career application email sent from', email, 'ID:', data.id);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Career application email sent from', email, 'MessageID:', info.messageId);
     return res.json({ success: true, message: 'Application submitted successfully' });
   } catch (err) {
-    console.error('❌ Career mail error:', err);
+    console.error('❌ Career mail error:', err.message, err.code);
     return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
