@@ -2,12 +2,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 const multer = require('multer');
 
 const app = express();
 
-// Multer setup for file uploads (store in memory for email attachment)render
+// Multer setup for file uploads (store in memory for email attachment)
 const storage = multer.memoryStorage();
 const upload = multer({ 
   storage: storage,
@@ -25,13 +25,16 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
-const MAIL_USER = process.env.MAIL_USER;
-const MAIL_PASS = process.env.MAIL_PASS;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const MAIL_TO = process.env.MAIL_TO || 'paviontechnologies@gmail.com';
 
-if (!API_KEY || !MAIL_USER || !MAIL_PASS) {
-  console.error('❌ Please set CONTACT_API_KEY, MAIL_USER, MAIL_PASS in .env');
+if (!API_KEY || !RESEND_API_KEY) {
+  console.error('❌ Please set CONTACT_API_KEY and RESEND_API_KEY in .env');
   process.exit(1);
 }
+
+// Initialize Resend
+const resend = new Resend(RESEND_API_KEY);
 
 // CORS allow
 app.use(
@@ -51,15 +54,6 @@ app.use(
 
 // JSON body parse
 app.use(express.json());
-
-// Transporter Configuration (Using Gmail)
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: MAIL_USER,
-    pass: MAIL_PASS, // Gmail App Password
-  },
-});
 
 // Test route
 app.get('/', (req, res) => {
@@ -81,19 +75,11 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const mailOptions = {
-      from: `"Pavion Website" <${MAIL_USER}>`,
-      to: MAIL_USER, // Send to the same Gmail account
+    const { data, error } = await resend.emails.send({
+      from: 'Pavion Website <onboarding@resend.dev>', // Use Resend's default domain
+      to: [MAIL_TO],
       replyTo: email,
       subject: `New message from ${name} - ${subject}`,
-      text: `
-Name: ${name}
-Email: ${email}
-Subject: ${subject}
-
-Message:
-${message}
-      `,
       html: `
         <h2>New message from Pavion Technologies website</h2>
         <p><strong>Name:</strong> ${name}</p>
@@ -102,13 +88,17 @@ ${message}
         <p><strong>Message:</strong></p>
         <p>${message.replace(/\n/g, '<br/>')}</p>
       `,
-    };
+    });
 
-    await transporter.sendMail(mailOptions);
-    console.log('✅ Contact email sent from', email);
+    if (error) {
+      console.error('❌ Resend error:', error);
+      return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+
+    console.log('✅ Contact email sent from', email, 'ID:', data.id);
     return res.json({ success: true, message: 'Email sent successfully' });
   } catch (err) {
-    console.error('❌ Mail error:', err.message, err.code);
+    console.error('❌ Mail error:', err.message);
     return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
@@ -128,23 +118,11 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
   }
 
   try {
-    const mailOptions = {
-      from: `"Pavion Careers" <${MAIL_USER}>`,
-      to: 'contact@paviontechnologies.com', // ✅ Yahan application aayegi
+    const emailOptions = {
+      from: 'Pavion Careers <onboarding@resend.dev>',
+      to: [MAIL_TO],
       replyTo: email,
       subject: `New Job Application from ${fullName}`,
-      text: `
-New Job Application Received
-
-Full Name: ${fullName}
-Email: ${email}
-Phone: ${phone}
-Location: ${location}
-LinkedIn: ${linkedinUrl || 'Not provided'}
-
-Cover Letter / Why Join Us:
-${coverLetter}
-      `,
       html: `
         <h2>🎯 New Job Application - Pavion Technologies</h2>
         <hr style="border: 1px solid #eee;" />
@@ -179,21 +157,28 @@ ${coverLetter}
           ${req.file ? '📎 Resume attached to this email' : '⚠️ No resume attached'}
         </p>
       `,
-      attachments: req.file ? [
-        {
-          filename: req.file.originalname,
-          content: req.file.buffer,
-          contentType: req.file.mimetype,
-        }
-      ] : [],
     };
 
-    await transporter.sendMail(mailOptions);
-    console.log('✅ Career application email sent from', email);
+    // Add attachment if resume is uploaded
+    if (req.file) {
+      emailOptions.attachments = [{
+        filename: req.file.originalname,
+        content: req.file.buffer,
+      }];
+    }
+
+    const { data, error } = await resend.emails.send(emailOptions);
+
+    if (error) {
+      console.error('❌ Resend career error:', error);
+      return res.status(500).json({ success: false, message: 'Server error', error: error.message });
+    }
+
+    console.log('✅ Career application email sent from', email, 'ID:', data.id);
     return res.json({ success: true, message: 'Application submitted successfully' });
   } catch (err) {
     console.error('❌ Career mail error:', err);
-    return res.status(500).json({ success: false, message: 'Server error' });
+    return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
 
