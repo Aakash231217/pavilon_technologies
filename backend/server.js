@@ -25,30 +25,25 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
-const MAIL_USER = process.env.MAIL_USER;
-const MAIL_PASS = process.env.MAIL_PASS;
-const MAIL_TO = process.env.MAIL_TO || MAIL_USER;
+const BREVO_USER = process.env.BREVO_USER;
+const BREVO_PASS = process.env.BREVO_PASS;
+const MAIL_FROM = process.env.MAIL_FROM || 'noreply@paviontechnologies.com';
+const MAIL_TO = process.env.MAIL_TO || 'paviontechnologies@gmail.com';
 
-if (!API_KEY || !MAIL_USER || !MAIL_PASS) {
-  console.error('❌ Please set CONTACT_API_KEY, MAIL_USER, MAIL_PASS in .env');
+if (!API_KEY || !BREVO_USER || !BREVO_PASS) {
+  console.error('❌ Please set CONTACT_API_KEY, BREVO_USER, BREVO_PASS in .env');
   process.exit(1);
 }
 
-// Gmail SMTP Transporter with explicit settings for cloud servers
+// Brevo SMTP Transporter (works from cloud servers)
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: 'smtp-relay.brevo.com',
   port: 587,
-  secure: false, // Use TLS
+  secure: false,
   auth: {
-    user: MAIL_USER,
-    pass: MAIL_PASS,
+    user: process.env.BREVO_USER,
+    pass: process.env.BREVO_PASS,
   },
-  tls: {
-    rejectUnauthorized: false // Allow self-signed certificates
-  },
-  connectionTimeout: 10000, // 10 seconds
-  greetingTimeout: 10000,
-  socketTimeout: 10000,
 });
 
 // Verify transporter connection on startup
@@ -100,7 +95,7 @@ app.post('/api/contact', async (req, res) => {
 
   try {
     const mailOptions = {
-      from: `"Pavion Website" <${MAIL_USER}>`,
+      from: `"Pavion Website" <${MAIL_FROM}>`,
       to: MAIL_TO,
       replyTo: email,
       subject: `New message from ${name} - ${subject}`,
@@ -140,7 +135,7 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
 
   try {
     const mailOptions = {
-      from: `"Pavion Careers" <${MAIL_USER}>`,
+      from: `"Pavion Careers" <${MAIL_FROM}>`,
       to: MAIL_TO,
       replyTo: email,
       subject: `New Job Application from ${fullName}`,
