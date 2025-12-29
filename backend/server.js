@@ -2,7 +2,6 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
 const multer = require('multer');
 
 const app = express();
@@ -25,35 +24,42 @@ const upload = multer({
 // ENV values
 const PORT = process.env.PORT || 4000;
 const API_KEY = process.env.CONTACT_API_KEY;
-const BREVO_USER = process.env.BREVO_USER;
-const BREVO_PASS = process.env.BREVO_PASS;
+const BREVO_API_KEY = process.env.BREVO_PASS; // The SMTP key also works for API
 const MAIL_FROM = process.env.MAIL_FROM || 'noreply@paviontechnologies.com';
 const MAIL_TO = process.env.MAIL_TO || 'paviontechnologies@gmail.com';
 
-if (!API_KEY || !BREVO_USER || !BREVO_PASS) {
-  console.error('❌ Please set CONTACT_API_KEY, BREVO_USER, BREVO_PASS in .env');
+if (!API_KEY || !BREVO_API_KEY) {
+  console.error('❌ Please set CONTACT_API_KEY and BREVO_PASS in .env');
   process.exit(1);
 }
 
-// Brevo SMTP Transporter (works from cloud servers)
-const transporter = nodemailer.createTransport({
-  host: 'smtp-relay.brevo.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.BREVO_USER,
-    pass: process.env.BREVO_PASS,
-  },
-});
+// Brevo API helper function
+async function sendBrevoEmail(to, subject, htmlContent, replyTo) {
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'api-key': BREVO_API_KEY,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      sender: { email: MAIL_FROM, name: 'Pavion Technologies' },
+      to: [{ email: to }],
+      replyTo: { email: replyTo },
+      subject: subject,
+      htmlContent: htmlContent
+    })
+  });
 
-// Verify transporter connection on startup
-transporter.verify((error, success) => {
-  if (error) {
-    console.error('❌ SMTP connection error:', error.message);
-  } else {
-    console.log('✅ SMTP server is ready to send emails');
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Brevo API error: ${error}`);
   }
-});
+
+  return await response.json();
+}
+
+console.log('✅ Brevo API configured and ready');
 
 // CORS allow
 app.use(
@@ -94,27 +100,20 @@ app.post('/api/contact', async (req, res) => {
   }
 
   try {
-    const mailOptions = {
-      from: `"Pavion Website" <${MAIL_FROM}>`,
-      to: MAIL_TO,
-      replyTo: email,
-      subject: `New message from ${name} - ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
-      html: `
-        <h2>New message from Pavion Technologies website</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br/>')}</p>
-      `,
-    };
+    const htmlContent = `
+      <h2>New message from Pavion Technologies website</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Subject:</strong> ${subject}</p>
+      <p><strong>Message:</strong></p>
+      <p>${message.replace(/\n/g, '<br/>')}</p>
+    `;
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Contact email sent from', email, 'MessageID:', info.messageId);
+    const result = await sendBrevoEmail(MAIL_TO, `New message from ${name} - ${subject}`, htmlContent, email);
+    console.log('✅ Contact email sent from', email, 'MessageID:', result.messageId);
     return res.json({ success: true, message: 'Email sent successfully' });
   } catch (err) {
-    console.error('❌ Mail error:', err.message, err.code);
+    console.error('❌ Mail error:', err.message);
     return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
@@ -134,58 +133,46 @@ app.post('/api/careers', upload.single('resume'), async (req, res) => {
   }
 
   try {
-    const mailOptions = {
-      from: `"Pavion Careers" <${MAIL_FROM}>`,
-      to: MAIL_TO,
-      replyTo: email,
-      subject: `New Job Application from ${fullName}`,
-      text: `Full Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\nLocation: ${location}\nLinkedIn: ${linkedinUrl || 'Not provided'}\n\nCover Letter:\n${coverLetter}`,
-      html: `
-        <h2>🎯 New Job Application - Pavion Technologies</h2>
-        <hr style="border: 1px solid #eee;" />
-        <h3>Applicant Details:</h3>
-        <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
-          <tr>
-            <td style="padding: 10px; background: #f9f9f9; font-weight: bold; width: 150px;">Full Name:</td>
-            <td style="padding: 10px; background: #f9f9f9;">${fullName}</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; font-weight: bold;">Email:</td>
-            <td style="padding: 10px;"><a href="mailto:${email}">${email}</a></td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; background: #f9f9f9; font-weight: bold;">Phone:</td>
-            <td style="padding: 10px; background: #f9f9f9;"><a href="tel:${phone}">${phone}</a></td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; font-weight: bold;">Location:</td>
-            <td style="padding: 10px;">${location}</td>
-          </tr>
-          <tr>
-            <td style="padding: 10px; background: #f9f9f9; font-weight: bold;">LinkedIn:</td>
-            <td style="padding: 10px; background: #f9f9f9;">${linkedinUrl ? `<a href="${linkedinUrl}" target="_blank">${linkedinUrl}</a>` : 'Not provided'}</td>
-          </tr>
-        </table>
-        <h3 style="margin-top: 20px;">Cover Letter / Why Join Us:</h3>
-        <div style="padding: 15px; background: #f5f5f5; border-left: 4px solid #6366f1; margin: 10px 0;">
-          ${coverLetter.replace(/\n/g, '<br/>')}
-        </div>
-        <p style="margin-top: 20px; color: #666; font-size: 12px;">
-          ${req.file ? '📎 Resume attached to this email' : '⚠️ No resume attached'}
-        </p>
-      `,
-      attachments: req.file ? [{
-        filename: req.file.originalname,
-        content: req.file.buffer,
-        contentType: req.file.mimetype,
-      }] : [],
-    };
+    const htmlContent = `
+      <h2>🎯 New Job Application - Pavion Technologies</h2>
+      <hr style="border: 1px solid #eee;" />
+      <h3>Applicant Details:</h3>
+      <table style="border-collapse: collapse; width: 100%; max-width: 600px;">
+        <tr>
+          <td style="padding: 10px; background: #f9f9f9; font-weight: bold; width: 150px;">Full Name:</td>
+          <td style="padding: 10px; background: #f9f9f9;">${fullName}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold;">Email:</td>
+          <td style="padding: 10px;"><a href="mailto:${email}">${email}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; background: #f9f9f9; font-weight: bold;">Phone:</td>
+          <td style="padding: 10px; background: #f9f9f9;"><a href="tel:${phone}">${phone}</a></td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; font-weight: bold;">Location:</td>
+          <td style="padding: 10px;">${location}</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; background: #f9f9f9; font-weight: bold;">LinkedIn:</td>
+          <td style="padding: 10px; background: #f9f9f9;">${linkedinUrl ? `<a href="${linkedinUrl}" target="_blank">${linkedinUrl}</a>` : 'Not provided'}</td>
+        </tr>
+      </table>
+      <h3 style="margin-top: 20px;">Cover Letter / Why Join Us:</h3>
+      <div style="padding: 15px; background: #f5f5f5; border-left: 4px solid #6366f1; margin: 10px 0;">
+        ${coverLetter.replace(/\n/g, '<br/>')}
+      </div>
+      <p style="margin-top: 20px; color: #666; font-size: 12px;">
+        ${req.file ? '📎 Resume would be attached (Brevo API limitation: attachments require base64)' : '⚠️ No resume attached'}
+      </p>
+    `;
 
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Career application email sent from', email, 'MessageID:', info.messageId);
+    const result = await sendBrevoEmail(MAIL_TO, `New Job Application from ${fullName}`, htmlContent, email);
+    console.log('✅ Career application email sent from', email, 'MessageID:', result.messageId);
     return res.json({ success: true, message: 'Application submitted successfully' });
   } catch (err) {
-    console.error('❌ Career mail error:', err.message, err.code);
+    console.error('❌ Career mail error:', err.message);
     return res.status(500).json({ success: false, message: 'Server error', error: err.message });
   }
 });
