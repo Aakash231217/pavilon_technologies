@@ -9,7 +9,6 @@ import {
   Twitter,
   CheckCircle,
   XCircle,
-  Sparkles,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -108,28 +107,10 @@ const Contact: React.FC = () => {
     { icon: <Twitter size={24} />, url: '#', color: 'sky' },
   ];
 
-  // Helper function to dynamically construct Tailwind classes
-  const getInfoColorClass = (color: 'blue' | 'pink' | 'yellow') => {
-    const bgMap: Record<string, string> = {
-      blue: 'bg-indigo-500/20',
-      pink: 'bg-pink-500/20',
-      yellow: 'bg-amber-500/20',
-    };
-    const textMap: Record<string, string> = {
-      blue: 'text-indigo-400',
-      pink: 'text-pink-400',
-      yellow: 'text-amber-400',
-    };
-
-    return `${bgMap[color]} ${textMap[color]}`;
-  };
-
   return (
-    <section id="contact" className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/40 to-slate-950 relative overflow-hidden">
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/40 z-[1]" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-pink-600/10 blur-[120px] rounded-full z-0" />
-      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-indigo-600/10 blur-[120px] rounded-full z-0" />
+    <section id="contact" className="py-20 md:py-32 bg-slate-950 relative overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
@@ -139,20 +120,14 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span 
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-sm font-medium mb-6"
-          >
-            <Sparkles size={16} />
+          <span className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6">
             Ready to Transform Your Business?
-          </motion.span>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Let's Start Your <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Project</span>
+          </span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Let's Start Your Project
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+          <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6" />
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             Partner with us to build innovative digital solutions that drive your business forward
           </p>
         </motion.div>
@@ -197,46 +172,36 @@ const Contact: React.FC = () => {
               with us, and let's create something extraordinary together.
             </p>
 
-            <div className="space-y-6 mb-10">
+            <div className="space-y-4 mb-10">
               {contactInfo.map((info, index) => (
-                <motion.div 
+                <div 
                   key={index} 
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="flex items-start gap-4 p-4 rounded-xl bg-white/10 border border-white/20 hover:border-white/30 transition-all group"
+                  className="flex items-start gap-4 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-colors duration-200"
                 >
-                  <div
-                    className={`p-3 rounded-xl ${getInfoColorClass(
-                      info.color as 'blue' | 'pink' | 'yellow'
-                    )} border border-white/20 group-hover:scale-110 transition-transform`}
-                  >
+                  <div className="p-3 rounded-lg bg-indigo-500/10 text-indigo-400">
                     {info.icon}
                   </div>
                   <div>
                     <div className="font-semibold text-white mb-1">{info.title}</div>
-                    <div className="text-gray-200">{info.value}</div>
+                    <div className="text-gray-400">{info.value}</div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
             <div>
-              <h4 className="text-xl font-bold text-white mb-4">Follow Us</h4>
-              <div className="flex gap-4">
+              <h4 className="text-lg font-bold text-white mb-4">Follow Us</h4>
+              <div className="flex gap-3">
                 {socialLinks.map((social, index) => (
-                  <motion.a
+                  <a
                     key={index}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileHover={{ y: -5, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-4 rounded-xl bg-white/10 border border-white/20 text-gray-200 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all duration-300"
+                    className="p-3 rounded-lg bg-slate-800 border border-slate-700 text-gray-400 hover:bg-slate-700 hover:text-white transition-colors duration-200"
                   >
                     {social.icon}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
@@ -247,10 +212,10 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-slate-900/70 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl"
+            className="bg-slate-900/50 rounded-xl p-8 border border-slate-800"
           >
             <form onSubmit={handleSubmit}>
-              <div className="mb-6">
+              <div className="mb-5">
                 <label htmlFor="name" className="block text-gray-300 font-medium mb-2">
                   Your Name
                 </label>
@@ -261,12 +226,12 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-indigo-500 focus:outline-none transition-colors text-white placeholder-gray-500"
                   placeholder="John Doe"
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-5">
                 <label htmlFor="email" className="block text-gray-300 font-medium mb-2">
                   Email Address
                 </label>
@@ -277,12 +242,12 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-indigo-500 focus:outline-none transition-colors text-white placeholder-gray-500"
                   placeholder="john@example.com"
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-5">
                 <label htmlFor="subject" className="block text-gray-300 font-medium mb-2">
                   Project Type
                 </label>
@@ -293,7 +258,7 @@ const Contact: React.FC = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-indigo-500 focus:outline-none transition-colors text-white placeholder-gray-500"
                   placeholder="e.g., Web Development, Mobile App, AI Solution"
                 />
               </div>
@@ -309,17 +274,15 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-4 py-3.5 rounded-xl bg-white/10 border border-white/20 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all text-white placeholder-gray-400 resize-none"
+                  className="w-full px-4 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-indigo-500 focus:outline-none transition-colors text-white placeholder-gray-500 resize-none"
                   placeholder="Tell us about your project requirements, goals, and timeline..."
                 />
               </div>
 
-              <motion.button
+              <button
                 type="submit"
                 disabled={submitStatus === 'loading'}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-xl font-semibold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-pink-500/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitStatus === 'loading' ? (
                   <svg
@@ -346,7 +309,7 @@ const Contact: React.FC = () => {
                   <Send size={20} />
                 )}
                 {submitStatus === 'loading' ? 'Sending...' : 'Start Your Project'}
-              </motion.button>
+              </button>
             </form>
           </motion.div>
         </div>

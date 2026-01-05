@@ -83,28 +83,25 @@ const Portfolio = () => {
 
   const colorMap: any = {
     blue: {
-      gradient: 'from-indigo-600 to-purple-600',
-      bg: 'bg-indigo-500/20',
+      gradient: 'from-indigo-600 to-indigo-700',
+      bg: 'bg-indigo-500/10',
       text: 'text-indigo-300',
-      border: 'border-indigo-400/30',
-      iconBg: 'bg-indigo-500/30',
-      glow: 'shadow-indigo-500/25',
+      border: 'border-indigo-500/20',
+      iconBg: 'bg-indigo-500/20',
     },
     pink: {
-      gradient: 'from-pink-500 to-rose-600',
-      bg: 'bg-pink-500/20',
+      gradient: 'from-pink-600 to-pink-700',
+      bg: 'bg-pink-500/10',
       text: 'text-pink-300',
-      border: 'border-pink-400/30',
-      iconBg: 'bg-pink-500/30',
-      glow: 'shadow-pink-500/25',
+      border: 'border-pink-500/20',
+      iconBg: 'bg-pink-500/20',
     },
     yellow: {
-      gradient: 'from-amber-500 to-orange-600',
-      bg: 'bg-amber-500/20',
+      gradient: 'from-amber-600 to-amber-700',
+      bg: 'bg-amber-500/10',
       text: 'text-amber-300',
-      border: 'border-amber-400/30',
-      iconBg: 'bg-amber-500/30',
-      glow: 'shadow-amber-500/25',
+      border: 'border-amber-500/20',
+      iconBg: 'bg-amber-500/20',
     },
   };
 
@@ -186,11 +183,9 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/50 to-slate-950 relative overflow-hidden">
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent to-slate-950/80 z-[1]" />
-      <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-indigo-600/10 blur-[120px] rounded-full z-0" />
-      <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-pink-600/10 blur-[120px] rounded-full z-0" />
+    <section id="portfolio" className="py-20 md:py-32 bg-slate-950 relative overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -209,11 +204,11 @@ const Portfolio = () => {
           >
             🚀 Our Work
           </motion.span>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Featured <span className="bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-400 bg-clip-text text-transparent">Portfolio</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Featured Portfolio
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full"></div>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6"></div>
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             Showcasing recent projects and successful collaborations that drive real business results
           </p>
         </motion.div>
@@ -231,19 +226,18 @@ const Portfolio = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10, scale: 1.02 }}
-                className={`bg-slate-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer group shadow-xl hover:shadow-2xl ${colors.glow}`}
+                whileHover={{ y: -5 }}
+                className="bg-slate-900/50 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-colors duration-200 cursor-pointer group"
                 onClick={() => openModal(project)}
               >
                 {/* Card Header */}
-                <div className={`h-48 bg-gradient-to-br ${colors.gradient} flex items-center justify-center relative overflow-hidden`}>
-                  <div className="text-white text-8xl font-bold opacity-10 absolute">
+                <div className={`h-44 bg-gradient-to-br ${colors.gradient} flex items-center justify-center relative overflow-hidden`}>
+                  <div className="text-white text-7xl font-bold opacity-10 absolute">
                     {String(index + 1).padStart(2, '0')}
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent" />
                   <div className="text-white text-center z-10 relative">
-                    <div className="text-2xl font-bold mb-3">{project.title}</div>
-                    <div className={`inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium border border-white/30`}>
+                    <div className="text-xl font-bold mb-2">{project.title}</div>
+                    <div className="inline-block px-3 py-1 bg-white/10 text-white rounded-lg text-sm font-medium">
                       {project.category}
                     </div>
                   </div>
@@ -286,11 +280,8 @@ const Portfolio = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mt-24 py-20 bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20 backdrop-blur-xl rounded-3xl overflow-hidden border border-white/10 relative"
+          className="mt-24 py-16 bg-slate-900/50 rounded-xl border border-slate-800 relative"
         >
-          {/* Glow Effects */}
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 blur-[100px] rounded-full" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-500/20 blur-[100px] rounded-full" />
           
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="flex flex-col md:flex-row items-center justify-between mb-16">
@@ -301,11 +292,11 @@ const Portfolio = () => {
                 transition={{ delay: 0.2 }}
                 className="md:w-1/2 text-left mb-8 md:mb-0"
               >
-                <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                   We Build With<br />
-                  <span className="bg-gradient-to-r from-indigo-400 via-pink-400 to-amber-400 bg-clip-text text-transparent">Process & Precision</span>
+                  <span className="text-indigo-400">Process & Precision</span>
                 </h2>
-                <p className="text-lg text-gray-300 max-w-md">
+                <p className="text-gray-400 max-w-md">
                   We simplify complex tech into clear, efficient steps from concept to post-launch growth.
                 </p>
               </motion.div>
@@ -320,7 +311,7 @@ const Portfolio = () => {
                   onClick={() => {
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-8 py-4 bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold rounded-full shadow-lg shadow-indigo-500/25 hover:shadow-pink-500/25 hover:scale-105 transition-all duration-300"
+                  className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors duration-200"
                 >
                   Know More
                 </button>
@@ -335,10 +326,10 @@ const Portfolio = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -8, scale: 1.03 }}
-                  className="p-6 text-center border border-white/10 rounded-2xl bg-slate-900/50 backdrop-blur-md hover:border-indigo-500/50 transition-all duration-300 group"
+                  whileHover={{ y: -4 }}
+                  className="p-6 text-center border border-slate-800 rounded-lg bg-slate-900/50 hover:border-slate-700 transition-colors duration-200 group"
                 >
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500/20 to-pink-500/20 text-indigo-400 mb-4 group-hover:from-indigo-500/30 group-hover:to-pink-500/30 transition-all duration-300 border border-white/10">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-indigo-500/10 text-indigo-400 mb-4">
                     {step.icon}
                   </div>
                   <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
@@ -368,11 +359,11 @@ const Portfolio = () => {
               viewport={{ once: true }}
               className="text-left mb-16"
             >
-              <span className="inline-block px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-sm font-medium mb-6">
-                💬 Testimonials
+              <span className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6">
+                Testimonials
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-                What <span className="bg-gradient-to-r from-pink-400 to-amber-400 bg-clip-text text-transparent">Our Clients</span> Say
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                What Our Clients Say
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl">
                 Hear directly from our partners across industries and geographies.
@@ -387,20 +378,20 @@ const Portfolio = () => {
               
               <div className="flex animate-marquee-slow">
                 {testimonials.map((testimonial, index) => (
-                  <div key={index} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 hover:border-white/20 transition-all">
-                    <Quote className="w-10 h-10 text-indigo-400/30 mb-4" />
-                    <div className="flex mb-4">
+                  <div key={index} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 rounded-lg border border-slate-800">
+                    <Quote className="w-8 h-8 text-indigo-500/30 mb-4" />
+                    <div className="flex mb-3">
                       {[...Array(testimonial.stars)].map((_, i) => (
-                        <Star key={i} size={18} fill="#fbbf24" stroke="#fbbf24" />
+                        <Star key={i} size={16} fill="#fbbf24" stroke="#fbbf24" />
                       ))}
                     </div>
-                    <p className="text-gray-300 text-lg mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                    <p className="text-gray-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg mr-4">
+                      <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-medium mr-3">
                         {testimonial.author.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-semibold text-white">{testimonial.author}</p>
+                        <p className="font-medium text-white">{testimonial.author}</p>
                         <p className="text-sm text-gray-500">{testimonial.role}</p>
                       </div>
                     </div>
@@ -408,20 +399,20 @@ const Portfolio = () => {
                 ))}
                 {/* Duplicate content for seamless looping */}
                 {testimonials.map((testimonial, index) => (
-                  <div key={`duplicate-${index}`} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 backdrop-blur-md rounded-2xl border border-white/10 hover:border-white/20 transition-all">
-                    <Quote className="w-10 h-10 text-indigo-400/30 mb-4" />
-                    <div className="flex mb-4">
+                  <div key={`duplicate-${index}`} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 rounded-lg border border-slate-800">
+                    <Quote className="w-8 h-8 text-indigo-500/30 mb-4" />
+                    <div className="flex mb-3">
                       {[...Array(testimonial.stars)].map((_, i) => (
-                        <Star key={i} size={18} fill="#fbbf24" stroke="#fbbf24" />
+                        <Star key={i} size={16} fill="#fbbf24" stroke="#fbbf24" />
                       ))}
                     </div>
-                    <p className="text-gray-300 text-lg mb-6 leading-relaxed">"{testimonial.quote}"</p>
+                    <p className="text-gray-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
                     <div className="flex items-center">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg mr-4">
+                      <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-medium mr-3">
                         {testimonial.author.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-semibold text-white">{testimonial.author}</p>
+                        <p className="font-medium text-white">{testimonial.author}</p>
                         <p className="text-sm text-gray-500">{testimonial.role}</p>
                       </div>
                     </div>
@@ -441,17 +432,15 @@ const Portfolio = () => {
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <p className="text-xl text-gray-400 mb-8">
+          <p className="text-gray-400 mb-6">
             Want to see more projects or discuss your ideas?
           </p>
-          <motion.a
+          <a
             href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-10 py-5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-full font-semibold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-pink-500/25 transition-all duration-300"
+            className="inline-block px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-colors duration-200"
           >
             Let's Talk
-          </motion.a>
+          </a>
         </motion.div>
       </div>
 

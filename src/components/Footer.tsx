@@ -1,5 +1,4 @@
-import { Twitter, Linkedin, Instagram, Facebook, ArrowUp, Mail, Phone, MapPin, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Twitter, Linkedin, Instagram, Facebook, ArrowUp, Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import logo from '../Images/logo.png';
 
@@ -42,50 +41,29 @@ const Footer = () => {
 
   return (
     <footer className="bg-slate-950 text-white relative overflow-hidden">
-      {/* Gradient Backgrounds */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 blur-[150px] rounded-full" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/10 blur-[150px] rounded-full" />
-      
-      {/* Decorative Lines */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute left-1/4 top-0 w-px h-full bg-gradient-to-b from-indigo-500 to-transparent"></div>
-        <div className="absolute right-1/4 top-0 w-px h-full bg-gradient-to-b from-pink-500 to-transparent"></div>
-        <div className="absolute left-1/2 top-0 w-px h-full bg-gradient-to-b from-purple-500 to-transparent"></div>
-      </div>
+      {/* Top border */}
+      <div className="absolute top-0 left-0 w-full h-px bg-slate-800" />
 
       {/* Newsletter Section */}
-      <div className="border-b border-white/5">
+      <div className="border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center justify-between gap-8 bg-gradient-to-r from-indigo-600/10 via-purple-600/10 to-pink-600/10 rounded-2xl p-8 border border-white/10 backdrop-blur-xl"
-          >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 bg-slate-900/50 rounded-xl p-8 border border-slate-800">
             <div className="text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                <Sparkles className="w-5 h-5 text-indigo-400" />
-                <span className="text-indigo-300 text-sm font-medium">Stay Updated</span>
-              </div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">Subscribe to Our Newsletter</h3>
+              <span className="text-indigo-400 text-sm font-medium">Stay Updated</span>
+              <h3 className="text-2xl font-bold mb-2 mt-1">Subscribe to Our Newsletter</h3>
               <p className="text-gray-400">Get the latest updates, news and special offers.</p>
             </div>
             <div className="flex w-full md:w-auto gap-3">
               <input 
                 type="email" 
                 placeholder="Enter your email"
-                className="flex-1 md:w-72 px-5 py-3.5 rounded-xl bg-white/5 border border-white/10 focus:border-indigo-500 focus:outline-none text-white placeholder-gray-500"
+                className="flex-1 md:w-72 px-5 py-3 rounded-lg bg-slate-800 border border-slate-700 focus:border-indigo-500 focus:outline-none text-white placeholder-gray-500"
               />
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-6 py-3.5 bg-gradient-to-r from-indigo-500 to-pink-500 rounded-xl font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-pink-500/25 transition-shadow whitespace-nowrap"
-              >
+              <button className="px-6 py-3 bg-indigo-600 rounded-lg font-semibold hover:bg-indigo-700 transition-colors whitespace-nowrap">
                 Subscribe
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 
@@ -176,16 +154,14 @@ const Footer = () => {
               <h3 className="text-white font-semibold mb-4 text-lg">Follow Us</h3>
               <div className="flex gap-3">
                 {socialLinks.map((link, index) => (
-                  <motion.a 
+                  <a 
                     key={index} 
                     href={link.href}
-                    whileHover={{ y: -3, scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="p-3 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:bg-gradient-to-br hover:from-indigo-500 hover:to-pink-500 hover:text-white hover:border-transparent transition-all duration-300"
+                    className="p-3 rounded-lg bg-slate-800 border border-slate-700 text-gray-400 hover:bg-slate-700 hover:text-white transition-colors duration-200"
                     aria-label={link.label}
                   >
                     {link.icon}
-                  </motion.a>
+                  </a>
                 ))}
               </div>
             </div>
@@ -201,15 +177,13 @@ const Footer = () => {
               &copy; {currentYear} Pavion Technologies. All Rights Reserved.
             </p>
             
-            <motion.button
+            <button
               onClick={scrollToTop}
-              whileHover={{ y: -3 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-gradient-to-r hover:from-indigo-500/20 hover:to-pink-500/20 hover:border-indigo-500/30 transition-all duration-300 group"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800 border border-slate-700 hover:bg-slate-700 transition-colors duration-200"
             >
-              <ArrowUp size={16} className="text-indigo-400 group-hover:-translate-y-1 transition-transform duration-300" />
+              <ArrowUp size={16} className="text-indigo-400" />
               <span className="text-sm font-medium text-gray-300">Back to Top</span>
-            </motion.button>
+            </button>
           </div>
         </div>
       </div>

@@ -13,7 +13,6 @@ import {
   Box,
   SquareStack,
   GitFork,
-  Sparkles,
   Link2,
   Cpu,
 } from 'lucide-react';
@@ -203,15 +202,9 @@ const Services = () => {
   const filteredTechStack = techStack;
 
   return (
-    <section id="services" className="relative py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-40 left-10 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-40 right-10 w-[500px] h-[500px] bg-pink-500/10 rounded-full blur-[150px]" />
-      </div>
-
-      {/* Grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]" />
+    <section id="services" className="relative py-24 bg-slate-950 overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -222,15 +215,14 @@ const Services = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-indigo-300">
-            <Sparkles size={14} />
+          <span className="inline-block px-4 py-2 mb-6 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-sm font-medium text-indigo-300">
             What We Offer
           </span>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-            Our <span className="bg-gradient-to-r from-pink-500 to-amber-500 bg-clip-text text-transparent">Services</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Our Services
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6" />
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             Because in today's market, "good enough" isn't good enough. We architect solutions that drive measurable, tangible results.
           </p>
         </motion.div>
@@ -238,33 +230,28 @@ const Services = () => {
         {/* Service Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
-            const colors = colorMap[service.color];
             return (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -10 }}
-                className="group relative bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-white/10 hover:border-white/20 cursor-pointer transition-all duration-500 overflow-hidden"
+                transition={{ delay: index * 0.05, duration: 0.4 }}
+                className="group bg-slate-900/50 rounded-xl p-8 border border-slate-800 hover:border-slate-700 cursor-pointer transition-colors duration-200"
                 onClick={() => openModal(service)}
               >
-                {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                
-                <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${colors.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                <div className="inline-flex p-3 rounded-lg bg-indigo-500/10 text-indigo-400 mb-6">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:bg-gradient-to-r group-hover:from-indigo-400 group-hover:to-pink-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                <h3 className="text-xl font-bold text-white mb-3">
                   {service.title}
                 </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3 group-hover:text-gray-300 transition-colors">
+                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
                   {service.description}
                 </p>
-                <div className="flex items-center text-indigo-400 font-semibold group-hover:text-pink-400 transition-colors">
+                <div className="flex items-center text-indigo-400 font-medium">
                   Learn More 
-                  <ArrowRightCircle size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRightCircle size={18} className="ml-2" />
                 </div>
               </motion.div>
             );
@@ -279,14 +266,14 @@ const Services = () => {
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-sm font-medium text-pink-300">
+            <span className="inline-block px-4 py-2 mb-6 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-sm font-medium text-indigo-300">
               Technologies We Master
             </span>
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              Our <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">Technology Stack</span>
+              Our Technology Stack
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 via-pink-500 to-amber-500 mx-auto mb-6 rounded-full" />
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6" />
+            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
               We utilize cutting-edge technologies to build efficient, scalable, and modern digital solutions.
             </p>
           </motion.div>
@@ -301,15 +288,14 @@ const Services = () => {
                 <motion.div 
                   key={tech.name}
                   layout
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ delay: index * 0.05 }}
-                  whileHover={{ y: -5, scale: 1.05 }}
-                  className="flex flex-col items-center justify-center bg-white/5 backdrop-blur-md rounded-2xl p-6 border border-white/10 hover:border-indigo-500/50 hover:bg-white/10 transition-all duration-300"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ delay: index * 0.03 }}
+                  className="flex flex-col items-center justify-center bg-slate-800/50 rounded-xl p-6 border border-slate-700 hover:border-slate-600 transition-colors duration-200"
                 >
-                  <div className="mb-4 text-indigo-400">{tech.icon}</div>
-                  <h3 className="text-base font-semibold text-white">{tech.name}</h3>
+                  <div className="mb-3 text-indigo-400">{tech.icon}</div>
+                  <h3 className="text-sm font-medium text-gray-300">{tech.name}</h3>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -321,28 +307,22 @@ const Services = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 relative overflow-hidden"
+          className="mt-20"
         >
-          <div className="bg-gradient-to-r from-indigo-600/90 via-pink-600/90 to-amber-600/90 backdrop-blur-xl rounded-3xl p-10 md:p-14 text-center border border-white/20">
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
-            
-            <h3 className="text-3xl md:text-5xl font-bold mb-4 text-white relative z-10">
+          <div className="bg-indigo-600 rounded-2xl p-10 md:p-14 text-center">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
               Need a Custom Solution?
             </h3>
-            <p className="text-xl mb-8 text-white/90 max-w-2xl mx-auto relative z-10">
+            <p className="text-lg mb-8 text-indigo-100 max-w-2xl mx-auto">
               Let's discuss your project and find the perfect solution together
             </p>
-            <motion.a
+            <a
               href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative z-10 inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-full font-bold hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-white/20"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
             >
               Start a Project
               <ArrowRightCircle size={20} />
-            </motion.a>
+            </a>
           </div>
         </motion.div>
       </div>

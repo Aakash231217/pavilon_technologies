@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   Brain, 
-  Sparkles, 
   Bot, 
   Cpu, 
   Network, 
@@ -11,7 +10,8 @@ import {
   Shield,
   Workflow,
   ArrowRight,
-  CheckCircle2
+  CheckCircle2,
+  Eye
 } from 'lucide-react';
 
 const AISection: React.FC = () => {
@@ -47,42 +47,28 @@ const AISection: React.FC = () => {
     { icon: <Network size={20} />, text: 'RAG & Knowledge Bases' },
     { icon: <Workflow size={20} />, text: 'AI Workflow Automation' },
     { icon: <Shield size={20} />, text: 'Enterprise Security & Compliance' },
-    { icon: <Sparkles size={20} />, text: 'Computer Vision & Image AI' },
+    { icon: <Eye size={20} />, text: 'Computer Vision & Image AI' },
     { icon: <Zap size={20} />, text: 'Real-time AI Processing' },
   ];
 
   return (
-    <section id="ai" className="relative py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Floating orbs */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-3xl"></div>
-        
-        {/* Grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px]"></div>
-        
-        {/* Floating particles */}
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-purple-400 rounded-full animate-bounce delay-100"></div>
-        <div className="absolute top-1/3 right-1/4 w-3 h-3 bg-blue-400 rounded-full animate-bounce delay-300"></div>
-        <div className="absolute bottom-1/4 left-1/3 w-2 h-2 bg-pink-400 rounded-full animate-bounce delay-500"></div>
-      </div>
+    <section id="ai" className="relative py-24 bg-slate-950 overflow-hidden">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm font-medium mb-6 backdrop-blur-sm">
-            <Sparkles size={16} className="animate-pulse" />
+          <div className="inline-block px-4 py-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-300 text-sm font-medium mb-6">
             Powered by Advanced AI
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Artificial Intelligence
-            <span className="block mt-2 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="block mt-2 text-indigo-400">
               That Transforms Business
             </span>
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Harness the power of cutting-edge AI and Machine Learning to automate processes, 
             gain insights, and create intelligent experiences that drive growth.
           </p>
@@ -93,36 +79,31 @@ const AISection: React.FC = () => {
           {aiServices.map((service, index) => (
             <div
               key={index}
-              className="group relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 hover:bg-white/10 transition-all duration-500 hover:scale-[1.02] hover:border-purple-500/50"
+              className="bg-slate-900/50 border border-slate-800 rounded-xl p-8 hover:border-slate-700 transition-colors duration-200"
             >
-              {/* Glow effect on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 rounded-2xl transition-opacity duration-500`}></div>
-              
-              <div className="relative z-10">
-                <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${service.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                  {service.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
-                  {service.description}
-                </p>
+              <div className="inline-flex p-3 rounded-lg bg-indigo-500/10 text-indigo-400 mb-6">
+                {service.icon}
               </div>
+              <h3 className="text-xl font-bold text-white mb-3">
+                {service.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                {service.description}
+              </p>
             </div>
           ))}
         </div>
 
         {/* AI Capabilities Section */}
-        <div className="bg-gradient-to-r from-purple-900/50 to-blue-900/50 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12">
+        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-12">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Content */}
             <div>
               <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 Enterprise-Ready AI
-                <span className="text-purple-400"> Capabilities</span>
+                <span className="text-indigo-400"> Capabilities</span>
               </h3>
-              <p className="text-gray-300 mb-8 leading-relaxed">
+              <p className="text-gray-400 mb-8 leading-relaxed">
                 From proof-of-concept to production deployment, we build AI solutions that scale 
                 with your business needs while maintaining security and compliance standards.
               </p>
@@ -131,9 +112,9 @@ const AISection: React.FC = () => {
                 {aiCapabilities.map((cap, index) => (
                   <div
                     key={index}
-                    className="flex items-center gap-3 p-3 bg-white/5 rounded-lg border border-white/5 hover:border-purple-500/30 transition-all duration-300"
+                    className="flex items-center gap-3 p-3 bg-slate-800/50 rounded-lg border border-slate-700 hover:border-slate-600 transition-colors duration-200"
                   >
-                    <div className="text-purple-400">{cap.icon}</div>
+                    <div className="text-indigo-400">{cap.icon}</div>
                     <span className="text-gray-300 text-sm font-medium">{cap.text}</span>
                   </div>
                 ))}
@@ -141,7 +122,7 @@ const AISection: React.FC = () => {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg hover:from-purple-500 hover:to-pink-500 transition-all duration-300 shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-1 font-medium"
+                className="inline-flex items-center gap-2 mt-8 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium"
               >
                 Start Your AI Journey
                 <ArrowRight size={18} />
@@ -149,43 +130,34 @@ const AISection: React.FC = () => {
             </div>
 
             {/* Right side - Visual */}
-            <div className="relative">
-              {/* AI Brain Animation */}
-              <div className="relative w-full aspect-square max-w-md mx-auto">
-                {/* Outer ring */}
-                <div className="absolute inset-0 border-2 border-purple-500/30 rounded-full animate-spin-slow"></div>
-                <div className="absolute inset-4 border-2 border-blue-500/30 rounded-full animate-spin-reverse"></div>
-                <div className="absolute inset-8 border border-pink-500/30 rounded-full animate-spin-slow"></div>
-                
-                {/* Center brain */}
+            <div className="relative hidden lg:block">
+              <div className="relative w-full aspect-square max-w-sm mx-auto">
+                {/* Simple static visual */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full blur-2xl opacity-50 animate-pulse"></div>
-                    <div className="relative bg-gradient-to-br from-purple-600 to-pink-600 p-8 rounded-full shadow-2xl">
-                      <Brain size={64} className="text-white" />
-                    </div>
+                  <div className="bg-indigo-500/10 p-12 rounded-2xl border border-indigo-500/20">
+                    <Brain size={80} className="text-indigo-400" />
                   </div>
                 </div>
 
-                {/* Floating nodes */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-2 bg-blue-500 p-2 rounded-full shadow-lg animate-bounce">
-                  <Bot size={16} className="text-white" />
+                {/* Corner icons */}
+                <div className="absolute top-4 left-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <Bot size={20} className="text-indigo-400" />
                 </div>
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-2 bg-pink-500 p-2 rounded-full shadow-lg animate-bounce delay-200">
-                  <MessageSquare size={16} className="text-white" />
+                <div className="absolute top-4 right-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <MessageSquare size={20} className="text-indigo-400" />
                 </div>
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 bg-purple-500 p-2 rounded-full shadow-lg animate-bounce delay-400">
-                  <Sparkles size={16} className="text-white" />
+                <div className="absolute bottom-4 left-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <Network size={20} className="text-indigo-400" />
                 </div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 bg-indigo-500 p-2 rounded-full shadow-lg animate-bounce delay-600">
-                  <Cpu size={16} className="text-white" />
+                <div className="absolute bottom-4 right-4 bg-slate-800 p-3 rounded-lg border border-slate-700">
+                  <Cpu size={20} className="text-indigo-400" />
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* AI Use Cases Marquee */}
+        {/* AI Use Cases */}
         <div className="mt-16">
           <p className="text-center text-gray-500 text-sm mb-6 uppercase tracking-wider font-medium">
             AI Applications We Build
@@ -205,33 +177,15 @@ const AISection: React.FC = () => {
             ].map((useCase, index) => (
               <span
                 key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-gray-300 text-sm hover:bg-purple-500/20 hover:border-purple-500/30 transition-all duration-300 cursor-default"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-gray-300 text-sm hover:border-slate-600 transition-colors duration-200 cursor-default"
               >
-                <CheckCircle2 size={14} className="text-purple-400" />
+                <CheckCircle2 size={14} className="text-indigo-400" />
                 {useCase}
               </span>
             ))}
           </div>
         </div>
       </div>
-
-      {/* Custom CSS for animations */}
-      <style>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes spin-reverse {
-          from { transform: rotate(360deg); }
-          to { transform: rotate(0deg); }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 20s linear infinite;
-        }
-        .animate-spin-reverse {
-          animation: spin-reverse 15s linear infinite;
-        }
-      `}</style>
     </section>
   );
 };

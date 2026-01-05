@@ -71,7 +71,7 @@ const Navbar = () => {
                   className="relative px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-300 group"
                 >
                   {link.name}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-pink-500 group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300" />
                 </motion.a>
               ) : (
                 <Link
@@ -85,7 +85,7 @@ const Navbar = () => {
                     className="relative px-4 py-2 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors duration-300 group inline-block"
                   >
                     {link.name}
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-indigo-500 to-pink-500 group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-indigo-600 group-hover:w-3/4 transition-all duration-300" />
                   </motion.span>
                 </Link>
               )
@@ -152,7 +152,7 @@ const Navbar = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4 }}
-                className="block mt-4 px-4 py-3 bg-gradient-to-r from-indigo-600 to-pink-600 text-white text-center font-semibold rounded-xl"
+                className="block mt-4 px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white text-center font-semibold rounded-lg transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 Get Started

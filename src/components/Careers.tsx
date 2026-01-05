@@ -4,7 +4,6 @@ import {
   Send,
   CheckCircle,
   XCircle,
-  Sparkles,
   Upload,
   User,
   Mail,
@@ -12,6 +11,7 @@ import {
   Linkedin,
   MapPin,
   FileText,
+  MessageSquare,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -116,11 +116,9 @@ const Careers: React.FC = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-gradient-to-b from-slate-950 via-indigo-950/40 to-slate-950 relative overflow-hidden min-h-screen">
-      {/* Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/40 z-[1]" />
-      <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-pink-600/10 blur-[120px] rounded-full z-0" />
-      <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-indigo-600/10 blur-[120px] rounded-full z-0" />
+    <section className="py-20 md:py-32 bg-slate-950 relative overflow-hidden min-h-screen">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -130,20 +128,15 @@ const Careers: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 text-pink-300 text-sm font-medium mb-6"
-          >
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6">
             <Briefcase size={16} />
             Join Our Team
-          </motion.span>
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            Build Your <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">Career</span> With Us
+          </span>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Build Your Career With Us
           </h1>
-          <div className="w-24 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto">
+          <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6" />
+          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             We're always looking for talented individuals who are passionate about technology and innovation. 
             Submit your application and let's create the future together.
           </p>
@@ -306,7 +299,7 @@ const Careers: React.FC = () => {
 
             <div className="mb-6">
               <label htmlFor="coverLetter" className="flex items-center gap-2 text-gray-300 font-medium mb-2">
-                <Sparkles size={18} />
+                <MessageSquare size={18} />
                 Cover Letter / Why Join Us? *
               </label>
               <textarea
@@ -321,12 +314,10 @@ const Careers: React.FC = () => {
               />
             </div>
 
-            <motion.button
+            <button
               type="submit"
               disabled={submitStatus === 'loading'}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white rounded-xl font-semibold text-lg shadow-lg shadow-indigo-500/25 hover:shadow-pink-500/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitStatus === 'loading' ? (
                 <svg
@@ -353,7 +344,7 @@ const Careers: React.FC = () => {
                 <Send size={20} />
               )}
               {submitStatus === 'loading' ? 'Submitting...' : 'Submit Application'}
-            </motion.button>
+            </button>
           </form>
         </motion.div>
 
