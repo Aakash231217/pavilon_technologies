@@ -20,10 +20,6 @@ const Portfolio = () => {
     };
   }, [selectedProject]);
 
-  // --- Projects Data ---
-
-
-
   const projects = [
     {
       title: 'E-Commerce Platform',
@@ -83,25 +79,25 @@ const Portfolio = () => {
 
   const colorMap: any = {
     blue: {
-      gradient: 'from-indigo-600 to-indigo-700',
+      gradient: 'from-blue-600 to-indigo-600',
       bg: 'bg-indigo-500/10',
       text: 'text-indigo-300',
       border: 'border-indigo-500/20',
-      iconBg: 'bg-indigo-500/20',
+      glow: 'shadow-[0_0_15px_rgba(99,102,241,0.3)]'
     },
     pink: {
-      gradient: 'from-pink-600 to-pink-700',
+      gradient: 'from-pink-600 to-purple-600',
       bg: 'bg-pink-500/10',
       text: 'text-pink-300',
       border: 'border-pink-500/20',
-      iconBg: 'bg-pink-500/20',
+      glow: 'shadow-[0_0_15px_rgba(236,72,153,0.3)]'
     },
     yellow: {
-      gradient: 'from-amber-600 to-amber-700',
+      gradient: 'from-amber-600 to-orange-600',
       bg: 'bg-amber-500/10',
       text: 'text-amber-300',
       border: 'border-amber-500/20',
-      iconBg: 'bg-amber-500/20',
+      glow: 'shadow-[0_0_15px_rgba(245,158,11,0.3)]'
     },
   };
 
@@ -113,42 +109,34 @@ const Portfolio = () => {
     setSelectedProject(null);
   };
 
-  // Navigate to ProcessView when Live Demo pressed
-  const handleLiveDemoClick = () => {
-    // always navigate to /process (ProcessView)
-    navigate('/process');
-  };
-
-  // Data for the "We Build With Process & Precision" section
   const processSteps = [
     {
-      icon: <Lightbulb size={32} className="text-indigo-400" />,
+      icon: <Lightbulb size={32} className="text-neon-blue" />,
       title: 'Ideation & Discovery',
       description: 'We dive into your goals, users, and industry insights to shape the perfect product strategy.',
     },
     {
-      icon: <PencilRuler size={32} className="text-pink-400" />,
+      icon: <PencilRuler size={32} className="text-neon-purple" />,
       title: 'Design',
       description: 'We craft intuitive UI/UX experiences, wireframes, and prototypes with a user-first approach.',
     },
     {
-      icon: <Code2 size={32} className="text-purple-400" />,
+      icon: <Code2 size={32} className="text-pink-400" />,
       title: 'Development',
       description: 'Using agile methodology, we bring the designs to life with secure, scalable code.',
     },
     {
-      icon: <Bug size={32} className="text-amber-400" />,
+      icon: <Bug size={32} className="text-human-warmth" />,
       title: 'Testing',
       description: 'We run rigorous QA cycles, user testing, and bug resolution for a flawless final product.',
     },
     {
-      icon: <Rocket size={32} className="text-emerald-400" />,
+      icon: <Rocket size={32} className="text-green-400" />,
       title: 'Launch & Support',
       description: 'We ensure a smooth deployment with post-launch monitoring and optimization.',
     },
   ];
 
-  // Data for "What Our Clients Say" section
   const testimonials = [
     {
       stars: 5,
@@ -170,12 +158,6 @@ const Portfolio = () => {
     },
     {
       stars: 5,
-      quote: "Our e-learning platform needed a major overhaul, and otech delivered beyond expectations. User engagement has skyrocketed!",
-      author: "Rajesh Kumar",
-      role: "CEO",
-    },
-    {
-      stars: 5,
       quote: "The custom inventory management system developed by otech has significantly reduced our operational costs and improved efficiency.",
       author: "Aaksh Singh",
       role: "Logistics Head",
@@ -183,31 +165,30 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 bg-slate-950 relative overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 to-slate-900" />
+    <section id="portfolio" className="py-20 md:py-32 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.1),transparent_70%)]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6"
+            className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-neon-blue text-sm font-medium mb-6 backdrop-blur-sm"
           >
             🚀 Our Work
           </motion.span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Featured Portfolio
+            Featured <span className="text-gradient">Portfolio</span>
           </h2>
-          <div className="w-16 h-0.5 bg-indigo-500 mx-auto mb-6"></div>
+          <div className="w-16 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-6"></div>
           <p className="text-lg text-gray-400 max-w-3xl mx-auto">
             Showcasing recent projects and successful collaborations that drive real business results
           </p>
@@ -216,7 +197,6 @@ const Portfolio = () => {
         {/* Project Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => {
-            // Safety check: colorMap exists
             const colors = colorMap[project.color] || colorMap['blue'];
 
             return (
@@ -226,47 +206,52 @@ const Portfolio = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="bg-slate-900/50 rounded-xl overflow-hidden border border-slate-800 hover:border-slate-700 transition-colors duration-200 cursor-pointer group"
+                whileHover={{ y: -10 }}
+                className="glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] cursor-pointer group"
                 onClick={() => openModal(project)}
               >
                 {/* Card Header */}
-                <div className={`h-44 bg-gradient-to-br ${colors.gradient} flex items-center justify-center relative overflow-hidden`}>
-                  <div className="text-white text-7xl font-bold opacity-10 absolute">
+                <div className={`h-48 bg-gradient-to-br ${colors.gradient} flex items-center justify-center relative overflow-hidden`}>
+
+                  {/* Abstract Background pattern */}
+                  <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-cover mix-blend-overlay"></div>
+
+                  <div className="text-white text-8xl font-bold opacity-10 absolute -bottom-5 -right-5 transform rotate-12 scale-150 pointer-events-none">
                     {String(index + 1).padStart(2, '0')}
                   </div>
-                  <div className="text-white text-center z-10 relative">
-                    <div className="text-xl font-bold mb-2">{project.title}</div>
-                    <div className="inline-block px-3 py-1 bg-white/10 text-white rounded-lg text-sm font-medium">
+
+                  <div className="text-white text-center z-10 relative px-4">
+                    <div className="text-2xl font-bold mb-3 drop-shadow-md">{project.title}</div>
+                    <div className="inline-block px-3 py-1 bg-black/20 backdrop-blur-md text-white border border-white/20 rounded-full text-xs font-semibold uppercase tracking-wider">
                       {project.category}
                     </div>
                   </div>
                 </div>
 
                 {/* Card Body */}
-                <div className="p-6">
-                  <p className="text-gray-400 mb-4 leading-relaxed line-clamp-3">
+                <div className="p-8">
+                  <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
                     {project.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-8">
                     {project.technologies.slice(0, 4).map((tech, idx) => (
                       <span
                         key={idx}
-                        className={`px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-medium border ${colors.border}`}
+                        className={`px-3 py-1 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 4 && (
-                      <span className={`px-3 py-1 ${colors.bg} ${colors.text} rounded-full text-xs font-medium border ${colors.border}`}>
-                        +{project.technologies.length - 4} more
+                      <span className={`px-3 py-1 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}>
+                        +{project.technologies.length - 4}
                       </span>
                     )}
                   </div>
 
-                  <div className={`flex items-center ${colors.text} font-semibold group-hover:gap-2 transition-all`}>
-                    View Project Details <ArrowRightCircle size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  <div className={`flex items-center text-white font-semibold group-hover:text-neon-blue transition-colors`}>
+                    View Details <ArrowRightCircle size={20} className="ml-auto group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </motion.div>
@@ -274,65 +259,50 @@ const Portfolio = () => {
           })}
         </div>
 
-        {/* --- NEW SECTION: We Build With Process & Precision --- */}
-        <motion.div 
+        {/* Process Section */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="mt-24 py-16 bg-slate-900/50 rounded-xl border border-slate-800 relative"
+          className="mt-32 py-16 bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden backdrop-blur-sm"
         >
-          
+          <div className="absolute top-0 right-0 w-96 h-96 bg-neon-purple/5 rounded-full blur-[100px]" />
+
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row items-center justify-between mb-16">
-              <motion.div 
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="md:w-1/2 text-left mb-8 md:mb-0"
-              >
+            <div className="flex flex-col md:flex-row items-center justify-between mb-12">
+              <div className="md:w-1/2 text-left mb-8 md:mb-0">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
                   We Build With<br />
-                  <span className="text-indigo-400">Process & Precision</span>
+                  <span className="text-gradient">Process & Precision</span>
                 </h2>
                 <p className="text-gray-400 max-w-md">
                   We simplify complex tech into clear, efficient steps from concept to post-launch growth.
                 </p>
-              </motion.div>
-              <motion.div 
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="md:w-1/2 flex justify-end"
-              >
+              </div>
+              <div className="md:w-1/2 flex justify-end">
                 <button
                   onClick={() => {
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                  className="px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-lg"
                 >
-                  Know More
+                  Start Now
                 </button>
-              </motion.div>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
               {processSteps.map((step, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * index }}
-                  whileHover={{ y: -4 }}
-                  className="p-6 text-center border border-slate-800 rounded-lg bg-slate-900/50 hover:border-slate-700 transition-colors duration-200 group"
+                  whileHover={{ y: -5 }}
+                  className="p-6 text-center border border-white/5 rounded-xl bg-black/20 hover:border-white/20 transition-all duration-300"
                 >
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-indigo-500/10 text-indigo-400 mb-4">
+                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/5 mb-4 shadow-inner">
                     {step.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed">
                     {step.description}
                   </p>
@@ -341,204 +311,146 @@ const Portfolio = () => {
             </div>
           </div>
         </motion.div>
-        {/* --- END NEW SECTION --- */}
 
-        {/* --- NEW SECTION: What Our Clients Say (Testimonials) --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        {/* Testimonials */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-24 py-20"
+          className="mt-32"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Fixed Header for Testimonials */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="text-left mb-16"
-            >
-              <span className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-sm font-medium mb-6">
-                Testimonials
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                What Our Clients Say
-              </h2>
-              <p className="text-xl text-gray-400 max-w-2xl">
-                Hear directly from our partners across industries and geographies.
-              </p>
-            </motion.div>
+          <div className="text-left mb-12">
+            <span className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-neon-purple text-sm font-medium mb-6">
+              Client Stories
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              What Our <span className="text-gradient">Partners Say</span>
+            </h2>
+          </div>
 
-            {/* Testimonials Marquee */}
-            <div className="relative overflow-hidden py-4">
-              {/* Fade edges */}
-              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-950 to-transparent z-10" />
-              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-950 to-transparent z-10" />
-              
-              <div className="flex animate-marquee-slow">
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 rounded-lg border border-slate-800">
-                    <Quote className="w-8 h-8 text-indigo-500/30 mb-4" />
-                    <div className="flex mb-3">
-                      {[...Array(testimonial.stars)].map((_, i) => (
-                        <Star key={i} size={16} fill="#fbbf24" stroke="#fbbf24" />
-                      ))}
+          <div className="relative overflow-hidden py-4 -mx-4 sm:-mx-8">
+            <div className="flex animate-marquee-slow">
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <div key={index} className="flex-shrink-0 w-80 md:w-96 p-8 mx-4 glass-card rounded-2xl border border-white/10 hover:border-neon-blue/30 transition-colors">
+                  <div className="text-neon-blue mb-4">
+                    {[...Array(testimonial.stars)].map((_, i) => (
+                      <Star key={i} size={16} fill="currentColor" stroke="none" className="inline-block mr-1" />
+                    ))}
+                  </div>
+                  <p className="text-gray-300 mb-6 leading-relaxed italic">"{testimonial.quote}"</p>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center text-white font-bold mr-3 shadow-lg">
+                      {testimonial.author.split(' ').map(n => n[0]).join('')}
                     </div>
-                    <p className="text-gray-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-medium mr-3">
-                        {testimonial.author.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <p className="font-medium text-white">{testimonial.author}</p>
-                        <p className="text-sm text-gray-500">{testimonial.role}</p>
-                      </div>
+                    <div>
+                      <p className="font-bold text-white text-sm">{testimonial.author}</p>
+                      <p className="text-xs text-gray-500 uppercase tracking-wide">{testimonial.role}</p>
                     </div>
                   </div>
-                ))}
-                {/* Duplicate content for seamless looping */}
-                {testimonials.map((testimonial, index) => (
-                  <div key={`duplicate-${index}`} className="flex-shrink-0 w-80 md:w-96 p-6 mx-4 bg-slate-900/50 rounded-lg border border-slate-800">
-                    <Quote className="w-8 h-8 text-indigo-500/30 mb-4" />
-                    <div className="flex mb-3">
-                      {[...Array(testimonial.stars)].map((_, i) => (
-                        <Star key={i} size={16} fill="#fbbf24" stroke="#fbbf24" />
-                      ))}
-                    </div>
-                    <p className="text-gray-300 mb-6 leading-relaxed">"{testimonial.quote}"</p>
-                    <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-medium mr-3">
-                        {testimonial.author.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <p className="font-medium text-white">{testimonial.author}</p>
-                        <p className="text-sm text-gray-500">{testimonial.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </motion.div>
-        {/* --- END NEW SECTION --- */}
-
 
         {/* Bottom CTA */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-20 text-center"
         >
-          <p className="text-gray-400 mb-6">
+          <p className="text-gray-400 mb-6 text-lg">
             Want to see more projects or discuss your ideas?
           </p>
           <a
             href="#contact"
-            className="inline-block px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-colors duration-200"
+            className="inline-block px-10 py-4 bg-gradient-to-r from-neon-blue to-indigo-600 text-white rounded-full font-bold hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all duration-300 hover:scale-105"
           >
             Let's Talk
           </a>
         </motion.div>
       </div>
 
-      {/* --- Full Screen Modal for Projects --- */}
+      {/* --- Project Modal --- */}
       <AnimatePresence>
         {selectedProject && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex justify-center items-start md:items-center bg-black/80 backdrop-blur-md overflow-y-auto py-4 md:py-8"
+            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/90 backdrop-blur-xl p-4"
             onClick={closeModal}
           >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 50 }}
-              transition={{ type: "spring", damping: 25 }}
-              className="bg-slate-900 w-full mx-4 md:mx-auto md:max-w-5xl rounded-3xl shadow-2xl relative overflow-hidden border border-white/10"
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-[#0a0a0f] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative border border-white/10 scrollbar-hide"
               onClick={(e) => e.stopPropagation()}
             >
-
-              {/* Close Button */}
               <button
-                className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full p-2 z-20 backdrop-blur-sm"
+                className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 z-20 outline-none"
                 onClick={closeModal}
               >
                 <X size={24} />
               </button>
 
               {(() => {
-                // Safety check for colors inside modal
-                const projectColor = selectedProject.color || 'blue';
-                const colors = colorMap[projectColor] || colorMap['blue'];
-
+                const colors = colorMap[selectedProject.color] || colorMap['blue'];
                 return (
-                  <div className="flex flex-col md:flex-row">
+                  <div className="flex flex-col md:flex-row min-h-full">
                     {/* Left Sidebar */}
-                    <div className={`bg-gradient-to-br ${colors.gradient} p-8 md:p-12 md:w-1/3 flex flex-col justify-between text-white relative overflow-hidden`}>
-                      <div className="text-white text-9xl font-bold opacity-10 absolute -bottom-10 -left-10 z-0 pointer-events-none">
-                        {String(projects.findIndex(p => p.title === selectedProject.title) + 1).padStart(2, '0')}
-                      </div>
+                    <div className={`md:w-1/3 p-10 bg-gradient-to-br ${colors.gradient} text-white relative overflow-hidden flex flex-col`}>
+                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
 
-                      <div className="relative z-10">
-                        <div className="inline-block px-4 py-1 bg-white/20 backdrop-blur-sm text-white rounded-full text-sm font-medium mb-6 border border-white/30">
+                      <div className="relative z-10 flex-grow">
+                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
                           {selectedProject.category}
                         </div>
-                        <h3 className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">{selectedProject.title}</h3>
-                        <p className="text-lg opacity-90 md:pr-4 mb-8">{selectedProject.description}</p>
+                        <h3 className="text-4xl font-extrabold mb-6 leading-tight">{selectedProject.title}</h3>
+                        <p className="opacity-90 leading-relaxed text-sm mb-8">{selectedProject.description}</p>
                       </div>
 
-                      {/* --- BUTTON SECTION --- */}
-                      <div className="flex flex-col gap-4 relative z-10 mt-auto">
-                        <motion.a 
-                          whileHover={{ scale: 1.03 }}
-                          whileTap={{ scale: 0.97 }}
-                          href="#" 
-                          className="flex items-center justify-center gap-2 px-6 py-3 border-2 border-white text-white rounded-xl hover:bg-white/10 transition-colors font-semibold"
-                        >
-                          <Github size={20} />
-                          <span>View Code</span>
-                        </motion.a>
+                      <div className="relative z-10 mt-auto pt-8">
+                        <a href="#contact" className="flex items-center justify-center gap-2 w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-colors">
+                          <Code2 size={20} /> Request Similar
+                        </a>
                       </div>
                     </div>
 
-                    {/* Right Content Area */}
-                    <div className="p-8 md:p-12 md:w-2/3 bg-slate-900 flex flex-col">
+                    {/* Right Content */}
+                    <div className="md:w-2/3 p-10 bg-transparent">
                       <div className="mb-10">
-                        <h4 className="text-2xl font-bold text-white mb-4">Project Overview</h4>
-                        <p className="text-lg text-gray-300 leading-relaxed">
+                        <h4 className="text-xl font-bold text-white mb-4">Vision & Execution</h4>
+                        <p className="text-gray-400 leading-relaxed text-lg">
                           {selectedProject.longDescription}
                         </p>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-8 mb-10">
-                        {/* Key Features */}
+                      <div className="grid md:grid-cols-2 gap-8">
                         <div>
-                          <h4 className="text-xl font-bold text-white mb-4 flex items-center">
-                            Key Features
+                          <h4 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                            <Star size={18} className="text-neon-blue" /> Key Features
                           </h4>
                           <ul className="space-y-3">
-                            {selectedProject.keyFeatures.map((feature: string, idx: number) => (
+                            {selectedProject.keyFeatures.map((f: string, idx: number) => (
                               <li key={idx} className="flex items-start">
-                                <CheckCircle2 size={20} className={`${colors.text} mr-3 flex-shrink-0 mt-1`} />
-                                <span className="text-gray-300 font-medium">{feature}</span>
+                                <span className="w-1.5 h-1.5 rounded-full bg-neon-blue mt-2 mr-3 flex-shrink-0" />
+                                <span className="text-gray-300 text-sm">{f}</span>
                               </li>
                             ))}
                           </ul>
                         </div>
-
-                        {/* Technologies */}
                         <div>
-                          <h4 className="text-xl font-bold text-white mb-4">Technologies Used</h4>
+                          <h4 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                            <Code2 size={18} className="text-neon-purple" /> Tech Stack
+                          </h4>
                           <div className="flex flex-wrap gap-2">
                             {selectedProject.technologies.map((tech: string, idx: number) => (
                               <span
                                 key={idx}
-                                className={`px-4 py-2 ${colors.bg} ${colors.text} rounded-full text-sm font-medium border ${colors.border}`}
+                                className={`px-3 py-1.5 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}
                               >
                                 {tech}
                               </span>

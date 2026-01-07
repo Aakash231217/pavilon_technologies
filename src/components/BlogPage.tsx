@@ -1,3 +1,4 @@
+// src/components/BlogPage.tsx
 import { motion } from 'framer-motion';
 import { ArrowLeft, Calendar, Clock, User, ArrowRight, Tag, TrendingUp, Shield, Lightbulb, Users, Rocket, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -39,7 +40,7 @@ Our proprietary AI frameworks are built on years of research and development, in
     readTime: "5 min read",
     date: "December 10, 2024",
     author: "Pavion Tech Team",
-    gradient: "from-blue-500 to-cyan-500",
+    gradient: "from-blue-600 to-cyan-500",
     tags: ["Artificial Intelligence", "Machine Learning", "Innovation"]
   },
   {
@@ -66,7 +67,7 @@ The result? A 98% client satisfaction rate and an average partnership duration o
     readTime: "4 min read",
     date: "December 8, 2024",
     author: "Pavion Tech Team",
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-purple-600 to-pink-500",
     tags: ["Client Success", "Methodology", "Partnership"]
   },
   {
@@ -203,9 +204,7 @@ const BlogPage = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
+      transition: { staggerChildren: 0.1 }
     }
   };
 
@@ -216,15 +215,15 @@ const BlogPage = () => {
 
   if (selectedBlog) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 pt-24 pb-16">
+      <div className="min-h-screen bg-background pt-24 pb-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.button
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             onClick={() => setSelectedBlog(null)}
-            className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
+            className="flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors group"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
             Back to all blogs
           </motion.button>
 
@@ -234,29 +233,29 @@ const BlogPage = () => {
             transition={{ duration: 0.5 }}
           >
             {/* Blog Header */}
-            <div className={`h-2 w-full bg-gradient-to-r ${selectedBlog.gradient} rounded-t-2xl`} />
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-b-2xl p-8 md:p-12">
-              <div className="flex items-center gap-3 mb-4">
-                <span className={`px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r ${selectedBlog.gradient} text-white`}>
+            <div className={`h-2 w-full bg-gradient-to-r ${selectedBlog.gradient} rounded-t-2xl shadow-[0_0_20px_rgba(0,0,0,0.5)]`} />
+            <div className="glass-panel border-t-0 rounded-b-2xl p-8 md:p-12">
+              <div className="flex items-center gap-3 mb-6">
+                <span className={`px-4 py-1.5 rounded-full text-xs font-bold bg-white/5 border border-white/10 text-white`}>
                   {selectedBlog.category}
                 </span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
+              <h1 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
                 {selectedBlog.title}
               </h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-gray-400 text-sm mb-8 pb-8 border-b border-white/10">
+              <div className="flex flex-wrap items-center gap-6 text-gray-400 text-sm mb-10 pb-8 border-b border-white/10">
                 <span className="flex items-center gap-2">
-                  <User size={16} />
+                  <User size={16} className="text-neon-blue" />
                   {selectedBlog.author}
                 </span>
                 <span className="flex items-center gap-2">
-                  <Calendar size={16} />
+                  <Calendar size={16} className="text-neon-purple" />
                   {selectedBlog.date}
                 </span>
                 <span className="flex items-center gap-2">
-                  <Clock size={16} />
+                  <Clock size={16} className="text-pink-400" />
                   {selectedBlog.readTime}
                 </span>
               </div>
@@ -264,19 +263,19 @@ const BlogPage = () => {
               {/* Blog Content */}
               <div className="prose prose-invert prose-lg max-w-none">
                 {selectedBlog.content.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-300 leading-relaxed mb-4 whitespace-pre-line">
+                  <p key={index} className="text-gray-300 leading-relaxed mb-6 whitespace-pre-line text-lg">
                     {paragraph}
                   </p>
                 ))}
               </div>
 
               {/* Tags */}
-              <div className="flex flex-wrap items-center gap-2 mt-8 pt-8 border-t border-white/10">
-                <Tag size={16} className="text-gray-400" />
+              <div className="flex flex-wrap items-center gap-2 mt-12 pt-8 border-t border-white/10">
+                <Tag size={16} className="text-gray-400 mr-2" />
                 {selectedBlog.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-gray-400"
+                    className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-gray-300 hover:text-white transition-colors cursor-default"
                   >
                     {tag}
                   </span>
@@ -286,23 +285,23 @@ const BlogPage = () => {
           </motion.article>
 
           {/* Related Blogs */}
-          <div className="mt-12">
-            <h3 className="text-xl font-semibold text-white mb-6">More from Pavion Technologies</h3>
-            <div className="grid md:grid-cols-2 gap-4">
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-white mb-8">More from Pavion Technologies</h3>
+            <div className="grid md:grid-cols-2 gap-6">
               {blogs
                 .filter((b) => b.id !== selectedBlog.id)
                 .slice(0, 2)
                 .map((blog) => (
                   <motion.div
                     key={blog.id}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.02, y: -5 }}
                     onClick={() => setSelectedBlog(blog)}
-                    className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-4 cursor-pointer hover:bg-white/10 transition-all"
+                    className="glass-card rounded-xl p-6 cursor-pointer hover:border-neon-blue/30"
                   >
-                    <span className={`text-xs font-medium bg-gradient-to-r ${blog.gradient} bg-clip-text text-transparent`}>
+                    <span className={`text-xs font-bold bg-gradient-to-r ${blog.gradient} bg-clip-text text-transparent`}>
                       {blog.category}
                     </span>
-                    <h4 className="text-white font-medium mt-2 line-clamp-2">{blog.title}</h4>
+                    <h4 className="text-lg font-bold text-white mt-2 line-clamp-2">{blog.title}</h4>
                   </motion.div>
                 ))}
             </div>
@@ -313,30 +312,34 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-background pt-32 pb-20 relative overflow-hidden">
+      {/* Background Ambience */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-purple/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-neon-blue/10 rounded-full blur-[120px] pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
           <Link
             to="/"
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-8 transition-colors group"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
             Back to Home
           </Link>
-          
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
             Pavion{' '}
-            <span className="bg-gradient-to-r from-indigo-400 to-pink-400 bg-clip-text text-transparent">
-              Blog
+            <span className="text-gradient">
+              Insights
             </span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Insights, innovations, and industry expertise from the Pavion Technologies team
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            Expert perspectives on technology, innovation, and digital transformation from our engineering team.
           </p>
         </motion.div>
 
@@ -345,7 +348,7 @@ const BlogPage = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {blogs.map((blog) => {
             const IconComponent = blog.icon;
@@ -353,48 +356,53 @@ const BlogPage = () => {
               <motion.article
                 key={blog.id}
                 variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.02 }}
+                whileHover={{ y: -10 }}
                 onClick={() => setSelectedBlog(blog)}
-                className="group cursor-pointer"
+                className="group cursor-pointer h-full"
               >
-                <div className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-white/20 transition-all duration-300">
+                <div className="h-full glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] transition-all duration-300 border border-white/5 hover:border-white/20">
                   {/* Card Header Gradient */}
-                  <div className={`h-32 bg-gradient-to-br ${blog.gradient} relative overflow-hidden`}>
-                    <div className="absolute inset-0 bg-black/20" />
-                    <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <div className={`h-40 bg-gradient-to-br ${blog.gradient} relative overflow-hidden`}>
+                    {/* Overlay texture */}
+                    <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay" />
+                    <div className="absolute inset-0 bg-black/10" />
+
+                    <div className="absolute bottom-5 left-5">
+                      <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-lg">
                         <IconComponent size={24} className="text-white" />
                       </div>
                     </div>
-                    <div className="absolute top-4 right-4">
-                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur-sm text-white">
+                    <div className="absolute top-5 right-5">
+                      <span className="px-3 py-1 rounded-lg text-xs font-bold bg-black/20 backdrop-blur-md border border-white/10 text-white tracking-wide">
                         {blog.category}
                       </span>
                     </div>
                   </div>
 
                   {/* Card Content */}
-                  <div className="p-6">
-                    <h2 className="text-xl font-semibold text-white mb-3 group-hover:text-indigo-300 transition-colors line-clamp-2">
+                  <div className="p-8 flex flex-col h-[calc(100%-160px)]">
+                    <h2 className="text-xl font-bold text-white mb-4 group-hover:text-neon-blue transition-colors line-clamp-2">
                       {blog.title}
                     </h2>
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                    <p className="text-gray-400 text-sm mb-6 line-clamp-3 leading-relaxed flex-grow">
                       {blog.excerpt}
                     </p>
 
                     {/* Meta Info */}
-                    <div className="flex items-center justify-between text-xs text-gray-500 pt-4 border-t border-white/10">
-                      <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1">
-                          <Calendar size={12} />
+                    <div className="flex items-center justify-between text-xs text-gray-500 pt-6 border-t border-white/10 mt-auto">
+                      <div className="flex items-center gap-4">
+                        <span className="flex items-center gap-1.5">
+                          <Calendar size={14} />
                           {blog.date}
                         </span>
-                        <span className="flex items-center gap-1">
-                          <Clock size={12} />
+                        <span className="flex items-center gap-1.5">
+                          <Clock size={14} />
                           {blog.readTime}
                         </span>
                       </div>
-                      <ArrowRight size={16} className="text-indigo-400 group-hover:translate-x-1 transition-transform" />
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-neon-blue group-hover:text-black transition-colors">
+                        <ArrowRight size={14} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -405,24 +413,25 @@ const BlogPage = () => {
 
         {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="mt-16 text-center"
+          className="mt-24 text-center"
         >
-          <div className="bg-gradient-to-r from-indigo-500/10 to-pink-500/10 border border-white/10 rounded-2xl p-8 md:p-12">
-            <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+          <div className="glass-panel rounded-3xl p-10 md:p-14 border border-white/10 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-50" />
+            <h3 className="text-2xl md:text-4xl font-bold text-white mb-6 relative z-10">
               Ready to Transform Your Business?
             </h3>
-            <p className="text-gray-400 mb-6 max-w-xl mx-auto">
+            <p className="text-gray-300 mb-8 max-w-xl mx-auto text-lg relative z-10">
               Let's discuss how Pavion Technologies can help you achieve your goals with innovative technology solutions.
             </p>
             <Link
               to="/#contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-pink-600 text-white font-semibold rounded-full hover:shadow-[0_0_30px_rgba(99,102,241,0.5)] transition-all duration-300"
+              className="relative z-10 inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
             >
               Get in Touch
-              <ArrowRight size={18} />
+              <ArrowRight size={20} />
             </Link>
           </div>
         </motion.div>

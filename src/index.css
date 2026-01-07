@@ -2,95 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Animations */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marquee-slow {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
+@layer base {
+  body {
+    @apply bg-background text-gray-100 antialiased overflow-x-hidden;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 100% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 0% 0%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-xl;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  .glass-card {
+    @apply bg-slate-900/40 backdrop-blur-md border border-white/5 hover:border-white/10 transition-all duration-300;
   }
-}
 
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-  will-change: transform;
-}
+  .text-glow {
+    text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-neon-blue to-neon-purple;
+  }
 
-.animate-marquee-slow {
-  animation: marquee-slow 40s linear infinite;
-  will-change: transform;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease-out forwards;
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .animate-marquee,
-  .animate-marquee-slow {
-    animation: none;
+  .border-glow {
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.3);
   }
 }
 
-/* Custom Scrollbar for Dark Theme */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #030712;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4f46e5;
-  border-radius: 4px;
+  background: #1e293b;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+  background: #3b82f6;
 }
 
-/* Selection Color */
 ::selection {
-  background: rgba(99, 102, 241, 0.4);
+  background: rgba(6, 182, 212, 0.3);
   color: white;
-}
-
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Custom Utilities */
-@layer utilities {
-  .card {
-    @apply bg-slate-900/50 border border-slate-800 rounded-lg;
-  }
-}
-
-/* Prevent layout shift during animations */
-body {
-  overflow-x: hidden;
 }
