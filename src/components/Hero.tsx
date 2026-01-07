@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] opacity-20" />
 
         {/* Main Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pt-32">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 md:py-20 md:pt-32">
           <div className="text-center">
 
             {/* Pill Label */}
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-5xl md:text-7xl font-bold mb-8 leading-tight tracking-tight"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 md:mb-8 leading-tight tracking-tight"
             >
               <span className="text-white drop-shadow-2xl">We Build Software</span>
               <br />

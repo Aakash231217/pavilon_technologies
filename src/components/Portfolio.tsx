@@ -1,11 +1,11 @@
 // src/components/Portfolio.tsx
 import { ExternalLink, Github, X, CheckCircle2, ArrowRightCircle, Lightbulb, PencilRuler, Code2, Bug, Rocket, Star, Quote } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Portfolio = () => {
-  const navigate = useNavigate();
+
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
   // Handle body scroll lock when modal is open
@@ -331,7 +331,7 @@ const Portfolio = () => {
           <div className="relative overflow-hidden py-4 -mx-4 sm:-mx-8">
             <div className="flex animate-marquee-slow">
               {[...testimonials, ...testimonials].map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-80 md:w-96 p-8 mx-4 glass-card rounded-2xl border border-white/10 hover:border-neon-blue/30 transition-colors">
+                <div key={index} className="flex-shrink-0 w-[85vw] sm:w-80 md:w-96 p-8 mx-4 glass-card rounded-2xl border border-white/10 hover:border-neon-blue/30 transition-colors">
                   <div className="text-neon-blue mb-4">
                     {[...Array(testimonial.stars)].map((_, i) => (
                       <Star key={i} size={16} fill="currentColor" stroke="none" className="inline-block mr-1" />
@@ -401,7 +401,7 @@ const Portfolio = () => {
                 return (
                   <div className="flex flex-col md:flex-row min-h-full">
                     {/* Left Sidebar */}
-                    <div className={`md:w-1/3 p-10 bg-gradient-to-br ${colors.gradient} text-white relative overflow-hidden flex flex-col`}>
+                    <div className={`md:w-1/3 p-6 md:p-10 bg-gradient-to-br ${colors.gradient} text-white relative overflow-hidden flex flex-col`}>
                       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
 
                       <div className="relative z-10 flex-grow">
@@ -420,7 +420,7 @@ const Portfolio = () => {
                     </div>
 
                     {/* Right Content */}
-                    <div className="md:w-2/3 p-10 bg-transparent">
+                    <div className="md:w-2/3 p-6 md:p-10 bg-transparent">
                       <div className="mb-10">
                         <h4 className="text-xl font-bold text-white mb-4">Vision & Execution</h4>
                         <p className="text-gray-400 leading-relaxed text-lg">

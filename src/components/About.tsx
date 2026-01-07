@@ -69,7 +69,7 @@ const About: React.FC = () => {
               transition={{ duration: 0.8 }}
               className="relative group"
             >
-              <div className="relative rounded-2xl h-[500px] overflow-hidden glass-panel border border-white/10 group-hover:border-neon-blue/30 transition-all duration-500">
+              <div className="relative rounded-2xl h-[300px] md:h-[500px] overflow-hidden glass-panel border border-white/10 group-hover:border-neon-blue/30 transition-all duration-500">
                 <img
                   src={creativeImg}
                   alt="Creative Development"

@@ -138,8 +138,8 @@ const Contact: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className={`mb-8 p-4 rounded-xl font-medium flex items-center gap-3 backdrop-blur-md border ${submitStatus === 'success'
-                  ? 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300'
-                  : 'bg-red-500/20 border-red-500/30 text-red-300'
+                ? 'bg-emerald-500/20 border-emerald-500/30 text-emerald-300'
+                : 'bg-red-500/20 border-red-500/30 text-red-300'
                 }`}
             >
               {submitStatus === 'success' ? <CheckCircle size={24} /> : <XCircle size={24} />}
@@ -201,7 +201,7 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="glass-panel p-8 md:p-10 rounded-3xl"
+            className="glass-panel p-6 md:p-10 rounded-3xl"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">

@@ -341,7 +341,7 @@ const Services = () => {
                 return (
                   <div className="flex flex-col md:flex-row min-h-full">
                     {/* Left Sidebar */}
-                    <div className={`md:w-1/3 p-10 bg-gradient-to-br ${theme.gradient} text-white relative overflow-hidden`}>
+                    <div className={`md:w-1/3 p-6 md:p-10 bg-gradient-to-br ${theme.gradient} text-white relative overflow-hidden`}>
                       <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
                       <div className="relative z-10">
                         <div className="inline-flex p-4 rounded-2xl bg-white/20 backdrop-blur-md mb-6 shadow-xl">
@@ -364,7 +364,7 @@ const Services = () => {
                     </div>
 
                     {/* Right Content */}
-                    <div className="md:w-2/3 p-10 bg-slate-950/50">
+                    <div className="md:w-2/3 p-6 md:p-10 bg-slate-950/50">
                       <h4 className="text-2xl font-bold text-white mb-4">Overview</h4>
                       <p className="text-gray-400 mb-8 leading-relaxed">{selectedService.longDescription}</p>
 

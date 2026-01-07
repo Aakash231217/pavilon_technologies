@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 import logoImage from '../Images/logo.png';
 
+const MotionLink = motion(Link);
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -36,15 +38,15 @@ const Navbar = () => {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
       className={`fixed w-full z-50 transition-all duration-500 ${scrolled
-          ? 'bg-slate-900/80 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-neon-blue/5'
-          : 'bg-transparent border-b border-transparent'
+        ? 'bg-slate-900/80 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-neon-blue/5'
+        : 'bg-transparent border-b border-transparent'
         }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <motion.div
-            className="flex-shrink-0 flex items-center -ml-26 md:-ml-28"
+            className="flex-shrink-0 flex items-center"
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 400 }}
           >
@@ -60,27 +62,42 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link, index) => {
-              const LinkComponent = link.isAnchor ? motion.a : Link;
-              const props = link.isAnchor
-                ? { href: isHomePage ? link.href : `/${link.href}` }
-                : { to: link.href };
+              const commonProps = {
+                key: link.name,
+                initial: { opacity: 0, y: -20 },
+                animate: { opacity: 1, y: 0 },
+                transition: { delay: index * 0.1 },
+                className: "relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group overflow-hidden rounded-lg"
+              };
 
-              return (
-                <LinkComponent
-                  key={link.name}
-                  {...props}
-                  // @ts-ignore
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group overflow-hidden rounded-lg"
-                >
+              const content = (
+                <>
                   <span className="relative z-10">{link.name}</span>
                   {/* Hover Glow Background */}
                   <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg blur-md" />
                   {/* Bottom Line */}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple group-hover:w-3/4 transition-all duration-300 shadow-[0_0_10px_#00f3ff]" />
-                </LinkComponent>
+                </>
+              );
+
+              if (link.isAnchor) {
+                return (
+                  <motion.a
+                    {...commonProps}
+                    href={isHomePage ? link.href : `/${link.href}`}
+                  >
+                    {content}
+                  </motion.a>
+                );
+              }
+
+              return (
+                <MotionLink
+                  {...commonProps}
+                  to={link.href}
+                >
+                  {content}
+                </MotionLink>
               );
             })}
 
@@ -120,25 +137,34 @@ const Navbar = () => {
           >
             <div className="px-4 py-6 space-y-2">
               {navLinks.map((link, index) => {
-                const LinkComponent = link.isAnchor ? motion.a : Link;
-                const props = link.isAnchor
-                  ? { href: isHomePage ? link.href : `/${link.href}` }
-                  : { to: link.href };
+                const commonProps = {
+                  key: link.name,
+                  initial: { opacity: 0, x: -20 },
+                  animate: { opacity: 1, x: 0 },
+                  transition: { delay: index * 0.05 },
+                  className: "block px-4 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-transparent hover:border-white/5",
+                  onClick: () => setIsOpen(false)
+                };
+
+                if (link.isAnchor) {
+                  return (
+                    <motion.a
+                      {...commonProps}
+                      href={isHomePage ? link.href : `/${link.href}`}
+                    >
+                      {link.name}
+                    </motion.a>
+                  );
+                }
 
                 return (
-                  <LinkComponent
-                    key={link.name}
-                    {...props}
-                    // @ts-ignore
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    className="block px-4 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-transparent hover:border-white/5"
-                    onClick={() => setIsOpen(false)}
+                  <MotionLink
+                    {...commonProps}
+                    to={link.href}
                   >
                     {link.name}
-                  </LinkComponent>
-                )
+                  </MotionLink>
+                );
               })}
               <motion.a
                 href="#contact"
