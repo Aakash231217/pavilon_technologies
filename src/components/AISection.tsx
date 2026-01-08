@@ -59,10 +59,10 @@ const AISection: React.FC = () => {
   ];
 
   return (
-    <section id="ai" className="relative py-24 bg-background overflow-hidden">
+    <section id="ai" className="relative py-24 bg-[#0a0a0f] overflow-hidden">
       {/* Dynamic Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-neon-purple/5 via-transparent to-transparent" />
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-neon-blue/5 rounded-full blur-[120px] animate-pulse-slow" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-purple-600/20 via-transparent to-transparent" />
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-indigo-600/15 rounded-full blur-[120px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -72,13 +72,13 @@ const AISection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-neon-purple text-sm font-medium mb-6 shadow-[0_0_15px_rgba(176,38,255,0.2)]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full text-purple-400 text-sm font-medium mb-6">
             <Sparkles size={14} />
             Powered by Advanced AI
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Artificial Intelligence
-            <span className="block mt-2 text-gradient">
+            <span className="block mt-2 text-gradient-accent">
               That Transforms Business
             </span>
           </h2>
@@ -98,12 +98,12 @@ const AISection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className={`glass-card rounded-xl p-8 border border-white/5 ${service.border} transition-all duration-300 group`}
+              className={`bg-white/[0.03] rounded-xl p-8 border border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-300 group`}
             >
-              <div className={`inline-flex p-3 rounded-xl bg-white/5 ${service.color} mb-6 border border-white/5 group-hover:scale-110 transition-transform`}>
+              <div className={`inline-flex p-4 rounded-xl bg-white/[0.05] ${service.color} mb-6 group-hover:scale-110 transition-all`}>
                 {service.icon}
               </div>
-              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white transition-colors">
+              <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
                 {service.title}
               </h3>
               <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
@@ -118,10 +118,10 @@ const AISection: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-panel rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden"
+          className="bg-gradient-to-br from-gray-900 to-indigo-900 rounded-3xl p-8 md:p-12 border border-gray-800 relative overflow-hidden"
         >
           {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-neon-blue/10 to-neon-purple/10 rounded-full blur-[100px]" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-[100px]" />
 
           <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left side - Content */}
@@ -201,10 +201,10 @@ const AISection: React.FC = () => {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <p className="text-center text-gray-500 text-sm mb-8 uppercase tracking-widest font-semibold flex items-center justify-center gap-4">
-            <span className="w-12 h-px bg-white/10"></span>
+          <p className="text-center text-gray-600 text-sm mb-8 uppercase tracking-widest font-semibold flex items-center justify-center gap-4">
+            <span className="w-12 h-px bg-gray-300"></span>
             AI Applications We Build
-            <span className="w-12 h-px bg-white/10"></span>
+            <span className="w-12 h-px bg-gray-300"></span>
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {[
@@ -221,7 +221,7 @@ const AISection: React.FC = () => {
             ].map((useCase, index) => (
               <span
                 key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-gray-300 text-sm hover:border-neon-blue/30 hover:bg-neon-blue/5 hover:text-white transition-all duration-200 cursor-default"
+                className="inline-flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-full text-gray-700 text-sm font-medium shadow-sm hover:shadow-md hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600 transition-all duration-200 cursor-default"
               >
                 <CheckCircle2 size={14} className="text-neon-blue" />
                 {useCase}

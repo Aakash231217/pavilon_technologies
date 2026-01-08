@@ -100,15 +100,15 @@ const Contact: React.FC = () => {
   ];
 
   const socialLinks = [
-    { icon: <Github size={20} />, url: '#', color: 'hover:text-white' },
-    { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/in/pavion-technologies-565b25392', color: 'hover:text-blue-400' },
+    { icon: <Github size={20} />, url: 'https://github.com/paviontechnologies', color: 'hover:text-white' },
+    { icon: <Linkedin size={20} />, url: 'https://www.linkedin.com/company/pavion-technologies/', color: 'hover:text-blue-400' },
     { icon: <Twitter size={20} />, url: '#', color: 'hover:text-sky-400' },
   ];
 
   return (
-    <section id="contact" className="py-20 md:py-32 bg-background relative overflow-hidden">
+    <section id="contact" className="py-20 md:py-32 bg-[#0a0a0f] relative overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2 w-[800px] h-[800px] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/2 -translate-y-1/2 translate-x-1/2 w-[800px] h-[800px] bg-indigo-600/15 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -118,7 +118,7 @@ const Contact: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-human-warmth text-sm font-medium mb-6">
+          <span className="inline-block px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.12] text-indigo-400 text-sm font-medium mb-6">
             Ready to Transform Your Business?
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -216,7 +216,7 @@ const Contact: React.FC = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 focus:outline-none transition-all text-white placeholder-gray-600"
+                    className="w-full px-5 py-4 rounded-xl bg-black/50 border border-white/[0.12] focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 focus:outline-none transition-all text-white placeholder-gray-500"
                     placeholder="John Doe"
                   />
                 </div>
@@ -231,7 +231,7 @@ const Contact: React.FC = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 focus:outline-none transition-all text-white placeholder-gray-600"
+                    className="w-full px-5 py-4 rounded-xl bg-black/50 border border-white/[0.12] focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 focus:outline-none transition-all text-white placeholder-gray-500"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -248,7 +248,7 @@ const Contact: React.FC = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 focus:outline-none transition-all text-white placeholder-gray-600"
+                  className="w-full px-5 py-4 rounded-xl bg-black/50 border border-white/[0.12] focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 focus:outline-none transition-all text-white placeholder-gray-500"
                   placeholder="e.g., Web Development, Mobile App, AI Solution"
                 />
               </div>
@@ -264,7 +264,7 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={5}
-                  className="w-full px-5 py-4 rounded-xl bg-black/40 border border-white/10 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue/50 focus:outline-none transition-all text-white placeholder-gray-600 resize-none"
+                  className="w-full px-5 py-4 rounded-xl bg-black/50 border border-white/[0.12] focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50 focus:outline-none transition-all text-white placeholder-gray-500 resize-none"
                   placeholder="Tell us about your project requirements..."
                 />
               </div>

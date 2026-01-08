@@ -138,7 +138,8 @@ const Services = () => {
     },
   ];
 
-  const colorMap = {
+  // Color map for future use with service-specific styling
+  const _colorMap = {
     blue: {
       bg: 'bg-indigo-900',
       text: 'text-indigo-400',
@@ -194,210 +195,223 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="relative py-24 bg-background overflow-hidden">
-      {/* Background Ambience */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.1),transparent_50%)]" />
+    <section id="services" className="relative py-32 bg-[#0a0a0f] overflow-hidden">
+      {/* More Visible gradient orbs */}
+      <div className="absolute top-0 left-[20%] w-[500px] h-[500px] bg-gradient-to-br from-indigo-600/15 to-purple-600/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-0 right-[10%] w-[400px] h-[400px] bg-gradient-to-tr from-pink-600/15 to-rose-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block px-4 py-2 mb-6 bg-white/5 border border-white/10 rounded-full text-sm font-medium text-neon-blue backdrop-blur-sm shadow-glow">
-            What We Offer
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="text-white">Our </span>
-            <span className="bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent text-glow">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        {/* Section Header - Visible */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-20 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          >
+            <span className="text-[12px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-4">
               Services
             </span>
-          </h2>
-          <div className="w-24 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-6 shadow-glow" />
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Because in today's market, "good enough" isn't good enough. We architect solutions that drive measurable results.
-          </p>
-        </motion.div>
-
-        {/* Service Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => {
-            const theme = colorMap[service.color];
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05, duration: 0.4 }}
-                whileHover={{ y: -5 }}
-                className={`glass-card rounded-2xl p-8 hover:${theme.border} hover:shadow-[0_0_20px_rgba(0,0,0,0.5)] cursor-pointer group`}
-                onClick={() => openModal(service)}
-              >
-                {/* Icon */}
-                <div className={`inline-flex p-4 rounded-xl ${theme.iconBg} ${theme.text} mb-6 shadow-inner border border-white/5`}>
-                  {service.icon}
-                </div>
-
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-white transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
-                  {service.description}
-                </p>
-                <div className={`flex items-center ${theme.text} font-medium group-hover:brightness-125 transition-all`}>
-                  Learn More
-                  <ArrowRightCircle size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Tech Stack Section */}
-        <div className="mt-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h3 className="text-2xl font-bold text-white mb-8">Technologies We Master</h3>
-            <motion.div
-              className="flex flex-wrap justify-center gap-4"
-            >
-              {techStack.map((tech, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.05, borderColor: '#00f3ff' }}
-                  className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-xl text-gray-300 hover:text-white hover:bg-white/10 transition-all cursor-default"
-                >
-                  <span className="text-neon-blue">{tech.icon}</span>
-                  <span className="font-medium">{tech.name}</span>
-                </motion.div>
-              ))}
-            </motion.div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              What We
+              <span className="block text-gradient-accent">Offer</span>
+            </h2>
           </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            className="text-gray-400 max-w-md font-light lg:text-right"
+          >
+            We architect solutions that drive measurable results. Each service is tailored to your unique needs.
+          </motion.p>
         </div>
 
-        {/* Bottom CTA */}
+        {/* Service Cards - Visible Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.08] rounded-2xl overflow-hidden mb-20">
+          {services.map((service, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: index * 0.05, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+              className="bg-[#0a0a0f] p-8 md:p-10 cursor-pointer group hover:bg-white/[0.04] transition-all duration-500"
+              onClick={() => openModal(service)}
+              data-cursor-hover
+            >
+              {/* Icon - Visible */}
+              <div className="text-indigo-400/70 group-hover:text-indigo-400 transition-colors duration-500 mb-6">
+                {service.icon}
+              </div>
+
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-gradient-accent transition-all duration-500">
+                {service.title}
+              </h3>
+              <p className="text-sm text-gray-400 mb-6 leading-relaxed line-clamp-2 group-hover:text-gray-300 transition-colors duration-500">
+                {service.description}
+              </p>
+              <div className="flex items-center text-sm text-gray-500 group-hover:text-indigo-400 transition-all duration-500">
+                <span>Explore</span>
+                <ArrowRightCircle size={14} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Tech Stack - Visible */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <div className="relative bg-gradient-to-r from-indigo-900 to-purple-900 rounded-3xl p-10 md:p-14 text-center overflow-hidden border border-white/10 shadow-2xl">
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+          <div className="flex flex-wrap justify-center gap-4">
+            {techStack.map((tech, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.05, duration: 0.5 }}
+                className="flex items-center gap-2 px-5 py-2.5 text-[13px] text-gray-400 border border-white/10 rounded-full hover:border-indigo-400/50 hover:text-white hover:bg-indigo-500/10 transition-all duration-500"
+                data-cursor-hover
+              >
+                <span className="text-gray-400">{tech.icon}</span>
+                <span>{tech.name}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Bottom CTA - Clean & Minimal */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="relative bg-white/[0.04] border border-white/[0.08] rounded-3xl p-12 md:p-16 text-center overflow-hidden">
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-transparent to-pink-600/10 pointer-events-none" />
 
             <div className="relative z-10">
-              <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                Need a Custom Solution?
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white leading-tight">
+                Ready to start
+                <span className="block text-gradient-accent">your project?</span>
               </h3>
-              <p className="text-lg mb-8 text-gray-200 max-w-2xl mx-auto">
-                Let's discuss your project and find the perfect solution together.
+              <p className="text-lg mb-10 text-gray-400 max-w-xl mx-auto font-light">
+                Let's discuss your vision and create something extraordinary together.
               </p>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-white text-indigo-900 rounded-full font-bold shadow-lg hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:scale-105 transition-all duration-300"
+                data-cursor-hover
+                className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-all duration-500"
               >
                 Start a Project
-                <ArrowRightCircle size={20} />
+                <ArrowRightCircle size={18} />
               </a>
             </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Full Screen Modal */}
+      {/* Full Screen Modal - Minimal Design */}
       <AnimatePresence>
         {selectedService && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/90 backdrop-blur-xl p-4 md:p-8"
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/95 backdrop-blur-2xl p-4 md:p-8"
             onClick={closeModal}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-[#0f172a] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative border border-white/10"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              className="bg-[#0a0a0a] w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-2xl relative border border-white/[0.05]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 z-20 transition-all"
+                className="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors z-20"
                 onClick={closeModal}
+                data-cursor-hover
               >
-                <X size={24} />
+                <X size={24} strokeWidth={1.5} />
               </button>
 
-              {(() => {
-                const theme = colorMap[selectedService.color];
-                return (
-                  <div className="flex flex-col md:flex-row min-h-full">
-                    {/* Left Sidebar */}
-                    <div className={`md:w-1/3 p-6 md:p-10 bg-gradient-to-br ${theme.gradient} text-white relative overflow-hidden`}>
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-                      <div className="relative z-10">
-                        <div className="inline-flex p-4 rounded-2xl bg-white/20 backdrop-blur-md mb-6 shadow-xl">
-                          {selectedService.icon}
-                        </div>
-                        <h3 className="text-3xl font-bold mb-4">{selectedService.title}</h3>
-                        <p className="opacity-90">{selectedService.description}</p>
-                      </div>
-
-                      <div className="mt-12 relative z-10 hidden md:block">
-                        <h4 className="font-semibold uppercase tracking-wider text-sm opacity-80 mb-4">Features</h4>
-                        <ul className="space-y-3">
-                          {selectedService.features.map((f, i) => (
-                            <li key={i} className="flex items-center text-sm">
-                              <CheckCircle2 size={16} className="mr-2 opacity-80" /> {f}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    {/* Right Content */}
-                    <div className="md:w-2/3 p-6 md:p-10 bg-slate-950/50">
-                      <h4 className="text-2xl font-bold text-white mb-4">Overview</h4>
-                      <p className="text-gray-400 mb-8 leading-relaxed">{selectedService.longDescription}</p>
-
-                      <div className="grid md:grid-cols-2 gap-8">
-                        <div>
-                          <h5 className={`text-lg font-bold mb-4 ${theme.text}`}>Key Benefits</h5>
-                          <ul className="space-y-3">
-                            {selectedService.benefits.map((b, i) => (
-                              <li key={i} className="flex items-start">
-                                <CheckCircle2 size={18} className={`mr-2 mt-1 flex-shrink-0 ${theme.text}`} />
-                                <span className="text-gray-300 text-sm">{b}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h5 className={`text-lg font-bold mb-4 ${theme.text}`}>Our Process</h5>
-                          <ul className="space-y-4">
-                            {selectedService.process.map((step, i) => (
-                              <li key={i} className="flex items-center">
-                                <span className={`flex items-center justify-center w-6 h-6 rounded-full ${theme.bg} text-white text-xs font-bold mr-3`}>
-                                  {i + 1}
-                                </span>
-                                <span className="text-gray-300 text-sm font-medium">{step}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+              <div className="p-8 md:p-12">
+                {/* Header */}
+                <div className="mb-10">
+                  <div className="text-gray-600 mb-6">
+                    {selectedService.icon}
                   </div>
-                );
-              })()}
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">{selectedService.title}</h3>
+                  <p className="text-gray-500 text-lg font-light leading-relaxed max-w-2xl">{selectedService.longDescription}</p>
+                </div>
+
+                {/* Content Grid */}
+                <div className="grid md:grid-cols-2 gap-12">
+                  {/* Benefits */}
+                  <div>
+                    <h5 className="text-[11px] tracking-[0.2em] uppercase text-gray-600 mb-6">Benefits</h5>
+                    <ul className="space-y-4">
+                      {selectedService.benefits.map((b, i) => (
+                        <li key={i} className="flex items-start">
+                          <CheckCircle2 size={16} className="mr-3 mt-0.5 flex-shrink-0 text-gray-500" />
+                          <span className="text-gray-400 text-sm font-light">{b}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Process */}
+                  <div>
+                    <h5 className="text-[11px] tracking-[0.2em] uppercase text-gray-600 mb-6">Process</h5>
+                    <ul className="space-y-4">
+                      {selectedService.process.map((step, i) => (
+                        <li key={i} className="flex items-center">
+                          <span className="flex items-center justify-center w-6 h-6 rounded-full border border-white/10 text-gray-500 text-xs mr-4">
+                            {i + 1}
+                          </span>
+                          <span className="text-gray-400 text-sm font-light">{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Features */}
+                <div className="mt-12 pt-8 border-t border-white/[0.05]">
+                  <h5 className="text-[11px] tracking-[0.2em] uppercase text-gray-600 mb-6">Features</h5>
+                  <div className="flex flex-wrap gap-3">
+                    {selectedService.features.map((f, i) => (
+                      <span key={i} className="px-4 py-2 text-sm text-gray-500 border border-white/[0.05] rounded-full">
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* CTA */}
+                <div className="mt-12">
+                  <a
+                    href="#contact"
+                    data-cursor-hover
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-all duration-500"
+                    onClick={closeModal}
+                  >
+                    Get Started
+                    <ArrowRightCircle size={16} />
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}

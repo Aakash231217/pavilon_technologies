@@ -79,25 +79,49 @@ const Portfolio = () => {
 
   const colorMap: any = {
     blue: {
-      gradient: 'from-blue-600 to-indigo-600',
-      bg: 'bg-indigo-500/10',
-      text: 'text-indigo-300',
-      border: 'border-indigo-500/20',
-      glow: 'shadow-[0_0_15px_rgba(99,102,241,0.3)]'
+      gradient: 'from-blue-500 to-indigo-600',
+      gradientOverlay: 'from-blue-500/10 to-indigo-500/10',
+      bg: 'bg-blue-500/10',
+      bgHover: 'hover:bg-blue-500/20',
+      text: 'text-blue-400',
+      textHover: 'group-hover:text-blue-300',
+      border: 'border-blue-500/20',
+      borderHover: 'hover:border-blue-400/40',
+      pill: 'bg-blue-500/10 text-blue-400 border-blue-500/30',
+      pillHover: 'group-hover:bg-blue-500/20 group-hover:border-blue-400/50',
+      accent: 'bg-gradient-to-r from-blue-500 to-indigo-500',
+      number: 'from-blue-500/30 to-indigo-500/30',
+      numberHover: 'group-hover:from-blue-400/60 group-hover:to-indigo-400/60'
     },
     pink: {
-      gradient: 'from-pink-600 to-purple-600',
+      gradient: 'from-pink-500 to-purple-600',
+      gradientOverlay: 'from-pink-500/10 to-purple-500/10',
       bg: 'bg-pink-500/10',
-      text: 'text-pink-300',
+      bgHover: 'hover:bg-pink-500/20',
+      text: 'text-pink-400',
+      textHover: 'group-hover:text-pink-300',
       border: 'border-pink-500/20',
-      glow: 'shadow-[0_0_15px_rgba(236,72,153,0.3)]'
+      borderHover: 'hover:border-pink-400/40',
+      pill: 'bg-pink-500/10 text-pink-400 border-pink-500/30',
+      pillHover: 'group-hover:bg-pink-500/20 group-hover:border-pink-400/50',
+      accent: 'bg-gradient-to-r from-pink-500 to-purple-500',
+      number: 'from-pink-500/30 to-purple-500/30',
+      numberHover: 'group-hover:from-pink-400/60 group-hover:to-purple-400/60'
     },
     yellow: {
-      gradient: 'from-amber-600 to-orange-600',
+      gradient: 'from-amber-500 to-orange-600',
+      gradientOverlay: 'from-amber-500/10 to-orange-500/10',
       bg: 'bg-amber-500/10',
-      text: 'text-amber-300',
+      bgHover: 'hover:bg-amber-500/20',
+      text: 'text-amber-400',
+      textHover: 'group-hover:text-amber-300',
       border: 'border-amber-500/20',
-      glow: 'shadow-[0_0_15px_rgba(245,158,11,0.3)]'
+      borderHover: 'hover:border-amber-400/40',
+      pill: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+      pillHover: 'group-hover:bg-amber-500/20 group-hover:border-amber-400/50',
+      accent: 'bg-gradient-to-r from-amber-500 to-orange-500',
+      number: 'from-amber-500/30 to-orange-500/30',
+      numberHover: 'group-hover:from-amber-400/60 group-hover:to-orange-400/60'
     },
   };
 
@@ -165,186 +189,206 @@ const Portfolio = () => {
   ];
 
   return (
-    <section id="portfolio" className="py-20 md:py-32 bg-background relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(99,102,241,0.1),transparent_70%)]" />
+    <section id="portfolio" className="py-32 bg-[#0a0a0f] relative overflow-hidden">
+      {/* Gradient orbs */}
+      <div className="absolute top-[20%] right-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-600/15 to-purple-600/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-0 w-[500px] h-[500px] bg-gradient-to-tr from-pink-600/15 to-rose-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-neon-blue text-sm font-medium mb-6 backdrop-blur-sm"
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        {/* Section Header - Minimal */}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-20 gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
           >
-            🚀 Our Work
-          </motion.span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Featured <span className="text-gradient">Portfolio</span>
-          </h2>
-          <div className="w-16 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-6"></div>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-            Showcasing recent projects and successful collaborations that drive real business results
-          </p>
-        </motion.div>
+            <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-4">
+              Featured Work
+            </span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              Selected
+              <span className="block text-gradient-accent">Projects</span>
+            </h2>
+          </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.23, 1, 0.32, 1] }}
+            className="text-gray-400 max-w-md font-light lg:text-right"
+          >
+            A selection of our most passionately crafted works with forward-thinking clients.
+          </motion.p>
+        </div>
 
-        {/* Project Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Project Cards - Masonry-like Grid */}
+        <div className="grid md:grid-cols-2 gap-6 mb-20">
           {projects.map((project, index) => {
-            const colors = colorMap[project.color] || colorMap['blue'];
-
+            const colors = colorMap[project.color];
             return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="glass-card rounded-2xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,0,0,0.5)] cursor-pointer group"
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: [0.23, 1, 0.32, 1] }}
+                className={`group cursor-pointer ${index % 3 === 0 ? 'md:row-span-2' : ''}`}
                 onClick={() => openModal(project)}
+                data-cursor-hover
               >
-                {/* Card Header */}
-                <div className={`h-48 bg-gradient-to-br ${colors.gradient} flex items-center justify-center relative overflow-hidden`}>
-
-                  {/* Abstract Background pattern */}
-                  <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] bg-cover mix-blend-overlay"></div>
-
-                  <div className="text-white text-8xl font-bold opacity-10 absolute -bottom-5 -right-5 transform rotate-12 scale-150 pointer-events-none">
-                    {String(index + 1).padStart(2, '0')}
+                <div className={`relative h-full bg-white/[0.03] border ${colors.border} rounded-2xl overflow-hidden ${colors.borderHover} hover:bg-white/[0.05] transition-all duration-700`}>
+                  {/* Colored top accent bar - always visible */}
+                  <div className={`absolute top-0 left-0 right-0 h-1 ${colors.accent}`} />
+                  
+                  {/* Corner gradient decoration */}
+                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl ${colors.gradientOverlay} rounded-bl-full opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+                  
+                  {/* Number Indicator */}
+                  <div className="absolute top-8 left-6 z-10">
+                    <span className={`text-6xl font-bold bg-gradient-to-br ${colors.number} ${colors.numberHover} bg-clip-text text-transparent transition-all duration-700`}>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                   </div>
 
-                  <div className="text-white text-center z-10 relative px-4">
-                    <div className="text-2xl font-bold mb-3 drop-shadow-md">{project.title}</div>
-                    <div className="inline-block px-3 py-1 bg-black/20 backdrop-blur-md text-white border border-white/20 rounded-full text-xs font-semibold uppercase tracking-wider">
+                  {/* Content */}
+                  <div className="relative p-8 md:p-10 h-full flex flex-col justify-end min-h-[320px]">
+                    {/* Category Badge */}
+                    <span className={`inline-flex self-start px-3 py-1 text-[11px] tracking-[0.15em] uppercase ${colors.text} font-semibold mb-4 rounded-full ${colors.bg} border ${colors.border}`}>
                       {project.category}
+                    </span>
+
+                    {/* Title */}
+                    <h3 className={`text-2xl md:text-3xl font-semibold text-white mb-4 ${colors.textHover} transition-all duration-500`}>
+                      {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm text-gray-400 mb-6 leading-relaxed line-clamp-2 group-hover:text-gray-300 transition-colors duration-500">
+                      {project.description}
+                    </p>
+
+                    {/* Tech Tags */}
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {project.technologies.slice(0, 3).map((tech, idx) => (
+                        <span
+                          key={idx}
+                          className={`px-3 py-1.5 text-[11px] font-medium ${colors.pill} border rounded-full ${colors.pillHover} transition-all duration-500`}
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                      {project.technologies.length > 3 && (
+                        <span className="px-3 py-1.5 text-[11px] font-medium text-gray-500 bg-white/5 border border-white/10 rounded-full">
+                          +{project.technologies.length - 3}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* View Link */}
+                    <div className={`flex items-center text-sm font-medium ${colors.text} ${colors.textHover} transition-all duration-500`}>
+                      <span>View Project</span>
+                      <ExternalLink size={14} className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
                     </div>
                   </div>
-                </div>
 
-                {/* Card Body */}
-                <div className="p-8">
-                  <p className="text-gray-400 mb-6 leading-relaxed line-clamp-3">
-                    {project.description}
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {project.technologies.slice(0, 4).map((tech, idx) => (
-                      <span
-                        key={idx}
-                        className={`px-3 py-1 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 4 && (
-                      <span className={`px-3 py-1 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}>
-                        +{project.technologies.length - 4}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className={`flex items-center text-white font-semibold group-hover:text-neon-blue transition-colors`}>
-                    View Details <ArrowRightCircle size={20} className="ml-auto group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  {/* Bottom gradient overlay on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${colors.gradientOverlay} opacity-0 group-hover:opacity-60 transition-opacity duration-700 pointer-events-none`} />
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Process Section */}
+        {/* Process Section - Minimal */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="mt-32 py-16 bg-white/5 rounded-2xl border border-white/10 relative overflow-hidden backdrop-blur-sm"
+          transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+          className="py-20"
         >
-          <div className="absolute top-0 right-0 w-96 h-96 bg-neon-purple/5 rounded-full blur-[100px]" />
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12 mb-16">
+            <div>
+              <span className="text-[11px] tracking-[0.3em] uppercase text-purple-400 font-semibold block mb-4">
+                Our Process
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+                From Concept to
+                <span className="block text-gradient-accent">Launch</span>
+              </h2>
+            </div>
+            <a
+              href="#contact"
+              data-cursor-hover
+              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:shadow-indigo-500/30 hover:scale-105 transition-all duration-500 self-start"
+            >
+              Start a Project
+            </a>
+          </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="flex flex-col md:flex-row items-center justify-between mb-12">
-              <div className="md:w-1/2 text-left mb-8 md:mb-0">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
-                  We Build With<br />
-                  <span className="text-gradient">Process & Precision</span>
-                </h2>
-                <p className="text-gray-400 max-w-md">
-                  We simplify complex tech into clear, efficient steps from concept to post-launch growth.
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {processSteps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.6 }}
+                className="bg-white/[0.03] p-6 md:p-8 group rounded-xl border border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-500"
+                data-cursor-hover
+              >
+                <span className="text-3xl font-bold text-indigo-500/50 group-hover:text-indigo-400/70 transition-colors duration-500 block mb-4">
+                  0{index + 1}
+                </span>
+                <h3 className="text-sm font-semibold text-white mb-2 group-hover:text-indigo-400 transition-all duration-500">{step.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-500 hidden md:block">
+                  {step.description}
                 </p>
-              </div>
-              <div className="md:w-1/2 flex justify-end">
-                <button
-                  onClick={() => {
-                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className="px-8 py-3 bg-white text-black font-bold rounded-lg hover:bg-gray-200 transition-colors duration-200 shadow-lg"
-                >
-                  Start Now
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  whileHover={{ y: -5 }}
-                  className="p-6 text-center border border-white/5 rounded-xl bg-black/20 hover:border-white/20 transition-all duration-300"
-                >
-                  <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-white/5 mb-4 shadow-inner">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
-                    {step.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
 
-        {/* Testimonials */}
+        {/* Testimonials - Clean Minimal */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-32"
+          className="py-20"
         >
-          <div className="text-left mb-12">
-            <span className="inline-block px-4 py-2 rounded-full bg-white/5 border border-white/10 text-neon-purple text-sm font-medium mb-6">
-              Client Stories
+          <div className="mb-12">
+            <span className="text-[11px] tracking-[0.3em] uppercase text-purple-400 font-semibold block mb-4">
+              Testimonials
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              What Our <span className="text-gradient">Partners Say</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              What Clients
+              <span className="text-gradient-accent ml-2">Say</span>
             </h2>
           </div>
 
-          <div className="relative overflow-hidden py-4 -mx-4 sm:-mx-8">
-            <div className="flex animate-marquee-slow">
+          <div className="relative overflow-hidden -mx-6 px-6">
+            <div className="flex animate-marquee-slow gap-6">
               {[...testimonials, ...testimonials].map((testimonial, index) => (
-                <div key={index} className="flex-shrink-0 w-[85vw] sm:w-80 md:w-96 p-8 mx-4 glass-card rounded-2xl border border-white/10 hover:border-neon-blue/30 transition-colors">
-                  <div className="text-neon-blue mb-4">
+                <div 
+                  key={index} 
+                  className="flex-shrink-0 w-[340px] p-8 bg-white/[0.03] border border-white/[0.08] rounded-2xl hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-500"
+                  data-cursor-hover
+                >
+                  <div className="flex gap-1 mb-6">
                     {[...Array(testimonial.stars)].map((_, i) => (
-                      <Star key={i} size={16} fill="currentColor" stroke="none" className="inline-block mr-1" />
+                      <Star key={i} size={14} fill="currentColor" className="text-amber-400" />
                     ))}
                   </div>
-                  <p className="text-gray-300 mb-6 leading-relaxed italic">"{testimonial.quote}"</p>
+                  <p className="text-gray-300 mb-8 leading-relaxed text-sm">"{testimonial.quote}"</p>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neon-blue to-neon-purple flex items-center justify-center text-white font-bold mr-3 shadow-lg">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-sm font-semibold mr-4">
                       {testimonial.author.split(' ').map(n => n[0]).join('')}
                     </div>
                     <div>
-                      <p className="font-bold text-white text-sm">{testimonial.author}</p>
-                      <p className="text-xs text-gray-500 uppercase tracking-wide">{testimonial.role}</p>
+                      <p className="font-semibold text-white text-sm">{testimonial.author}</p>
+                      <p className="text-[11px] text-indigo-400 uppercase tracking-wider font-medium">{testimonial.role}</p>
                     </div>
                   </div>
                 </div>
@@ -353,115 +397,109 @@ const Portfolio = () => {
           </div>
         </motion.div>
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA - Minimal */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-20 text-center"
+          className="text-center py-12"
         >
-          <p className="text-gray-400 mb-6 text-lg">
-            Want to see more projects or discuss your ideas?
+          <p className="text-gray-400 mb-8 text-lg font-light">
+            Ready to bring your vision to life?
           </p>
           <a
             href="#contact"
-            className="inline-block px-10 py-4 bg-gradient-to-r from-neon-blue to-indigo-600 text-white rounded-full font-bold hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all duration-300 hover:scale-105"
+            data-cursor-hover
+            className="inline-flex items-center gap-3 px-8 py-4 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all duration-500"
           >
             Let's Talk
           </a>
         </motion.div>
       </div>
 
-      {/* --- Project Modal --- */}
+      {/* --- Project Modal - Minimal Design --- */}
       <AnimatePresence>
         {selectedProject && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/90 backdrop-blur-xl p-4"
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[100] flex justify-center items-center bg-black/95 backdrop-blur-2xl p-4 md:p-8"
             onClick={closeModal}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="bg-[#0a0a0f] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl relative border border-white/10 scrollbar-hide"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+              className="bg-[#0a0a0f] w-full max-w-4xl max-h-[85vh] overflow-y-auto rounded-2xl relative border border-white/[0.1]"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="absolute top-4 right-4 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 rounded-full p-2 z-20 outline-none"
+                className="absolute top-6 right-6 text-gray-400 hover:text-white transition-colors z-20"
                 onClick={closeModal}
+                data-cursor-hover
               >
-                <X size={24} />
+                <X size={24} strokeWidth={1.5} />
               </button>
 
-              {(() => {
-                const colors = colorMap[selectedProject.color] || colorMap['blue'];
-                return (
-                  <div className="flex flex-col md:flex-row min-h-full">
-                    {/* Left Sidebar */}
-                    <div className={`md:w-1/3 p-6 md:p-10 bg-gradient-to-br ${colors.gradient} text-white relative overflow-hidden flex flex-col`}>
-                      <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+              <div className="p-8 md:p-12">
+                {/* Header */}
+                <div className="mb-10">
+                  <span className="text-[11px] tracking-[0.2em] uppercase text-indigo-400 mb-4 block">
+                    {selectedProject.category}
+                  </span>
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">{selectedProject.title}</h3>
+                  <p className="text-gray-400 text-lg font-light leading-relaxed max-w-2xl">
+                    {selectedProject.longDescription}
+                  </p>
+                </div>
 
-                      <div className="relative z-10 flex-grow">
-                        <div className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm border border-white/20 rounded-full text-xs font-bold uppercase tracking-wider mb-6">
-                          {selectedProject.category}
-                        </div>
-                        <h3 className="text-4xl font-extrabold mb-6 leading-tight">{selectedProject.title}</h3>
-                        <p className="opacity-90 leading-relaxed text-sm mb-8">{selectedProject.description}</p>
-                      </div>
+                {/* Content Grid */}
+                <div className="grid md:grid-cols-2 gap-12 mb-10">
+                  {/* Features */}
+                  <div>
+                    <h5 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 mb-6">Key Features</h5>
+                    <ul className="space-y-3">
+                      {selectedProject.keyFeatures.map((f: string, idx: number) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="w-1 h-1 rounded-full bg-indigo-400 mt-2 mr-3 flex-shrink-0" />
+                          <span className="text-gray-300 text-sm font-light">{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-                      <div className="relative z-10 mt-auto pt-8">
-                        <a href="#contact" className="flex items-center justify-center gap-2 w-full py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-100 transition-colors">
-                          <Code2 size={20} /> Request Similar
-                        </a>
-                      </div>
-                    </div>
-
-                    {/* Right Content */}
-                    <div className="md:w-2/3 p-6 md:p-10 bg-transparent">
-                      <div className="mb-10">
-                        <h4 className="text-xl font-bold text-white mb-4">Vision & Execution</h4>
-                        <p className="text-gray-400 leading-relaxed text-lg">
-                          {selectedProject.longDescription}
-                        </p>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-8">
-                        <div>
-                          <h4 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-                            <Star size={18} className="text-neon-blue" /> Key Features
-                          </h4>
-                          <ul className="space-y-3">
-                            {selectedProject.keyFeatures.map((f: string, idx: number) => (
-                              <li key={idx} className="flex items-start">
-                                <span className="w-1.5 h-1.5 rounded-full bg-neon-blue mt-2 mr-3 flex-shrink-0" />
-                                <span className="text-gray-300 text-sm">{f}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="text-lg font-bold text-white mb-5 flex items-center gap-2">
-                            <Code2 size={18} className="text-neon-purple" /> Tech Stack
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {selectedProject.technologies.map((tech: string, idx: number) => (
-                              <span
-                                key={idx}
-                                className={`px-3 py-1.5 bg-white/5 text-gray-300 rounded-lg text-xs font-medium border border-white/10`}
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
+                  {/* Tech Stack */}
+                  <div>
+                    <h5 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 mb-6">Technologies</h5>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.technologies.map((tech: string, idx: number) => (
+                        <span
+                          key={idx}
+                          className="px-4 py-2 text-sm text-gray-400 border border-white/[0.1] rounded-full hover:border-indigo-400/50 transition-colors"
+                        >
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                );
-              })()}
+                </div>
+
+                {/* CTA */}
+                <div className="pt-8 border-t border-white/[0.1]">
+                  <a
+                    href="#contact"
+                    data-cursor-hover
+                    className="inline-flex items-center gap-3 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-all duration-500"
+                    onClick={closeModal}
+                  >
+                    <Code2 size={16} />
+                    Request Similar Project
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}

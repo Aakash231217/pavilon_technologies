@@ -12,7 +12,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -25,58 +25,54 @@ const Navbar = () => {
     { name: 'Home', href: '#home', isAnchor: true },
     { name: 'About', href: '#about', isAnchor: true },
     { name: 'Services', href: '#services', isAnchor: true },
-    { name: 'Features', href: '#features', isAnchor: true },
     { name: 'Portfolio', href: '#portfolio', isAnchor: true },
     { name: 'Blog', href: '/blog', isAnchor: false },
     { name: 'Careers', href: '/careers', isAnchor: false },
-    { name: 'Contact', href: '#contact', isAnchor: true },
   ];
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed w-full z-50 transition-all duration-500 ${scrolled
-        ? 'bg-slate-900/80 backdrop-blur-xl border-b border-white/5 shadow-2xl shadow-neon-blue/5'
-        : 'bg-transparent border-b border-transparent'
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
+      className={`fixed w-full z-50 transition-all duration-700 ${scrolled
+        ? 'bg-black/60 backdrop-blur-2xl'
+        : 'bg-transparent'
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo */}
+          {/* Logo - Minimal */}
           <motion.div
-            className="flex-shrink-0 flex items-center"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: 'spring', stiffness: 400 }}
+            className="flex-shrink-0"
+            whileHover={{ opacity: 0.8 }}
+            transition={{ duration: 0.3 }}
           >
-            <a href="#home" className="flex items-center gap-3">
+            <a href="#home" className="flex items-center" data-cursor-hover>
               <img
-                className="w-48 h-auto object-contain brightness-125 drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"
+                className="w-36 h-auto object-contain opacity-90"
                 src={logoImage}
-                alt="Pavion Technologies"
+                alt="Pavion"
               />
             </a>
           </motion.div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop Navigation - Ultra Minimal */}
+          <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link, index) => {
               const commonProps = {
                 key: link.name,
-                initial: { opacity: 0, y: -20 },
+                initial: { opacity: 0, y: -10 },
                 animate: { opacity: 1, y: 0 },
-                transition: { delay: index * 0.1 },
-                className: "relative px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors duration-300 group overflow-hidden rounded-lg"
+                transition: { delay: 0.1 + index * 0.05, duration: 0.5 },
+                className: "relative px-4 py-2 text-[13px] font-normal text-gray-400 hover:text-white transition-colors duration-500 group",
+                'data-cursor-hover': true
               };
 
               const content = (
                 <>
                   <span className="relative z-10">{link.name}</span>
-                  {/* Hover Glow Background */}
-                  <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg blur-md" />
-                  {/* Bottom Line */}
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple group-hover:w-3/4 transition-all duration-300 shadow-[0_0_10px_#00f3ff]" />
+                  <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 </>
               );
 
@@ -101,48 +97,50 @@ const Navbar = () => {
               );
             })}
 
-            {/* CTA Button */}
+            {/* CTA - Minimal */}
             <motion.a
               href="#contact"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1 }}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(6, 182, 212, 0.5)" }}
-              className="ml-4 px-6 py-2 bg-transparent border border-neon-blue/30 text-neon-blue rounded-full font-semibold hover:bg-neon-blue/10 transition-all duration-300"
+              data-cursor-hover
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="ml-6 px-5 py-2 text-[13px] font-normal text-black bg-white rounded-full hover:bg-gray-200 transition-all duration-500"
             >
-              Get Started
+              Contact
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Minimal */}
           <motion.button
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 text-white"
+            data-cursor-hover
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </motion.button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Full Screen Minimal */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden overflow-hidden bg-slate-900/95 backdrop-blur-3xl border-t border-white/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
+            className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-40"
           >
-            <div className="px-4 py-6 space-y-2">
+            <div className="flex flex-col items-center justify-center h-full px-8 py-20">
               {navLinks.map((link, index) => {
                 const commonProps = {
                   key: link.name,
-                  initial: { opacity: 0, x: -20 },
-                  animate: { opacity: 1, x: 0 },
-                  transition: { delay: index * 0.05 },
-                  className: "block px-4 py-3 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 border border-transparent hover:border-white/5",
+                  initial: { opacity: 0, y: 30 },
+                  animate: { opacity: 1, y: 0 },
+                  exit: { opacity: 0, y: -20 },
+                  transition: { delay: index * 0.08, duration: 0.5, ease: [0.23, 1, 0.32, 1] },
+                  className: "block py-4 text-3xl font-light text-gray-300 hover:text-white transition-colors duration-300",
                   onClick: () => setIsOpen(false)
                 };
 
@@ -168,13 +166,14 @@ const Navbar = () => {
               })}
               <motion.a
                 href="#contact"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="block mt-4 px-4 py-3 bg-gradient-to-r from-neon-blue/20 to-neon-purple/20 border border-neon-blue/30 hover:border-neon-blue/50 text-white text-center font-semibold rounded-lg transition-all shadow-[0_0_15px_rgba(6,182,212,0.15)]"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+                className="mt-8 px-8 py-3 text-lg font-normal text-black bg-white rounded-full"
                 onClick={() => setIsOpen(false)}
               >
-                Get Started
+                Contact Us
               </motion.a>
             </div>
           </motion.div>

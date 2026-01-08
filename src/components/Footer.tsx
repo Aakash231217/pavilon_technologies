@@ -34,33 +34,35 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
-    { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/in/pavion-technologies-565b25392', label: 'LinkedIn' },
+    { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/company/pavion-technologies/', label: 'LinkedIn' },
     { icon: <Instagram size={20} />, href: 'https://www.instagram.com/pavion_technologies_pvt_ltd', label: 'Instagram' },
     { icon: <Facebook size={20} />, href: '#', label: 'Facebook' },
   ];
 
   return (
-    <footer className="bg-black text-white relative overflow-hidden border-t border-white/10">
+    <footer className="bg-[#0a0a0f] text-white relative overflow-hidden">
+      {/* Subtle gradient */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-b from-indigo-600/10 to-transparent pointer-events-none" />
 
-      {/* Background glow for footer */}
-      <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Newsletter Section */}
-      <div className="border-b border-white/10 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8 glass-panel rounded-2xl p-8">
-            <div className="text-center md:text-left">
-              <span className="text-neon-blue text-sm font-medium tracking-wider uppercase">Stay Updated</span>
-              <h3 className="text-2xl font-bold mb-2 mt-1 text-white">Subscribe to Our Newsletter</h3>
-              <p className="text-gray-400">Get the latest updates, news and special offers.</p>
+      {/* Newsletter Section - Minimal */}
+      <div className="border-b border-white/[0.08] relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div>
+              <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-3">Newsletter</span>
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Stay in the loop</h3>
+              <p className="text-gray-400 font-light">Get updates on our latest work and insights.</p>
             </div>
             <div className="flex w-full md:w-auto gap-3">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 md:w-72 px-5 py-3 rounded-lg bg-black/50 border border-white/10 focus:border-neon-blue focus:outline-none text-white placeholder-gray-500 transition-all duration-300"
+                className="flex-1 md:w-72 px-5 py-3 rounded-full bg-white/[0.04] border border-white/[0.1] focus:border-indigo-400/50 focus:outline-none text-white placeholder-gray-500 transition-all duration-500 text-sm"
               />
-              <button className="px-6 py-3 bg-gradient-to-r from-neon-blue to-indigo-600 rounded-lg font-semibold hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 whitespace-nowrap text-white">
+              <button 
+                className="px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-200 transition-all duration-500 whitespace-nowrap text-sm"
+                data-cursor-hover
+              >
                 Subscribe
               </button>
             </div>
@@ -68,51 +70,43 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+      {/* Main Footer Content - Minimal */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-12 lg:gap-16">
           {/* Brand Column */}
           <div className="col-span-2">
-            <img src={logo} alt="Pavion Technologies" className="w-48 object-contain mb-6 brightness-125" />
-            <p className="text-gray-400 leading-relaxed mb-6 max-w-sm">
-              Empowering businesses with advanced technological solutions to improve efficiency and drive exponential growth.
+            <img src={logo} alt="Pavion Technologies" className="w-36 object-contain mb-6" />
+            <p className="text-gray-400 leading-relaxed mb-8 max-w-sm font-light text-sm">
+              Empowering businesses with innovative digital solutions that drive growth and create lasting impact.
             </p>
             <div className="space-y-4">
-              <div className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group cursor-pointer">
-                <div className="p-2 rounded-lg bg-white/5 group-hover:bg-neon-blue/10 transition-colors">
-                  <Mail size={16} className="text-neon-blue" />
-                </div>
-                <span className="text-sm">Contact@paviontechnologies.com</span>
-              </div>
-              <div className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group cursor-pointer">
-                <div className="p-2 rounded-lg bg-white/5 group-hover:bg-neon-purple/10 transition-colors">
-                  <Phone size={16} className="text-neon-purple" />
-                </div>
-                <span className="text-sm">+91 7455975301 , +91 9528991434</span>
-              </div>
-              <div className="flex items-start gap-3 text-gray-400 hover:text-white transition-colors group cursor-pointer">
-                <div className="p-2 rounded-lg bg-white/5 mt-0.5 group-hover:bg-human-warmth/10 transition-colors">
-                  <MapPin size={16} className="text-human-warmth" />
-                </div>
-                <span className="text-sm">1st Floor, Plus Offices, Landmark Cyber Park, Sector 67, Gurugam, Haryana, India</span>
+              <a href="mailto:Contact@paviontechnologies.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
+                <Mail size={14} className="text-indigo-400" />
+                <span>Contact@paviontechnologies.com</span>
+              </a>
+              <a href="tel:+917455975301" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
+                <Phone size={14} className="text-indigo-400" />
+                <span>+91 7455975301</span>
+              </a>
+              <div className="flex items-start gap-3 text-gray-400 text-sm">
+                <MapPin size={14} className="mt-0.5 flex-shrink-0 text-indigo-400" />
+                <span>Landmark Cyber Park, Sector 67, Gurugram, India</span>
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold mb-5 text-lg">Quick Links</h3>
+            <h3 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 font-medium mb-6">Navigation</h3>
             <ul className="space-y-3">
               {siteMapLinks.map((link) => (
                 <li key={link.name}>
                   {link.isRoute ? (
-                    <Link to={link.href} className="text-gray-400 hover:text-neon-blue transition-colors duration-300 text-sm flex items-center gap-2 group">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-neon-blue group-hover:shadow-[0_0_5px_#00f3ff] transition-all"></span>
+                    <Link to={link.href} className="text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
                       {link.name}
                     </Link>
                   ) : (
-                    <a href={link.href} className="text-gray-400 hover:text-neon-blue transition-colors duration-300 text-sm flex items-center gap-2 group">
-                      <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-neon-blue group-hover:shadow-[0_0_5px_#00f3ff] transition-all"></span>
+                    <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
                       {link.name}
                     </a>
                   )}
@@ -123,12 +117,11 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-white font-semibold mb-5 text-lg">Services</h3>
+            <h3 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 font-medium mb-6">Services</h3>
             <ul className="space-y-3">
               {serviceLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-neon-purple transition-colors duration-300 text-sm flex items-center gap-2 group">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-neon-purple group-hover:shadow-[0_0_5px_#b026ff] transition-all"></span>
+                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
                     {link.name}
                   </a>
                 </li>
@@ -136,14 +129,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Legal */}
+          {/* Legal & Social */}
           <div>
-            <h3 className="text-white font-semibold mb-5 text-lg">Legal</h3>
-            <ul className="space-y-3">
+            <h3 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 font-medium mb-6">Legal</h3>
+            <ul className="space-y-3 mb-10">
               {legalLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-gray-400 hover:text-human-warmth transition-colors duration-300 text-sm flex items-center gap-2 group">
-                    <span className="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-human-warmth group-hover:shadow-[0_0_5px_#f59e0b] transition-all"></span>
+                  <a href={link.href} className="text-gray-400 hover:text-white transition-colors duration-500 text-sm" data-cursor-hover>
                     {link.name}
                   </a>
                 </li>
@@ -151,39 +143,39 @@ const Footer = () => {
             </ul>
 
             {/* Social Links */}
-            <div className="mt-8">
-              <h3 className="text-white font-semibold mb-4 text-lg">Follow Us</h3>
-              <div className="flex gap-3">
-                {socialLinks.map((link, index) => (
-                  <a
-                    key={index}
-                    href={link.href}
-                    className="p-3 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-300"
-                    aria-label={link.label}
-                  >
-                    {link.icon}
-                  </a>
-                ))}
-              </div>
+            <h3 className="text-[11px] tracking-[0.2em] uppercase text-purple-400 font-medium mb-4">Connect</h3>
+            <div className="flex gap-3">
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  className="p-2.5 rounded-full border border-white/[0.1] text-gray-400 hover:text-white hover:border-indigo-400/50 transition-all duration-500"
+                  aria-label={link.label}
+                  data-cursor-hover
+                >
+                  {link.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-white/5 relative z-10 glass-panel">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      {/* Bottom Bar - Minimal */}
+      <div className="border-t border-white/[0.08] relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-gray-500 text-sm text-center md:text-left">
-              &copy; {currentYear} Pavion Technologies. All Rights Reserved.
+            <p className="text-gray-400 text-sm text-center md:text-left font-light">
+              © {currentYear} Pavion Technologies
             </p>
 
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/20 border border-white/10 hover:bg-white/5 hover:border-white/20 transition-all duration-300 group"
+              className="flex items-center gap-2 text-gray-400 hover:text-white transition-all duration-500 group"
+              data-cursor-hover
             >
-              <ArrowUp size={16} className="text-neon-blue group-hover:-translate-y-1 transition-transform" />
-              <span className="text-sm font-medium text-gray-300">Back to Top</span>
+              <span className="text-sm">Back to top</span>
+              <ArrowUp size={14} className="group-hover:-translate-y-1 transition-transform duration-300" />
             </button>
           </div>
         </div>
