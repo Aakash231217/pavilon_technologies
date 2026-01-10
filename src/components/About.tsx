@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { teamMembers } from '../data/teamData';
-import creativeImg from '../Images/pavion.jpg';
+
+// Using Unsplash for reliable image loading
+const creativeImg = 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80';
 
 type Highlight = { number: string; title: string; description: string };
 
