@@ -1,27 +1,36 @@
 // src/App.tsx
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroNew from './components/HeroNew';
-import About from './components/About';
-import HorizontalShowcase from './components/HorizontalShowcase';
-import ImageShowcase from './components/ImageShowcase';
-import StatsSection from './components/StatsSection';
-import ProcessSection from './components/ProcessSection';
-import Features from './components/Features';
-import AISection from './components/AISection';
-import PortfolioNew from './components/PortfolioNew';
-import TestimonialsNew from './components/TestimonialsNew';
-import ContactNew from './components/ContactNew';
-import FooterNew from './components/FooterNew';
-import TeamMemberDetail from './components/TeamMemberDetail';
-import ProcessView from './components/ProcessView';
-import BlogPage from './components/BlogPage';
-import Careers from './components/Careers';
 import SEO from './components/SEO';
 import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import SmoothScroll from './components/SmoothScroll';
+
+// Lazy load components below the fold for better initial performance
+const About = lazy(() => import('./components/About'));
+const HorizontalShowcase = lazy(() => import('./components/HorizontalShowcase'));
+const ImageShowcase = lazy(() => import('./components/ImageShowcase'));
+const StatsSection = lazy(() => import('./components/StatsSection'));
+const ProcessSection = lazy(() => import('./components/ProcessSection'));
+const Features = lazy(() => import('./components/Features'));
+const AISection = lazy(() => import('./components/AISection'));
+const PortfolioNew = lazy(() => import('./components/PortfolioNew'));
+const TestimonialsNew = lazy(() => import('./components/TestimonialsNew'));
+const ContactNew = lazy(() => import('./components/ContactNew'));
+const FooterNew = lazy(() => import('./components/FooterNew'));
+const TeamMemberDetail = lazy(() => import('./components/TeamMemberDetail'));
+const ProcessView = lazy(() => import('./components/ProcessView'));
+const BlogPage = lazy(() => import('./components/BlogPage'));
+const Careers = lazy(() => import('./components/Careers'));
+
+// Minimal loading fallback
+const SectionLoader = () => (
+  <div className="min-h-[50vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-2 border-lime-400/30 border-t-lime-400 rounded-full animate-spin" />
+  </div>
+);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -54,21 +63,27 @@ function App() {
               <>
                 <SEO />
                 <HeroNew />
-                <About />
-                <ProcessSection />
-                <HorizontalShowcase />
-                <ImageShowcase />
-                <StatsSection />
-                <AISection />
-                <Features />
-                <PortfolioNew />
-                <TestimonialsNew />
-                <ContactNew />
+                <Suspense fallback={<SectionLoader />}>
+                  <About />
+                  <ProcessSection />
+                  <HorizontalShowcase />
+                  <ImageShowcase />
+                  <StatsSection />
+                  <AISection />
+                  <Features />
+                  <PortfolioNew />
+                  <TestimonialsNew />
+                  <ContactNew />
+                </Suspense>
               </>
             } />
 
             {/* Team Detail Route */}
-            <Route path="/team/:id" element={<TeamMemberDetail />} />
+            <Route path="/team/:id" element={
+              <Suspense fallback={<SectionLoader />}>
+                <TeamMemberDetail />
+              </Suspense>
+            } />
 
             {/* ProcessView Route */}
             <Route path="/process" element={
@@ -79,7 +94,9 @@ function App() {
                   canonical="https://paviontechnologies.com/process"
                   ogUrl="https://paviontechnologies.com/process"
                 />
-                <ProcessView />
+                <Suspense fallback={<SectionLoader />}>
+                  <ProcessView />
+                </Suspense>
               </>
             } />
 
@@ -93,7 +110,9 @@ function App() {
                   canonical="https://paviontechnologies.com/blog"
                   ogUrl="https://paviontechnologies.com/blog"
                 />
-                <BlogPage />
+                <Suspense fallback={<SectionLoader />}>
+                  <BlogPage />
+                </Suspense>
               </>
             } />
 
@@ -107,14 +126,18 @@ function App() {
                   canonical="https://paviontechnologies.com/careers"
                   ogUrl="https://paviontechnologies.com/careers"
                 />
-                <Careers />
+                <Suspense fallback={<SectionLoader />}>
+                  <Careers />
+                </Suspense>
               </>
             } />
             
           </Routes>
 
           {/* Footer */}
-          <FooterNew />
+          <Suspense fallback={<SectionLoader />}>
+            <FooterNew />
+          </Suspense>
           
         </div>
       </SmoothScroll>

@@ -2,11 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+/* Import fonts with display swap for better performance */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
-/* Premium Agency Styling - Award-Winning Design */
+/* Performance Optimizations */
 @layer base {
+  /* GPU acceleration hints for animated elements */
+  .animate-pulse,
+  .animate-bounce {
+    will-change: opacity, transform;
+    transform: translateZ(0);
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
   * {
     cursor: none;
   }
@@ -14,6 +32,13 @@
   @media (pointer: coarse) {
     * {
       cursor: auto;
+    }
+    
+    /* Disable expensive effects on touch devices */
+    .backdrop-blur-xl,
+    .backdrop-blur-2xl {
+      backdrop-filter: none;
+      background-color: rgba(10, 10, 15, 0.95);
     }
   }
   

@@ -1,5 +1,5 @@
 // src/components/HeroNew.tsx
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MousePointer2, ArrowUpRight } from 'lucide-react';
@@ -19,56 +19,57 @@ const HeroNew: React.FC = () => {
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  
+  // Use refs instead of state to avoid re-renders on mouse move
+  const mousePosRef = useRef({ x: 0, y: 0 });
+  const rafIdRef = useRef<number | null>(null);
+  const lastUpdateRef = useRef(0);
 
-  // Mouse parallax for orbs
+  // Optimized mouse parallax - throttled and using refs
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 2;
-      const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      setMousePos({ x, y });
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const updateOrbs = () => {
+      const { x, y } = mousePosRef.current;
+      
+      // Batch all transforms together for better performance
+      if (orb1Ref.current) {
+        orb1Ref.current.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+      }
+      if (orb2Ref.current) {
+        orb2Ref.current.style.transform = `translate(${x * -20}px, ${y * -20}px)`;
+      }
+      if (orb3Ref.current) {
+        orb3Ref.current.style.transform = `translate(${x * 40}px, ${y * 40}px)`;
+      }
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate(calc(-50% + ${x * 100}px), calc(-50% + ${y * 80}px))`;
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    const handleMouseMove = (e: MouseEvent) => {
+      // Throttle to ~30fps for performance
+      const now = Date.now();
+      if (now - lastUpdateRef.current < 33) return;
+      lastUpdateRef.current = now;
+      
+      const x = (e.clientX / window.innerWidth - 0.5) * 2;
+      const y = (e.clientY / window.innerHeight - 0.5) * 2;
+      mousePosRef.current = { x, y };
+      
+      // Use RAF for smooth updates
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = requestAnimationFrame(updateOrbs);
+    };
 
-  // Apply parallax to orbs and glow follow
-  useEffect(() => {
-    if (orb1Ref.current) {
-      gsap.to(orb1Ref.current, {
-        x: mousePos.x * 30,
-        y: mousePos.y * 30,
-        duration: 1,
-        ease: "power3.out",
-      });
-    }
-    if (orb2Ref.current) {
-      gsap.to(orb2Ref.current, {
-        x: mousePos.x * -20,
-        y: mousePos.y * -20,
-        duration: 1.2,
-        ease: "power3.out",
-      });
-    }
-    if (orb3Ref.current) {
-      gsap.to(orb3Ref.current, {
-        x: mousePos.x * 40,
-        y: mousePos.y * 40,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-    }
-    // Glow follows mouse with slight delay for smooth effect
-    if (glowRef.current) {
-      gsap.to(glowRef.current, {
-        x: mousePos.x * 100,
-        y: mousePos.y * 80,
-        duration: 1.5,
-        ease: "power2.out",
-      });
-    }
-  }, [mousePos]);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+    };
+  }, []);
 
   // Initial animations with 3D effects
   useEffect(() => {
@@ -235,13 +236,15 @@ const HeroNew: React.FC = () => {
         }}
       />
 
-      {/* Gradient Orbs with Mouse Parallax */}
+      {/* Gradient Orbs with Mouse Parallax - GPU accelerated */}
       <div 
         ref={orb1Ref}
         className="absolute top-[-20%] left-[-10%] w-[800px] h-[800px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%)',
-          filter: 'blur(80px)',
+          filter: 'blur(60px)',
+          willChange: 'transform',
+          contain: 'layout style paint',
         }}
       />
       <div 
@@ -249,7 +252,9 @@ const HeroNew: React.FC = () => {
         className="absolute bottom-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(244, 114, 182, 0.12) 0%, transparent 70%)',
-          filter: 'blur(80px)',
+          filter: 'blur(60px)',
+          willChange: 'transform',
+          contain: 'layout style paint',
         }}
       />
       <div 
@@ -257,7 +262,9 @@ const HeroNew: React.FC = () => {
         className="absolute top-[40%] right-[30%] w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{
           background: 'radial-gradient(circle, rgba(167, 139, 250, 0.1) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          filter: 'blur(50px)',
+          willChange: 'transform',
+          contain: 'layout style paint',
         }}
       />
 
@@ -293,61 +300,44 @@ const HeroNew: React.FC = () => {
 
           {/* ===== SPARKLE & SHINE EFFECTS BEHIND PHONES ===== */}
           
-          {/* Central glow burst behind main phone */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] pointer-events-none z-0">
-            <div className="absolute inset-0 bg-gradient-to-r from-lime-500/20 via-cyan-500/10 to-purple-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '4s' }} />
+          {/* Central glow burst behind main phone - reduced blur for performance */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] pointer-events-none z-0" style={{ contain: 'layout style paint' }}>
+            <div className="absolute inset-0 bg-gradient-to-r from-lime-500/20 via-cyan-500/10 to-purple-500/20 rounded-full blur-[60px] animate-pulse" style={{ animationDuration: '4s' }} />
           </div>
 
-          {/* Radial light rays */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none z-0 opacity-30">
-            {[...Array(12)].map((_, i) => (
+          {/* Radial light rays - reduced count for performance */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] pointer-events-none z-0 opacity-30" style={{ contain: 'layout style paint' }}>
+            {[...Array(8)].map((_, i) => (
               <div 
                 key={i}
                 className="absolute left-1/2 top-1/2 w-1 h-[300px] origin-bottom"
                 style={{
                   background: `linear-gradient(to top, ${i % 3 === 0 ? 'rgba(132, 204, 22, 0.3)' : i % 3 === 1 ? 'rgba(6, 182, 212, 0.3)' : 'rgba(168, 85, 247, 0.3)'}, transparent)`,
-                  transform: `translate(-50%, -100%) rotate(${i * 30}deg)`,
-                  filter: 'blur(2px)',
+                  transform: `translate(-50%, -100%) rotate(${i * 45}deg)`,
                 }}
               />
             ))}
           </div>
 
-          {/* Floating sparkle particles */}
-          <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden">
+          {/* Floating sparkle particles - reduced and optimized */}
+          <div className="absolute inset-0 pointer-events-none z-[1] overflow-hidden" style={{ contain: 'layout style paint' }}>
             {/* Sparkle 1 */}
-            <div className="absolute top-[20%] left-[15%] w-2 h-2 bg-white rounded-full animate-ping opacity-60" style={{ animationDuration: '2s', animationDelay: '0s' }} />
-            <div className="absolute top-[20%] left-[15%] w-1 h-1 bg-white rounded-full" />
+            <div className="absolute top-[20%] left-[15%] w-2 h-2 bg-white rounded-full animate-pulse opacity-60" style={{ animationDuration: '2s' }} />
             
             {/* Sparkle 2 */}
-            <div className="absolute top-[30%] right-[20%] w-2 h-2 bg-lime-400 rounded-full animate-ping opacity-50" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
-            <div className="absolute top-[30%] right-[20%] w-1 h-1 bg-lime-400 rounded-full" />
+            <div className="absolute top-[30%] right-[20%] w-2 h-2 bg-lime-400 rounded-full animate-pulse opacity-50" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
             
             {/* Sparkle 3 */}
-            <div className="absolute top-[60%] left-[10%] w-2 h-2 bg-purple-400 rounded-full animate-ping opacity-50" style={{ animationDuration: '3s', animationDelay: '1s' }} />
-            <div className="absolute top-[60%] left-[10%] w-1 h-1 bg-purple-400 rounded-full" />
+            <div className="absolute top-[60%] left-[10%] w-2 h-2 bg-purple-400 rounded-full animate-pulse opacity-50" style={{ animationDuration: '3s', animationDelay: '1s' }} />
             
             {/* Sparkle 4 */}
-            <div className="absolute top-[70%] right-[15%] w-2 h-2 bg-cyan-400 rounded-full animate-ping opacity-50" style={{ animationDuration: '2.2s', animationDelay: '0.3s' }} />
-            <div className="absolute top-[70%] right-[15%] w-1 h-1 bg-cyan-400 rounded-full" />
+            <div className="absolute top-[70%] right-[15%] w-2 h-2 bg-cyan-400 rounded-full animate-pulse opacity-50" style={{ animationDuration: '2.2s', animationDelay: '0.3s' }} />
             
             {/* Sparkle 5 */}
-            <div className="absolute top-[15%] left-[40%] w-1.5 h-1.5 bg-white rounded-full animate-ping opacity-40" style={{ animationDuration: '2.8s', animationDelay: '1.5s' }} />
+            <div className="absolute top-[15%] left-[40%] w-1.5 h-1.5 bg-white rounded-full animate-pulse opacity-40" style={{ animationDuration: '2.8s', animationDelay: '1.5s' }} />
             
             {/* Sparkle 6 */}
-            <div className="absolute top-[80%] left-[35%] w-1.5 h-1.5 bg-lime-300 rounded-full animate-ping opacity-40" style={{ animationDuration: '3.2s', animationDelay: '0.8s' }} />
-            
-            {/* Sparkle 7 */}
-            <div className="absolute top-[25%] right-[35%] w-1 h-1 bg-purple-300 rounded-full animate-ping opacity-50" style={{ animationDuration: '2.4s', animationDelay: '2s' }} />
-            
-            {/* Sparkle 8 */}
-            <div className="absolute top-[50%] left-[5%] w-2 h-2 bg-cyan-300 rounded-full animate-ping opacity-40" style={{ animationDuration: '2.6s', animationDelay: '1.2s' }} />
-            
-            {/* Sparkle 9 */}
-            <div className="absolute top-[45%] right-[8%] w-1.5 h-1.5 bg-white rounded-full animate-ping opacity-50" style={{ animationDuration: '3s', animationDelay: '0.7s' }} />
-            
-            {/* Sparkle 10 */}
-            <div className="absolute top-[85%] right-[40%] w-1 h-1 bg-lime-400 rounded-full animate-ping opacity-60" style={{ animationDuration: '2.3s', animationDelay: '1.8s' }} />
+            <div className="absolute top-[80%] left-[35%] w-1.5 h-1.5 bg-lime-300 rounded-full animate-pulse opacity-40" style={{ animationDuration: '3.2s', animationDelay: '0.8s' }} />
           </div>
 
           {/* Shimmering stars */}
@@ -405,15 +395,15 @@ const HeroNew: React.FC = () => {
             </div>
           </div>
 
-          {/* Soft glow orbs behind side phones */}
-          <div className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[250px] h-[350px] bg-gradient-to-br from-purple-500/15 to-transparent rounded-full blur-[80px] pointer-events-none z-0" />
-          <div className="absolute right-[15%] top-1/2 -translate-y-1/2 w-[250px] h-[350px] bg-gradient-to-bl from-cyan-500/15 to-transparent rounded-full blur-[80px] pointer-events-none z-0" />
+          {/* Soft glow orbs behind side phones - reduced blur for performance */}
+          <div className="absolute left-[15%] top-1/2 -translate-y-1/2 w-[250px] h-[350px] bg-gradient-to-br from-purple-500/15 to-transparent rounded-full blur-[50px] pointer-events-none z-0" style={{ contain: 'layout style paint' }} />
+          <div className="absolute right-[15%] top-1/2 -translate-y-1/2 w-[250px] h-[350px] bg-gradient-to-bl from-cyan-500/15 to-transparent rounded-full blur-[50px] pointer-events-none z-0" style={{ contain: 'layout style paint' }} />
 
-          {/* Floating ring effect behind center phone */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none z-0">
-            <div className="absolute inset-0 border border-lime-500/10 rounded-full animate-ping" style={{ animationDuration: '4s' }} />
-            <div className="absolute inset-4 border border-lime-500/10 rounded-full animate-ping" style={{ animationDuration: '4s', animationDelay: '1s' }} />
-            <div className="absolute inset-8 border border-lime-500/10 rounded-full animate-ping" style={{ animationDuration: '4s', animationDelay: '2s' }} />
+          {/* Floating ring effect behind center phone - optimized */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] pointer-events-none z-0" style={{ contain: 'layout style paint' }}>
+            <div className="absolute inset-0 border border-lime-500/10 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+            <div className="absolute inset-4 border border-lime-500/10 rounded-full animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+            <div className="absolute inset-8 border border-lime-500/10 rounded-full animate-pulse" style={{ animationDuration: '4s', animationDelay: '2s' }} />
           </div>
 
           {/* ===== END SPARKLE EFFECTS ===== */}
@@ -430,27 +420,27 @@ const HeroNew: React.FC = () => {
               className="relative z-10 w-40 lg:w-48 hidden lg:block"
               style={{ transformStyle: 'preserve-3d' }}
             >
-              {/* Connection LINE from left phone to center phone - DOTTED & FLEXIBLE */}
-              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-2 z-20 flex items-center justify-between">
-                {/* Dotted line segments - spaced evenly */}
-                <div className="w-2.5 h-2.5 rounded-full bg-purple-500 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(168, 85, 247, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-pink-500 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(236, 72, 153, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-pink-400 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(244, 114, 182, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-lime-500 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(132, 204, 22, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-lime-400 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(163, 230, 53, 0.9)' }} />
-                {/* Animated traveling particle */}
+              {/* Connection line from left phone to center phone */}
+              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-6 z-20 flex items-center justify-between">
+                {/* Dots */}
+                <div className="w-2.5 h-2.5 rounded-full bg-purple-500/60 animate-pulse border border-purple-400/50" style={{ animationDelay: '0s' }} />
+                <div className="w-2 h-2 rounded-full bg-pink-500/60 animate-pulse border border-pink-400/50" style={{ animationDelay: '0.15s' }} />
+                <div className="w-2.5 h-2.5 rounded-full bg-pink-400/60 animate-pulse border border-pink-300/50" style={{ animationDelay: '0.3s' }} />
+                <div className="w-2 h-2 rounded-full bg-lime-500/60 animate-pulse border border-lime-400/50" style={{ animationDelay: '0.45s' }} />
+                <div className="w-2.5 h-2.5 rounded-full bg-lime-400/60 animate-pulse border border-lime-300/50" style={{ animationDelay: '0.6s' }} />
+                {/* Traveling particle */}
                 <div 
-                  className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full"
+                  className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full"
                   style={{ 
                     animation: 'moveLeftToRight 1.5s ease-in-out infinite',
-                    boxShadow: '0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(168, 85, 247, 0.9)'
+                    boxShadow: '0 0 8px rgba(168, 85, 247, 0.8)'
                   }}
                 />
               </div>
               
               {/* Connection dot */}
               <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-purple-500/30 border-2 border-purple-400/50 flex items-center justify-center z-30">
-                <div className="w-2 h-2 rounded-full bg-purple-400 animate-ping" />
+                <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
               </div>
               
               <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.8rem] border-4 border-gray-700/80 shadow-2xl shadow-purple-500/20 overflow-hidden group hover:shadow-purple-500/40 transition-all duration-500">
@@ -506,20 +496,20 @@ const HeroNew: React.FC = () => {
               className="relative z-20 w-64 lg:w-80"
               style={{ transformStyle: 'preserve-3d' }}
             >
-              {/* Connection LINE from center phone to right phone - DOTTED & FLEXIBLE */}
-              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-2 z-20 hidden lg:flex items-center justify-between">
-                {/* Dotted line segments - spaced evenly */}
-                <div className="w-2.5 h-2.5 rounded-full bg-lime-400 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(132, 204, 22, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(52, 211, 153, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(34, 211, 238, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-cyan-500 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(6, 182, 212, 0.9)' }} />
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-500 flex-shrink-0" style={{ boxShadow: '0 0 10px rgba(59, 130, 246, 0.9)' }} />
-                {/* Animated traveling particle */}
+              {/* Connection line from center phone to right phone */}
+              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-6 z-20 hidden lg:flex items-center justify-between">
+                {/* Dots */}
+                <div className="w-2.5 h-2.5 rounded-full bg-lime-500/60 animate-pulse border border-lime-400/50" style={{ animationDelay: '0s' }} />
+                <div className="w-2 h-2 rounded-full bg-lime-400/60 animate-pulse border border-lime-300/50" style={{ animationDelay: '0.15s' }} />
+                <div className="w-2.5 h-2.5 rounded-full bg-cyan-500/60 animate-pulse border border-cyan-400/50" style={{ animationDelay: '0.3s' }} />
+                <div className="w-2 h-2 rounded-full bg-cyan-400/60 animate-pulse border border-cyan-300/50" style={{ animationDelay: '0.45s' }} />
+                <div className="w-2.5 h-2.5 rounded-full bg-cyan-500/60 animate-pulse border border-cyan-400/50" style={{ animationDelay: '0.6s' }} />
+                {/* Traveling particle */}
                 <div 
-                  className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full"
+                  className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full"
                   style={{ 
                     animation: 'moveLeftToRight 1.5s ease-in-out infinite 0.5s',
-                    boxShadow: '0 0 15px rgba(255, 255, 255, 1), 0 0 30px rgba(6, 182, 212, 0.9)'
+                    boxShadow: '0 0 8px rgba(6, 182, 212, 0.8)'
                   }}
                 />
               </div>
@@ -602,16 +592,15 @@ const HeroNew: React.FC = () => {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </a>
 
-                    {/* Animated decorative dots */}
-                    <div className="absolute top-20 left-6 w-2 h-2 bg-purple-500/40 rounded-full animate-ping" style={{ animationDuration: '2s' }} />
-                    <div className="absolute bottom-24 right-8 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-ping" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
-                    <div className="absolute top-32 right-10 w-1 h-1 bg-lime-500/40 rounded-full animate-ping" style={{ animationDuration: '3s', animationDelay: '1s' }} />
+                    {/* Animated decorative dots - optimized */}
+                    <div className="absolute top-20 left-6 w-2 h-2 bg-purple-500/40 rounded-full animate-pulse" style={{ animationDuration: '2s' }} />
+                    <div className="absolute bottom-24 right-8 w-1.5 h-1.5 bg-cyan-500/40 rounded-full animate-pulse" style={{ animationDuration: '2.5s', animationDelay: '0.5s' }} />
                   </div>
                 </div>
 
-                {/* Reflection/Shadow */}
-                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-4/5 h-6 bg-lime-500/15 blur-2xl rounded-full" />
-                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2/3 h-3 bg-lime-400/20 blur-xl rounded-full" />
+                {/* Reflection/Shadow - optimized blur */}
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-4/5 h-6 bg-lime-500/15 blur-xl rounded-full" />
+                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-2/3 h-3 bg-lime-400/20 blur-lg rounded-full" />
               </div>
             </div>
 
@@ -623,7 +612,7 @@ const HeroNew: React.FC = () => {
             >
               {/* Connection dot */}
               <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-cyan-500/30 border-2 border-cyan-400/50 flex items-center justify-center z-30">
-                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               </div>
               
               <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.8rem] border-4 border-gray-700/80 shadow-2xl shadow-cyan-500/20 overflow-hidden group hover:shadow-cyan-500/40 transition-all duration-500">
