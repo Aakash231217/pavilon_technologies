@@ -36,8 +36,8 @@ const Navbar = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
       className={`fixed w-full z-50 transition-all duration-700 ${scrolled
-        ? 'bg-black/60 backdrop-blur-2xl'
-        : 'bg-transparent'
+        ? 'bg-slate-700/90 backdrop-blur-2xl border-b border-slate-500/30'
+        : 'bg-slate-600/60 backdrop-blur-md'
         }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -50,9 +50,10 @@ const Navbar = () => {
           >
             <a href="#home" className="flex items-center" data-cursor-hover>
               <img
-                className="w-36 h-auto object-contain opacity-90"
+                className="w-36 h-auto object-contain"
                 src={logoImage}
                 alt="Pavion"
+                style={{ filter: 'brightness(1.8) contrast(1.1) saturate(1.2)' }}
               />
             </a>
           </motion.div>
