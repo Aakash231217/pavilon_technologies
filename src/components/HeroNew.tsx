@@ -83,17 +83,20 @@ const HeroNew: React.FC = () => {
         rotateX: 10,
         transformPerspective: 1200,
       });
+      // Different initial states based on screen size
+      const isMobile = window.innerWidth < 1024;
+      
       gsap.set(leftCardRef.current, { 
         opacity: 0, 
-        x: -100, 
-        rotateY: 25,
+        x: isMobile ? -50 : -100, 
+        rotateY: isMobile ? 15 : 25,
         rotateX: -5,
         transformPerspective: 1000,
       });
       gsap.set(rightCardRef.current, { 
         opacity: 0, 
-        x: 100, 
-        rotateY: -25,
+        x: isMobile ? 50 : 100, 
+        rotateY: isMobile ? -15 : -25,
         rotateX: -5,
         transformPerspective: 1000,
       });
@@ -121,7 +124,7 @@ const HeroNew: React.FC = () => {
 
       // Animate left card sliding in with 3D
       tl.to(leftCardRef.current, {
-        opacity: 1,
+        opacity: isMobile ? 0.5 : 1,
         x: 0,
         rotateY: 0,
         rotateX: 0,
@@ -131,7 +134,7 @@ const HeroNew: React.FC = () => {
 
       // Animate right card sliding in with 3D
       tl.to(rightCardRef.current, {
-        opacity: 1,
+        opacity: isMobile ? 0.5 : 1,
         x: 0,
         rotateY: 0,
         rotateX: 0,
@@ -410,18 +413,54 @@ const HeroNew: React.FC = () => {
 
           {/* CSS-based Connection Lines that connect to phones */}
 
-          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8 py-12">
+          {/* Mobile Stats Row - Visible only on mobile */}
+          <div className="flex lg:hidden justify-center gap-3 mb-6 flex-wrap px-4">
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-lime-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-lime-400 to-emerald-500 flex items-center justify-center">
+                  <span className="text-black text-[10px] font-bold">✓</span>
+                </div>
+                <div>
+                  <div className="text-lime-400 text-xs font-bold">100%</div>
+                  <div className="text-gray-400 text-[8px]">Satisfaction</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-cyan-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+                  <span className="text-white text-[10px]">👥</span>
+                </div>
+                <div>
+                  <div className="text-cyan-400 text-xs font-bold">50+</div>
+                  <div className="text-gray-400 text-[8px]">Clients</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-purple-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+                  <span className="text-white text-[10px]">⏰</span>
+                </div>
+                <div>
+                  <div className="text-purple-400 text-xs font-bold">24/7</div>
+                  <div className="text-gray-400 text-[8px]">Support</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8 py-6 lg:py-12">
             
-
-
+            {/* Mobile: Side phones shown smaller alongside main phone */}
             {/* Left Small Phone - with 3D transform */}
             <div 
               ref={leftCardRef}
-              className="relative z-10 w-40 lg:w-48 hidden lg:block"
+              className="absolute lg:relative left-2 sm:left-4 lg:left-auto z-10 w-20 sm:w-24 lg:w-48"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection line from left phone to center phone */}
-              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-6 z-20 flex items-center justify-between">
+              <div className="absolute top-1/2 -translate-y-1/2 left-[calc(100%+8px)] w-[calc(4rem+30px)] h-6 z-20 hidden lg:flex items-center justify-between">
                 {/* Dots */}
                 <div className="w-2.5 h-2.5 rounded-full bg-purple-500/60 animate-pulse border border-purple-400/50" style={{ animationDelay: '0s' }} />
                 <div className="w-2 h-2 rounded-full bg-pink-500/60 animate-pulse border border-pink-400/50" style={{ animationDelay: '0.15s' }} />
@@ -439,25 +478,25 @@ const HeroNew: React.FC = () => {
               </div>
               
               {/* Connection dot */}
-              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-purple-500/30 border-2 border-purple-400/50 flex items-center justify-center z-30">
+              <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-purple-500/30 border-2 border-purple-400/50 hidden lg:flex items-center justify-center z-30">
                 <div className="w-2 h-2 rounded-full bg-purple-400 animate-pulse" />
               </div>
               
-              <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.8rem] border-4 border-gray-700/80 shadow-2xl shadow-purple-500/20 overflow-hidden group hover:shadow-purple-500/40 transition-all duration-500">
+              <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.2rem] lg:rounded-[1.8rem] border-2 lg:border-4 border-gray-700/80 shadow-2xl shadow-purple-500/20 overflow-hidden group hover:shadow-purple-500/40 transition-all duration-500">
                 {/* Metallic frame highlight */}
-                <div className="absolute inset-0 rounded-[1.5rem] border border-white/10 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[1rem] lg:rounded-[1.5rem] border border-white/10 pointer-events-none" />
                 
                 {/* Dynamic Island */}
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-14 h-4 bg-black rounded-full z-10" />
+                <div className="absolute top-1 lg:top-1.5 left-1/2 -translate-x-1/2 w-10 lg:w-14 h-2.5 lg:h-4 bg-black rounded-full z-10" />
                 
                 {/* Screen Content - Analytics Dashboard */}
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-950/80 via-gray-950 to-gray-900 p-3 pt-7 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-950/80 via-gray-950 to-gray-900 p-2 lg:p-3 pt-5 lg:pt-7 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-transparent" />
                   
                   {/* Mini chart bars */}
-                  <div className="relative z-10 mt-2">
-                    <div className="text-[8px] text-purple-300 font-medium mb-1">Analytics</div>
-                    <div className="flex items-end gap-0.5 h-12 mb-2">
+                  <div className="relative z-10 mt-1 lg:mt-2">
+                    <div className="text-[6px] lg:text-[8px] text-purple-300 font-medium mb-1">Analytics</div>
+                    <div className="flex items-end gap-0.5 h-8 lg:h-12 mb-1 lg:mb-2">
                       <div className="flex-1 bg-purple-500/30 rounded-t" style={{ height: '40%' }} />
                       <div className="flex-1 bg-purple-500/50 rounded-t" style={{ height: '60%' }} />
                       <div className="flex-1 bg-purple-500/70 rounded-t" style={{ height: '80%' }} />
@@ -465,24 +504,24 @@ const HeroNew: React.FC = () => {
                       <div className="flex-1 bg-purple-500/60 rounded-t" style={{ height: '70%' }} />
                       <div className="flex-1 bg-purple-500/40 rounded-t" style={{ height: '50%' }} />
                     </div>
-                    <div className="text-sm font-bold text-white">+127%</div>
-                    <div className="text-[7px] text-gray-500">Growth Rate</div>
+                    <div className="text-xs lg:text-sm font-bold text-white">+127%</div>
+                    <div className="text-[5px] lg:text-[7px] text-gray-500">Growth Rate</div>
                   </div>
                   
-                  {/* Stats cards */}
-                  <div className="relative z-10 mt-3 space-y-1.5">
-                    <div className="bg-white/5 backdrop-blur rounded-lg p-1.5 border border-white/10">
-                      <div className="text-[6px] text-gray-400">Users</div>
-                      <div className="text-xs font-bold text-white">24.5K</div>
+                  {/* Stats cards - Hidden on very small screens */}
+                  <div className="relative z-10 mt-2 lg:mt-3 space-y-1 lg:space-y-1.5 hidden sm:block">
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-1 lg:p-1.5 border border-white/10">
+                      <div className="text-[5px] lg:text-[6px] text-gray-400">Users</div>
+                      <div className="text-[10px] lg:text-xs font-bold text-white">24.5K</div>
                     </div>
-                    <div className="bg-white/5 backdrop-blur rounded-lg p-1.5 border border-white/10">
-                      <div className="text-[6px] text-gray-400">Revenue</div>
-                      <div className="text-xs font-bold text-purple-300">$48K</div>
+                    <div className="bg-white/5 backdrop-blur rounded-lg p-1 lg:p-1.5 border border-white/10">
+                      <div className="text-[5px] lg:text-[6px] text-gray-400">Revenue</div>
+                      <div className="text-[10px] lg:text-xs font-bold text-purple-300">$48K</div>
                     </div>
                   </div>
 
                   {/* Bottom nav indicator */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full" />
+                  <div className="absolute bottom-1 lg:bottom-2 left-1/2 -translate-x-1/2 w-8 lg:w-12 h-0.5 lg:h-1 bg-white/20 rounded-full" />
                 </div>
               </div>
               
@@ -493,7 +532,7 @@ const HeroNew: React.FC = () => {
             {/* Center Phone Mockup - BIGGER with 3D transforms */}
             <div 
               ref={phoneRef}
-              className="relative z-20 w-64 lg:w-80"
+              className="relative z-20 w-52 sm:w-60 lg:w-80 mx-auto"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection line from center phone to right phone */}
@@ -607,60 +646,60 @@ const HeroNew: React.FC = () => {
             {/* Right Small Phone - with 3D transform */}
             <div 
               ref={rightCardRef}
-              className="relative z-10 w-40 lg:w-48 hidden lg:block"
+              className="absolute lg:relative right-2 sm:right-4 lg:right-auto z-10 w-20 sm:w-24 lg:w-48"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection dot */}
-              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-cyan-500/30 border-2 border-cyan-400/50 flex items-center justify-center z-30">
+              <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-cyan-500/30 border-2 border-cyan-400/50 hidden lg:flex items-center justify-center z-30">
                 <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               </div>
               
-              <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.8rem] border-4 border-gray-700/80 shadow-2xl shadow-cyan-500/20 overflow-hidden group hover:shadow-cyan-500/40 transition-all duration-500">
+              <div className="relative aspect-[9/18] bg-gradient-to-br from-gray-900 via-gray-950 to-black rounded-[1.2rem] lg:rounded-[1.8rem] border-2 lg:border-4 border-gray-700/80 shadow-2xl shadow-cyan-500/20 overflow-hidden group hover:shadow-cyan-500/40 transition-all duration-500">
                 {/* Metallic frame highlight */}
-                <div className="absolute inset-0 rounded-[1.5rem] border border-white/10 pointer-events-none" />
+                <div className="absolute inset-0 rounded-[1rem] lg:rounded-[1.5rem] border border-white/10 pointer-events-none" />
                 
                 {/* Dynamic Island */}
-                <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-14 h-4 bg-black rounded-full z-10" />
+                <div className="absolute top-1 lg:top-1.5 left-1/2 -translate-x-1/2 w-10 lg:w-14 h-2.5 lg:h-4 bg-black rounded-full z-10" />
                 
                 {/* Screen Content - Design/Tasks App */}
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/80 via-gray-950 to-gray-900 p-3 pt-7 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-950/80 via-gray-950 to-gray-900 p-2 lg:p-3 pt-5 lg:pt-7 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 via-transparent to-transparent" />
                   
                   {/* Header */}
-                  <div className="relative z-10 mt-2">
-                    <div className="text-[8px] text-cyan-300 font-medium mb-2">Projects</div>
+                  <div className="relative z-10 mt-1 lg:mt-2">
+                    <div className="text-[6px] lg:text-[8px] text-cyan-300 font-medium mb-1 lg:mb-2">Projects</div>
                     
                     {/* Task cards */}
-                    <div className="space-y-2">
-                      <div className="bg-white/5 backdrop-blur rounded-lg p-2 border border-cyan-500/20">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-lime-400" />
-                          <span className="text-[7px] text-gray-400">In Progress</span>
+                    <div className="space-y-1 lg:space-y-2">
+                      <div className="bg-white/5 backdrop-blur rounded-lg p-1.5 lg:p-2 border border-cyan-500/20">
+                        <div className="flex items-center gap-1 lg:gap-1.5 mb-0.5 lg:mb-1">
+                          <div className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full bg-lime-400" />
+                          <span className="text-[5px] lg:text-[7px] text-gray-400">In Progress</span>
                         </div>
-                        <div className="text-[9px] font-medium text-white">UI Design</div>
-                        <div className="mt-1.5 w-full h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <div className="text-[7px] lg:text-[9px] font-medium text-white">UI Design</div>
+                        <div className="mt-1 lg:mt-1.5 w-full h-0.5 lg:h-1 bg-gray-800 rounded-full overflow-hidden">
                           <div className="w-3/4 h-full bg-gradient-to-r from-cyan-500 to-lime-400 rounded-full" />
                         </div>
                       </div>
                       
-                      <div className="bg-white/5 backdrop-blur rounded-lg p-2 border border-cyan-500/20">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-purple-400" />
-                          <span className="text-[7px] text-gray-400">Review</span>
+                      <div className="bg-white/5 backdrop-blur rounded-lg p-1.5 lg:p-2 border border-cyan-500/20 hidden sm:block">
+                        <div className="flex items-center gap-1 lg:gap-1.5 mb-0.5 lg:mb-1">
+                          <div className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full bg-purple-400" />
+                          <span className="text-[5px] lg:text-[7px] text-gray-400">Review</span>
                         </div>
-                        <div className="text-[9px] font-medium text-white">Mobile App</div>
-                        <div className="mt-1.5 w-full h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <div className="text-[7px] lg:text-[9px] font-medium text-white">Mobile App</div>
+                        <div className="mt-1 lg:mt-1.5 w-full h-0.5 lg:h-1 bg-gray-800 rounded-full overflow-hidden">
                           <div className="w-1/2 h-full bg-gradient-to-r from-purple-500 to-cyan-400 rounded-full" />
                         </div>
                       </div>
 
-                      <div className="bg-white/5 backdrop-blur rounded-lg p-2 border border-cyan-500/20">
-                        <div className="flex items-center gap-1.5 mb-1">
-                          <div className="w-2 h-2 rounded-full bg-cyan-400" />
-                          <span className="text-[7px] text-gray-400">Complete</span>
+                      <div className="bg-white/5 backdrop-blur rounded-lg p-1.5 lg:p-2 border border-cyan-500/20 hidden sm:block">
+                        <div className="flex items-center gap-1 lg:gap-1.5 mb-0.5 lg:mb-1">
+                          <div className="w-1.5 lg:w-2 h-1.5 lg:h-2 rounded-full bg-cyan-400" />
+                          <span className="text-[5px] lg:text-[7px] text-gray-400">Complete</span>
                         </div>
-                        <div className="text-[9px] font-medium text-white">Branding</div>
-                        <div className="mt-1.5 w-full h-1 bg-gray-800 rounded-full overflow-hidden">
+                        <div className="text-[7px] lg:text-[9px] font-medium text-white">Branding</div>
+                        <div className="mt-1 lg:mt-1.5 w-full h-0.5 lg:h-1 bg-gray-800 rounded-full overflow-hidden">
                           <div className="w-full h-full bg-gradient-to-r from-cyan-500 to-emerald-400 rounded-full" />
                         </div>
                       </div>
@@ -668,7 +707,7 @@ const HeroNew: React.FC = () => {
                   </div>
 
                   {/* Bottom nav indicator */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-12 h-1 bg-white/20 rounded-full" />
+                  <div className="absolute bottom-1 lg:bottom-2 left-1/2 -translate-x-1/2 w-8 lg:w-12 h-0.5 lg:h-1 bg-white/20 rounded-full" />
                 </div>
               </div>
               
@@ -677,6 +716,42 @@ const HeroNew: React.FC = () => {
             </div>
           </div>
 
+          {/* Mobile Stats Row 2 - Visible only on mobile */}
+          <div className="flex lg:hidden justify-center gap-3 mt-6 flex-wrap px-4">
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-indigo-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-indigo-400 to-violet-500 flex items-center justify-center">
+                  <span className="text-white text-[10px]">📁</span>
+                </div>
+                <div>
+                  <div className="text-indigo-400 text-xs font-bold">200+</div>
+                  <div className="text-gray-400 text-[8px]">Projects</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-amber-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                  <span className="text-white text-[10px]">⭐</span>
+                </div>
+                <div>
+                  <div className="text-amber-400 text-xs font-bold">5.0</div>
+                  <div className="text-gray-400 text-[8px]">Rating</div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-900/80 backdrop-blur-xl border border-rose-500/30 rounded-xl px-3 py-2 shadow-lg">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center">
+                  <span className="text-white text-[10px]">💡</span>
+                </div>
+                <div>
+                  <div className="text-rose-400 text-xs font-bold">AI</div>
+                  <div className="text-gray-400 text-[8px]">Powered</div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>
@@ -872,19 +947,19 @@ const HeroNew: React.FC = () => {
       {/* ===== END FLOATING STAT BADGES ===== */}
 
       {/* Marquee */}
-      <div className="absolute bottom-0 left-0 right-0 py-5 border-t border-white/[0.05] bg-black/30 backdrop-blur-sm">
+      <div className="absolute bottom-0 left-0 right-0 py-3 lg:py-5 border-t border-white/[0.05] bg-black/30 backdrop-blur-sm">
         <Marquee 
           items={services}
           speed={35}
-          className="text-base font-medium text-gray-500 hover:text-gray-300 transition-colors"
+          className="text-sm lg:text-base font-medium text-gray-500 hover:text-gray-300 transition-colors"
         />
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
-        <span className="text-[10px] tracking-[0.3em] uppercase text-gray-600">Explore</span>
-        <div className="w-5 h-9 rounded-full border border-white/20 flex justify-center pt-2">
-          <div className="w-1 h-2.5 bg-white/50 rounded-full animate-bounce" />
+      <div className="absolute bottom-16 lg:bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
+        <span className="text-[8px] lg:text-[10px] tracking-[0.2em] lg:tracking-[0.3em] uppercase text-gray-600">Explore</span>
+        <div className="w-4 lg:w-5 h-7 lg:h-9 rounded-full border border-white/20 flex justify-center pt-1.5 lg:pt-2">
+          <div className="w-0.5 lg:w-1 h-2 lg:h-2.5 bg-white/50 rounded-full animate-bounce" />
         </div>
       </div>
 
