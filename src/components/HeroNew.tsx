@@ -955,14 +955,6 @@ const HeroNew: React.FC = () => {
         />
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-16 lg:bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20">
-        <span className="text-[8px] lg:text-[10px] tracking-[0.2em] lg:tracking-[0.3em] uppercase text-gray-600">Explore</span>
-        <div className="w-4 lg:w-5 h-7 lg:h-9 rounded-full border border-white/20 flex justify-center pt-1.5 lg:pt-2">
-          <div className="w-0.5 lg:w-1 h-2 lg:h-2.5 bg-white/50 rounded-full animate-bounce" />
-        </div>
-      </div>
-
       {/* Decorative corners */}
       <div className="absolute top-28 left-8 w-32 h-32 border-l border-t border-white/[0.04] hidden lg:block" />
       <div className="absolute top-28 right-8 w-32 h-32 border-r border-t border-white/[0.04] hidden lg:block" />

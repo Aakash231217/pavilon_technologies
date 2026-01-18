@@ -175,7 +175,7 @@ const HorizontalShowcase: React.FC = () => {
               style={{ perspective: '1000px' }}
             >
               <div 
-                className="relative w-full max-w-4xl aspect-[4/3] rounded-3xl overflow-hidden group cursor-pointer"
+                className="relative w-full max-w-4xl aspect-[3/4] md:aspect-[4/3] rounded-3xl overflow-hidden group cursor-pointer"
                 data-cursor-hover
                 data-cursor-text="Explore"
               >
@@ -196,27 +196,28 @@ const HorizontalShowcase: React.FC = () => {
                 <div className="absolute inset-0 border border-white/[0.1] rounded-3xl" />
                 
                 {/* Content */}
-                <div className="relative z-10 h-full p-12 md:p-16 flex flex-col justify-between">
+                <div className="relative z-10 h-full p-6 md:p-16 flex flex-col justify-between">
                   <div className="flex items-start justify-between">
-                    <span className="text-[120px] md:text-[180px] font-bold text-white/[0.05] leading-none">
+                    <span className="text-[80px] md:text-[180px] font-bold text-white/[0.05] leading-none">
                       {service.number}
                     </span>
                     <a 
                       href="#contact"
-                      className="w-12 h-12 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all duration-500"
+                      className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/30 backdrop-blur-sm flex items-center justify-center text-white group-hover:bg-white group-hover:text-black transition-all duration-500"
                     >
                       <ArrowUpRight size={18} />
                     </a>
                   </div>
 
                   <div>
-                    <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${service.color} mb-6 shadow-lg`}>
-                      <Icon size={32} className="text-white" />
+                    <div className={`inline-flex p-3 md:p-4 rounded-xl md:rounded-2xl bg-gradient-to-br ${service.color} mb-4 md:mb-6 shadow-lg`}>
+                      <Icon size={24} className="text-white md:hidden" />
+                      <Icon size={32} className="text-white hidden md:block" />
                     </div>
-                    <h3 className="text-3xl md:text-5xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500">
+                    <h3 className="text-2xl md:text-5xl font-bold text-white mb-2 md:mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-500">
                       {service.title}
                     </h3>
-                    <p className="text-lg text-gray-400 max-w-lg leading-relaxed">
+                    <p className="text-sm md:text-lg text-gray-400 max-w-lg leading-relaxed">
                       {service.description}
                     </p>
                   </div>

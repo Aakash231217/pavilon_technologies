@@ -72,7 +72,7 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({
 
   return (
     <Component {...props}>
-      <div ref={contentRef} className="relative">
+      <div ref={contentRef} className="relative flex items-center gap-2">
         {children}
       </div>
     </Component>

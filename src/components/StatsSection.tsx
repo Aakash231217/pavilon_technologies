@@ -25,12 +25,6 @@ const stats = [
     label: 'Satisfaction Rate',
     description: 'Client happiness guaranteed',
   },
-  {
-    value: 5,
-    suffix: '+',
-    label: 'Years Experience',
-    description: 'In digital innovation',
-  },
 ];
 
 const StatsSection: React.FC = () => {
@@ -90,7 +84,7 @@ const StatsSection: React.FC = () => {
         </div>
 
         {/* Stats grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/[0.05] rounded-3xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/[0.05] rounded-3xl overflow-hidden">
           {stats.map((stat, i) => (
             <div 
               key={i}

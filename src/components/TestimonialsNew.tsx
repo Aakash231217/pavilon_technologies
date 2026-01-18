@@ -186,28 +186,7 @@ const TestimonialsNew: React.FC = () => {
           </div>
         </div>
 
-        {/* Client logos */}
-        <div className="mt-20 text-center">
-          <p className="text-sm text-gray-600 uppercase tracking-wider mb-10">Trusted by innovative companies</p>
-          <div className="flex flex-wrap justify-center items-center gap-x-16 gap-y-8">
-            {[
-              { name: 'TechFlow', icon: '⚡' },
-              { name: 'DataSync', icon: '🔄' },
-              { name: 'CloudNine', icon: '☁️' },
-              { name: 'InnoLabs', icon: '🧪' },
-              { name: 'NextGen', icon: '🚀' },
-            ].map((company, i) => (
-              <div 
-                key={i} 
-                className="flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors duration-500"
-                data-cursor-hover
-              >
-                <span className="text-2xl">{company.icon}</span>
-                <span className="text-xl font-semibold tracking-tight">{company.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+
       </div>
     </section>
   );
