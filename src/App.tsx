@@ -23,6 +23,7 @@ const FooterNew = lazy(() => import('./components/FooterNew'));
 const TeamMemberDetail = lazy(() => import('./components/TeamMemberDetail'));
 const ProcessView = lazy(() => import('./components/ProcessView'));
 const BlogPage = lazy(() => import('./components/BlogPage'));
+const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
 const Careers = lazy(() => import('./components/Careers'));
 
 // Minimal loading fallback
@@ -114,6 +115,13 @@ function App() {
                   <BlogPage />
                 </Suspense>
               </>
+            } />
+
+            {/* Individual Blog Post Route */}
+            <Route path="/blog/:slug" element={
+              <Suspense fallback={<SectionLoader />}>
+                <BlogPostPage />
+              </Suspense>
             } />
 
             {/* Careers Page Route */}

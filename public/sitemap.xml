@@ -49,9 +49,88 @@
   <!-- Blog Page -->
   <url>
     <loc>https://paviontechnologies.com/blog</loc>
-    <lastmod>2025-12-16</lastmod>
+    <lastmod>2026-01-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://paviontechnologies.com/blog/how-ai-is-transforming-business-operations-2026</loc>
+    <lastmod>2026-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/machine-learning-revolutionizing-healthcare-industry</loc>
+    <lastmod>2026-01-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/generative-ai-changing-creative-industries-forever</loc>
+    <lastmod>2026-01-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/pavion-technologies-approach-to-ethical-ai-development</loc>
+    <lastmod>2025-12-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/why-pavion-technologies-leads-in-ai-innovation</loc>
+    <lastmod>2025-12-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/our-client-centric-approach-pavion-difference</loc>
+    <lastmod>2025-12-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/enterprise-grade-security-protecting-digital-assets</loc>
+    <lastmod>2025-12-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/scaling-success-startups-to-enterprises</loc>
+    <lastmod>2025-12-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/innovation-lab-tomorrows-technology-today</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://paviontechnologies.com/blog/award-winning-excellence-recognition-commitment</loc>
+    <lastmod>2025-11-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Careers Page -->
+  <url>
+    <loc>https://paviontechnologies.com/careers</loc>
+    <lastmod>2026-01-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Contact Page -->

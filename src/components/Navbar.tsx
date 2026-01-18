@@ -35,14 +35,15 @@ const Navbar = () => {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-      className={`fixed w-full z-50 transition-all duration-700 ${scrolled
-        ? 'bg-slate-700/90 backdrop-blur-2xl border-b border-slate-500/30'
-        : 'bg-slate-600/60 backdrop-blur-md'
-        }`}
+      className={`fixed w-full z-50 transition-all duration-700 ${
+        scrolled
+          ? 'bg-white/90 backdrop-blur-2xl border-b border-gray-200' 
+          : 'bg-white/60 backdrop-blur-md'
+      }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo - Minimal */}
+          {/* Logo */}
           <motion.div
             className="flex-shrink-0"
             whileHover={{ opacity: 0.8 }}
@@ -53,12 +54,12 @@ const Navbar = () => {
                 className="w-36 h-auto object-contain"
                 src={logoImage}
                 alt="Pavion"
-                style={{ filter: 'brightness(1.8) contrast(1.1) saturate(1.2)' }}
+                style={{ filter: 'contrast(1.1) saturate(1.2)' }}
               />
             </a>
           </motion.div>
 
-          {/* Desktop Navigation - Ultra Minimal */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link, index) => {
               const commonProps = {
@@ -66,14 +67,14 @@ const Navbar = () => {
                 initial: { opacity: 0, y: -10 },
                 animate: { opacity: 1, y: 0 },
                 transition: { delay: 0.1 + index * 0.05, duration: 0.5 },
-                className: "relative px-4 py-2 text-[13px] font-normal text-gray-400 hover:text-white transition-colors duration-500 group",
+                className: "relative px-4 py-2 text-[13px] font-medium text-gray-600 hover:text-black transition-colors duration-500 group",
                 'data-cursor-hover': true
               };
 
               const content = (
                 <>
                   <span className="relative z-10">{link.name}</span>
-                  <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                  <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                 </>
               );
 
@@ -98,24 +99,24 @@ const Navbar = () => {
               );
             })}
 
-            {/* CTA - Minimal */}
+            {/* CTA */}
             <motion.a
               href="#contact"
               data-cursor-hover
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="ml-6 px-5 py-2 text-[13px] font-normal text-black bg-white rounded-full hover:bg-gray-200 transition-all duration-500"
+              className="ml-6 px-5 py-2 text-[13px] font-normal text-white bg-black rounded-full hover:bg-gray-800 transition-all duration-500"
             >
               Contact
             </motion.a>
           </div>
 
-          {/* Mobile Menu Button - Minimal */}
+          {/* Mobile Menu Button */}
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-white"
+            className="md:hidden p-2 text-black"
             data-cursor-hover
           >
             {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
@@ -123,7 +124,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu - Full Screen Minimal */}
+      {/* Mobile Menu - White theme */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -131,7 +132,7 @@ const Navbar = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="md:hidden fixed inset-0 bg-black/95 backdrop-blur-2xl z-40"
+            className="md:hidden fixed inset-0 bg-white z-40"
           >
             <div className="flex flex-col items-center justify-center h-full px-8 py-20">
               {navLinks.map((link, index) => {
@@ -141,7 +142,7 @@ const Navbar = () => {
                   animate: { opacity: 1, y: 0 },
                   exit: { opacity: 0, y: -20 },
                   transition: { delay: index * 0.08, duration: 0.5, ease: [0.23, 1, 0.32, 1] },
-                  className: "block py-4 text-3xl font-light text-gray-300 hover:text-white transition-colors duration-300",
+                  className: "block py-4 text-3xl font-light text-gray-600 hover:text-black transition-colors duration-300",
                   onClick: () => setIsOpen(false)
                 };
 
@@ -171,7 +172,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className="mt-8 px-8 py-3 text-lg font-normal text-black bg-white rounded-full"
+                className="mt-8 px-8 py-3 text-lg font-normal text-white bg-black rounded-full"
                 onClick={() => setIsOpen(false)}
               >
                 Contact Us
