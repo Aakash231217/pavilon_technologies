@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import HeroNew from './components/HeroNew';
 import SEO from './components/SEO';
 import Preloader from './components/Preloader';
-import CustomCursor from './components/CustomCursor';
 import SmoothScroll from './components/SmoothScroll';
 
 // Lazy load components below the fold for better initial performance
@@ -45,9 +44,6 @@ function App() {
     <Router>
       {/* Preloader */}
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      
-      {/* Custom Cursor - GSAP powered */}
-      <CustomCursor />
       
       {/* Noise Overlay */}
       <div className="noise-overlay" />

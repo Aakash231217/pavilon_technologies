@@ -25,15 +25,17 @@
     }
   }
   
+  /* Standard cursor with pointer on interactive elements */
   * {
-    cursor: none;
+    cursor: auto;
+  }
+  
+  a, button, [role="button"], input[type="submit"], input[type="button"],
+  [data-cursor-hover], .cursor-pointer {
+    cursor: pointer;
   }
   
   @media (pointer: coarse) {
-    * {
-      cursor: auto;
-    }
-    
     /* Disable expensive effects on touch devices */
     .backdrop-blur-xl,
     .backdrop-blur-2xl {
