@@ -1,5 +1,6 @@
 // src/components/SmoothScroll.tsx
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -12,6 +13,7 @@ interface SmoothScrollProps {
 
 const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   const lenisRef = useRef<Lenis | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     // Initialize Lenis smooth scroll
@@ -37,27 +39,44 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     gsap.ticker.lagSmoothing(0);
 
     // Handle anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', (e) => {
+    const handleAnchorClick = (e: Event) => {
+      const anchor = e.currentTarget as HTMLAnchorElement;
+      const href = anchor.getAttribute('href');
+      if (href && href.startsWith('#')) {
         e.preventDefault();
-        const href = anchor.getAttribute('href');
-        if (href) {
-          const target = document.querySelector(href);
-          if (target) {
-            lenis.scrollTo(target as HTMLElement, {
-              offset: -100,
-              duration: 1.5,
-            });
-          }
+        const target = document.querySelector(href);
+        if (target) {
+          lenis.scrollTo(target as HTMLElement, {
+            offset: -100,
+            duration: 1.5,
+          });
         }
-      });
+      }
+    };
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', handleAnchorClick);
     });
 
     return () => {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.removeEventListener('click', handleAnchorClick);
+      });
       lenis.destroy();
       gsap.ticker.remove((time) => lenis.raf(time * 1000));
     };
   }, []);
+
+  // Scroll to top on route change
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+    // Refresh ScrollTrigger on route change
+    ScrollTrigger.refresh();
+  }, [location.pathname]);
 
   return <>{children}</>;
 };

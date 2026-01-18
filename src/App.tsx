@@ -1,11 +1,12 @@
 // src/App.tsx
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroNew from './components/HeroNew';
 import SEO from './components/SEO';
 import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
+import ScrollToTop from './components/ScrollToTop';
 
 // Lazy load components below the fold for better initial performance
 const About = lazy(() => import('./components/About'));
@@ -27,23 +28,36 @@ const Careers = lazy(() => import('./components/Careers'));
 
 // Minimal loading fallback
 const SectionLoader = () => (
-  <div className="min-h-[50vh] flex items-center justify-center">
-    <div className="w-8 h-8 border-2 border-lime-400/30 border-t-lime-400 rounded-full animate-spin" />
+  <div className="min-h-[50vh] flex items-center justify-center bg-background">
+    <div className="w-8 h-8 border-2 border-indigo-400/30 border-t-indigo-400 rounded-full animate-spin" />
   </div>
 );
 
-function App() {
-  const [isLoading, setIsLoading] = useState(true);
+// Inner App component that has access to location
+function AppContent() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const [isLoading, setIsLoading] = useState(isHomePage);
 
   useEffect(() => {
     // Add lenis class to html
     document.documentElement.classList.add('lenis');
   }, []);
 
+  // Only show preloader on homepage
+  useEffect(() => {
+    if (!isHomePage) {
+      setIsLoading(false);
+    }
+  }, [isHomePage]);
+
   return (
-    <Router>
-      {/* Preloader */}
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+    <>
+      {/* Preloader - only on homepage */}
+      {isLoading && isHomePage && <Preloader onComplete={() => setIsLoading(false)} />}
+      
+      {/* Scroll to top on route change */}
+      <ScrollToTop />
       
       {/* Noise Overlay */}
       <div className="noise-overlay" />
@@ -145,6 +159,14 @@ function App() {
           
         </div>
       </SmoothScroll>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
