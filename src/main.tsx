@@ -11,3 +11,11 @@ createRoot(document.getElementById('root')!).render(
     </HelmetProvider>
   </StrictMode>
 );
+
+// Hide the initial loader once React mounts
+const initialLoader = document.getElementById('initial-loader');
+if (initialLoader) {
+  initialLoader.classList.add('hidden');
+  // Remove from DOM after fade out transition
+  setTimeout(() => initialLoader.remove(), 300);
+}
