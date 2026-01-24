@@ -67,15 +67,24 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     };
   }, []);
 
-  // Scroll to top on route change
+  // Handle route change - clean up and reinitialize
   useEffect(() => {
+    // Kill all existing ScrollTrigger instances to prevent DOM conflicts
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+    // Scroll to top
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);
     }
-    // Refresh ScrollTrigger on route change
-    ScrollTrigger.refresh();
+
+    // Refresh ScrollTrigger after a delay to allow lazy components to render
+    const refreshTimeout = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => clearTimeout(refreshTimeout);
   }, [location.pathname]);
 
   return <>{children}</>;
