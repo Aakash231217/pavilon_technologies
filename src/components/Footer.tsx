@@ -35,7 +35,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <Twitter size={20} />, href: '#', label: 'Twitter' },
     { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/company/pavion-technologies/', label: 'LinkedIn' },
-    { icon: <Instagram size={20} />, href: 'https://www.instagram.com/pavion_technologies_pvt_ltd', label: 'Instagram' },
+    { icon: <Instagram size={20} />, href: 'https://www.instagram.com/pavion.technologies?igsh=MXN4ajdvd3o1dnBqcQ==', label: 'Instagram' },
     { icon: <Facebook size={20} />, href: '#', label: 'Facebook' },
   ];
 

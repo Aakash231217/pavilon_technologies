@@ -28,7 +28,8 @@ const BlogPage = () => {
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="text-center mb-20"
         >
           <Link
@@ -54,8 +55,9 @@ const BlogPage = () => {
         {blogPosts.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
             className="mb-16"
           >
             <Link to={`/blog/${blogPosts[0].slug}`} className="group block">
@@ -112,7 +114,8 @@ const BlogPage = () => {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {blogPosts.slice(1).map((blog) => {
@@ -180,8 +183,9 @@ const BlogPage = () => {
         {/* CTA Section */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
           className="mt-24 text-center"
         >
           <div className="glass-panel rounded-3xl p-10 md:p-14 border border-white/10 relative overflow-hidden">

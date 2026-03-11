@@ -58,7 +58,7 @@ const FooterNew: React.FC = () => {
 
   const socialLinks = [
     { icon: Linkedin, href: 'https://www.linkedin.com/company/pavion-technologies/', label: 'LinkedIn' },
-    { icon: Instagram, href: 'https://www.instagram.com/pavion_technologies_pvt_ltd', label: 'Instagram' },
+    { icon: Instagram, href: 'https://www.instagram.com/pavion.technologies?igsh=MXN4ajdvd3o1dnBqcQ==', label: 'Instagram' },
     { icon: Twitter, href: '#', label: 'Twitter' },
     { icon: Github, href: '#', label: 'GitHub' },
   ];

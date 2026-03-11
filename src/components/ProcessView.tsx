@@ -72,7 +72,8 @@ const ProcessView: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       {onBack && (
         <motion.div
           initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
           className="max-w-6xl mx-auto mb-12"
         >
           <button
@@ -89,7 +90,8 @@ const ProcessView: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
       <div className="max-w-4xl mx-auto text-center mb-20 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-neon-blue text-sm font-medium mb-6 backdrop-blur-sm"
         >
           <GitBranch size={16} />
@@ -97,7 +99,8 @@ const ProcessView: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </motion.div>
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.1 }}
           className="text-4xl md:text-5xl font-extrabold text-white mb-6"
         >
@@ -105,7 +108,8 @@ const ProcessView: React.FC<{ onBack?: () => void }> = ({ onBack }) => {
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="text-xl text-gray-400 max-w-2xl mx-auto"
         >

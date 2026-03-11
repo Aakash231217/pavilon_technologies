@@ -268,7 +268,7 @@ const ContactNew: React.FC = () => {
                   <ArrowUpRight size={14} />
                 </a>
                 <a
-                  href="https://www.instagram.com/pavion_technologies_pvt_ltd"
+                  href="https://www.instagram.com/pavion.technologies?igsh=MXN4ajdvd3o1dnBqcQ=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-gray-400 hover:text-white hover:border-white/30 transition-all text-sm"
