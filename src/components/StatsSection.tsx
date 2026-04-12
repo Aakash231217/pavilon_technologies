@@ -20,7 +20,7 @@ const stats = [
     description: 'Building lasting partnerships',
   },
   {
-    value: 100,
+    value: 98,
     suffix: '%',
     label: 'Satisfaction Rate',
     description: 'Client happiness guaranteed',
