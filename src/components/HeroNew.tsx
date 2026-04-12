@@ -421,7 +421,7 @@ const HeroNew: React.FC = () => {
                   <span className="text-black text-[10px] font-bold">✓</span>
                 </div>
                 <div>
-                  <div className="text-lime-400 text-xs font-bold">100%</div>
+                  <div className="text-lime-400 text-xs font-bold">98%</div>
                   <div className="text-gray-400 text-[8px]">Satisfaction</div>
                 </div>
               </div>
