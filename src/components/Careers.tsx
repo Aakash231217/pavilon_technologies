@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type SubmitStatus = 'loading' | 'success' | 'error' | null;
+type SubmitStatus = 'loading' | 'succåess' | 'error' | null;
 
 interface CareerFormData {
   fullName: string;

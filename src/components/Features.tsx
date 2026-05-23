@@ -112,7 +112,7 @@ const Features = () => {
           className="mt-20 grid md:grid-cols-3 gap-6"
         >
           {[
-            { value: '100%', label: 'Client Satisfaction' },
+            { value: '98%', label: 'Client Satisfaction' },
             { value: '50+', label: 'Projects Completed' },
             { value: '24h', label: 'Average Response' }
           ].map((stat, i) => (
