@@ -7,6 +7,8 @@ import SEO from './components/SEO';
 import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
 import ScrollToTop from './components/ScrollToTop';
+import BlogPage from './components/BlogPage';
+import BlogPostPage from './components/BlogPostPage';
 
 // Lazy load components below the fold for better initial performance
 const About = lazy(() => import('./components/About'));
@@ -22,8 +24,6 @@ const ContactNew = lazy(() => import('./components/ContactNew'));
 const FooterNew = lazy(() => import('./components/FooterNew'));
 const TeamMemberDetail = lazy(() => import('./components/TeamMemberDetail'));
 const ProcessView = lazy(() => import('./components/ProcessView'));
-const BlogPage = lazy(() => import('./components/BlogPage'));
-const BlogPostPage = lazy(() => import('./components/BlogPostPage'));
 const Careers = lazy(() => import('./components/Careers'));
 
 // Minimal loading fallback
@@ -121,17 +121,13 @@ function AppContent() {
                   canonical="https://paviontechnologies.com/blog"
                   ogUrl="https://paviontechnologies.com/blog"
                 />
-                <Suspense fallback={<SectionLoader />}>
-                  <BlogPage />
-                </Suspense>
+                <BlogPage />
               </>
             } />
 
             {/* Individual Blog Post Route */}
             <Route path="/blog/:slug" element={
-              <Suspense fallback={<SectionLoader />}>
-                <BlogPostPage />
-              </Suspense>
+              <BlogPostPage />
             } />
 
             {/* Careers Page Route */}

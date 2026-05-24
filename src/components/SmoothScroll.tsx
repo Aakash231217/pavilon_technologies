@@ -14,8 +14,11 @@ interface SmoothScrollProps {
 const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
   const lenisRef = useRef<Lenis | null>(null);
   const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
+    if (!isHomePage) return;
+
     // Initialize Lenis smooth scroll
     const lenis = new Lenis({
       duration: 1.2,
@@ -32,9 +35,11 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     // Connect Lenis to GSAP ScrollTrigger
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const updateLenis = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    gsap.ticker.add(updateLenis);
 
     gsap.ticker.lagSmoothing(0);
 
@@ -63,17 +68,23 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
         anchor.removeEventListener('click', handleAnchorClick);
       });
       lenis.destroy();
-      gsap.ticker.remove((time) => lenis.raf(time * 1000));
+      lenisRef.current = null;
+      gsap.ticker.remove(updateLenis);
     };
-  }, []);
+  }, [isHomePage]);
 
   // Handle route change - clean up and reinitialize
   useEffect(() => {
     // Kill all existing ScrollTrigger instances to prevent DOM conflicts
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
+    if (!isHomePage && lenisRef.current) {
+      lenisRef.current.destroy();
+      lenisRef.current = null;
+    }
+
     // Scroll to top
-    if (lenisRef.current) {
+    if (isHomePage && lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     } else {
       window.scrollTo(0, 0);
@@ -85,7 +96,7 @@ const SmoothScroll: React.FC<SmoothScrollProps> = ({ children }) => {
     }, 100);
 
     return () => clearTimeout(refreshTimeout);
-  }, [location.pathname]);
+  }, [location.pathname, isHomePage]);
 
   return <>{children}</>;
 };

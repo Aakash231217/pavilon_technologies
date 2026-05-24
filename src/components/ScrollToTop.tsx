@@ -1,14 +1,18 @@
 // src/components/ScrollToTop.tsx
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
-  useEffect(() => {
-    // Scroll to top immediately on route change
+  useLayoutEffect(() => {
+    if (hash) return;
+
     window.scrollTo(0, 0);
-  }, [pathname]);
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+  }, [pathname, hash]);
 
   return null;
 };

@@ -70,7 +70,6 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link, index) => {
               const commonProps = {
-                key: link.name,
                 initial: { opacity: 0, y: -10 },
                 animate: { opacity: 1, y: 0 },
                 transition: { delay: 0.1 + index * 0.05, duration: 0.5 },
@@ -88,6 +87,7 @@ const Navbar = () => {
               if (link.isAnchor) {
                 return (
                   <motion.a
+                    key={link.name}
                     {...commonProps}
                     href={isHomePage ? link.href : `/${link.href}`}
                   >
@@ -98,6 +98,7 @@ const Navbar = () => {
 
               return (
                 <MotionLink
+                  key={link.name}
                   {...commonProps}
                   to={link.href}
                 >
@@ -146,7 +147,6 @@ const Navbar = () => {
             <div className="flex min-h-full flex-col items-center justify-center gap-1 px-6 py-10 sm:py-14">
               {navLinks.map((link, index) => {
                 const commonProps = {
-                  key: link.name,
                   initial: { opacity: 0, y: 30 },
                   animate: { opacity: 1, y: 0 },
                   exit: { opacity: 0, y: -20 },
@@ -158,6 +158,7 @@ const Navbar = () => {
                 if (link.isAnchor) {
                   return (
                     <motion.a
+                      key={link.name}
                       {...commonProps}
                       href={isHomePage ? link.href : `/${link.href}`}
                     >
@@ -168,6 +169,7 @@ const Navbar = () => {
 
                 return (
                   <MotionLink
+                    key={link.name}
                     {...commonProps}
                     to={link.href}
                   >
