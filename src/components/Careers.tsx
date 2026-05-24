@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-type SubmitStatus = 'loading' | 'succåess' | 'error' | null;
+type SubmitStatus = 'loading' | 'success' | 'error' | null;
 
 interface CareerFormData {
   fullName: string;
@@ -117,7 +117,7 @@ const Careers: React.FC = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-background relative overflow-hidden min-h-screen">
+    <section className="py-24 md:py-32 bg-background relative overflow-hidden min-h-screen">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.1),transparent_70%)]" />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -132,11 +132,11 @@ const Careers: React.FC = () => {
             <Briefcase size={16} />
             Join Our Team
           </span>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
             Build Your Career <span className="text-gradient">With Us</span>
           </h1>
           <div className="w-16 h-0.5 bg-gradient-to-r from-neon-blue to-neon-purple mx-auto mb-6" />
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto">
             We're always looking for talented individuals who are passionate about technology and innovation.
             Submit your application and let's create the future together.
           </p>
@@ -165,12 +165,12 @@ const Careers: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="glass-panel p-8 md:p-12 rounded-3xl border border-white/10 relative overflow-hidden"
+          className="glass-panel p-5 sm:p-8 md:p-12 rounded-2xl md:rounded-3xl border border-white/10 relative overflow-hidden"
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-neon-blue/5 rounded-full blur-[80px]" />
 
           <div className="mb-10 relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-4">Application Form</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">Application Form</h2>
             <p className="text-gray-400 leading-relaxed max-w-2xl">
               Fill out the form below to submit your application. We're excited to learn more about you
               and explore how you can contribute to our innovative team.
@@ -178,7 +178,7 @@ const Careers: React.FC = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="relative z-10">
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
               <div>
                 <label htmlFor="fullName" className="flex items-center gap-2 text-gray-300 font-medium mb-3 text-sm">
                   <User size={16} className="text-neon-blue" />
@@ -214,7 +214,7 @@ const Careers: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-6 md:mb-8">
               <div>
                 <label htmlFor="phone" className="flex items-center gap-2 text-gray-300 font-medium mb-3 text-sm">
                   <Phone size={16} className="text-neon-blue" />
@@ -283,12 +283,12 @@ const Careers: React.FC = () => {
                 />
                 <label
                   htmlFor="resume"
-                  className="flex items-center justify-center gap-3 w-full px-5 py-8 rounded-xl bg-black/40 border-2 border-dashed border-white/10 hover:border-neon-blue/50 hover:bg-white/5 transition-all text-gray-400 cursor-pointer group"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full px-5 py-8 rounded-xl bg-black/40 border-2 border-dashed border-white/10 hover:border-neon-blue/50 hover:bg-white/5 transition-all text-gray-400 cursor-pointer group text-center sm:text-left"
                 >
                   <div className="p-3 rounded-full bg-white/5 group-hover:bg-neon-blue/10 transition-colors">
                     <FileText size={24} className="group-hover:text-neon-blue transition-colors" />
                   </div>
-                  <div className="text-left">
+                  <div className="min-w-0">
                     <span className="block text-white font-medium mb-1">{resumeFileName || 'Click to upload your resume'}</span>
                     <span className="block text-xs text-gray-500">PDF, DOC, DOCX (Max 5MB)</span>
                   </div>
@@ -336,7 +336,7 @@ const Careers: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mt-16 text-center"
         >
-          <div className="glass-card rounded-2xl p-10 border border-white/10">
+          <div className="glass-card rounded-2xl p-6 sm:p-10 border border-white/10">
             <h3 className="text-2xl font-bold text-white mb-6">What Happens Next?</h3>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center group">

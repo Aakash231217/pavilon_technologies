@@ -77,16 +77,16 @@ const FooterNew: React.FC = () => {
 
       {/* CTA Section */}
       <div className="relative z-10 border-b border-white/[0.05]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-6">
                 Let's Create Together
               </span>
-              <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight mb-6">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
                 Have a project in mind?
               </h2>
-              <p className="text-xl text-gray-400 font-light">
+              <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light">
                 We'd love to hear about it. Get in touch and let's make something amazing.
               </p>
             </div>
@@ -94,7 +94,7 @@ const FooterNew: React.FC = () => {
               <MagneticButton
                 as="a"
                 href="#contact"
-                className="inline-flex items-center gap-4 px-10 py-6 bg-white text-black rounded-full text-lg font-medium hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white transition-all duration-500 group"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-4 px-8 sm:px-10 py-5 sm:py-6 bg-white text-black rounded-full text-base sm:text-lg font-medium hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white transition-all duration-500 group"
                 strength={0.4}
               >
                 Start a Project
@@ -116,18 +116,18 @@ const FooterNew: React.FC = () => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2">
             <img src={logo} alt="Pavion Technologies" className="w-40 object-contain mb-6" />
             <p className="text-gray-400 leading-relaxed mb-8 max-w-sm font-light">
               Empowering businesses with innovative digital solutions that drive growth and create lasting impact.
             </p>
-            <div className="space-y-4">
-              <a href="mailto:Contact@paviontechnologies.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group" data-cursor-hover>
+            <div className="space-y-4 min-w-0">
+              <a href="mailto:Contact@paviontechnologies.com" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors group min-w-0" data-cursor-hover>
                 <Mail size={16} className="text-indigo-400" />
-                <span className="text-sm">Contact@paviontechnologies.com</span>
+                <span className="text-sm break-all">Contact@paviontechnologies.com</span>
               </a>
               <a href="tel:+917455975301" className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors" data-cursor-hover>
                 <Phone size={16} className="text-indigo-400" />
@@ -199,15 +199,15 @@ const FooterNew: React.FC = () => {
             {/* Newsletter */}
             <div className="mb-8">
               <p className="text-gray-400 text-sm mb-4">Subscribe to our newsletter for updates.</p>
-              <div className="flex gap-2">
+              <div className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 rounded-full bg-white/[0.03] border border-white/[0.08] focus:border-indigo-400/50 focus:outline-none text-white placeholder-gray-500 text-sm transition-all"
+                  className="w-full min-w-0 flex-1 px-4 py-3 rounded-full bg-white/[0.03] border border-white/[0.08] focus:border-indigo-400/50 focus:outline-none text-white placeholder-gray-500 text-sm transition-all"
                   data-cursor-hover
                 />
                 <button 
-                  className="px-6 py-3 bg-indigo-500 text-white rounded-full font-medium hover:bg-indigo-600 transition-colors text-sm"
+                  className="w-full sm:w-auto px-6 py-3 bg-indigo-500 text-white rounded-full font-medium hover:bg-indigo-600 transition-colors text-sm"
                   data-cursor-hover
                 >
                   Subscribe
@@ -243,9 +243,9 @@ const FooterNew: React.FC = () => {
 
       {/* Bottom Bar */}
       <div className="relative z-10 border-t border-white/[0.05]">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6 text-sm text-gray-500">
+            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-gray-500 text-center">
               <span>© {currentYear} Pavion Technologies</span>
               <span className="hidden md:block">•</span>
               <a href="#" className="hover:text-white transition-colors" data-cursor-hover>Privacy Policy</a>

@@ -90,30 +90,30 @@ const ContactNew: React.FC = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="contact" className="relative py-32 bg-[#0a0a0f] overflow-hidden">
+    <section ref={sectionRef} id="contact" className="relative py-20 md:py-32 bg-[#0a0a0f] overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-indigo-600/10 to-transparent rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-purple-600/10 to-transparent rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-14 md:mb-20">
           <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-6">
             Get In Touch
           </span>
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             Let's Build
             <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
               Something Great
             </span>
           </h2>
-          <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto">
             Have a project in mind? We'd love to hear about it. 
             Get in touch and let's create something amazing together.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Contact Form */}
           <div className="order-2 lg:order-1">
             {submitted ? (
@@ -136,7 +136,7 @@ const ContactNew: React.FC = () => {
                     value={formState.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
+                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-base sm:text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
                     placeholder="John Doe"
                     data-cursor-hover
                   />
@@ -150,7 +150,7 @@ const ContactNew: React.FC = () => {
                     value={formState.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
+                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-base sm:text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
                     placeholder="john@company.com"
                     data-cursor-hover
                   />
@@ -163,7 +163,7 @@ const ContactNew: React.FC = () => {
                     name="company"
                     value={formState.company}
                     onChange={handleChange}
-                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
+                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-base sm:text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600"
                     placeholder="Your Company"
                     data-cursor-hover
                   />
@@ -177,7 +177,7 @@ const ContactNew: React.FC = () => {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600 resize-none"
+                    className="w-full px-0 py-4 bg-transparent border-b border-white/10 text-white text-base sm:text-lg focus:border-indigo-400 focus:outline-none transition-colors placeholder-gray-600 resize-none"
                     placeholder="I need a website that..."
                     data-cursor-hover
                   />
@@ -186,7 +186,7 @@ const ContactNew: React.FC = () => {
                 <div className="form-field pt-6 flex justify-center">
                   <MagneticButton
                     as="button"
-                    className={`px-10 py-4 rounded-full font-medium text-base transition-all duration-500 inline-flex items-center justify-center gap-2 whitespace-nowrap ${
+                    className={`w-full sm:w-auto px-8 sm:px-10 py-4 rounded-full font-medium text-base transition-all duration-500 inline-flex items-center justify-center gap-2 whitespace-nowrap ${
                       isSubmitting 
                         ? 'bg-indigo-500/50 text-white/50 cursor-not-allowed'
                         : 'bg-white text-black hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-500 hover:text-white'
@@ -224,15 +224,15 @@ const ContactNew: React.FC = () => {
                     <a
                       key={i}
                       href={info.href}
-                      className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/[0.02] transition-colors group"
+                      className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/[0.02] transition-colors group min-w-0"
                       data-cursor-hover
                     >
-                      <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/30 transition-all">
+                      <div className="w-12 h-12 rounded-xl bg-white/[0.03] border border-white/[0.08] flex flex-shrink-0 items-center justify-center text-indigo-400 group-hover:bg-indigo-500/10 group-hover:border-indigo-500/30 transition-all">
                         <Icon size={20} />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <span className="text-sm text-gray-500 block">{info.label}</span>
-                        <span className="text-white group-hover:text-indigo-400 transition-colors">
+                        <span className="text-white group-hover:text-indigo-400 transition-colors break-words">
                           {info.value}
                         </span>
                       </div>

@@ -1,5 +1,5 @@
 // src/components/HorizontalShowcase.tsx
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, Code2, Palette, Smartphone, Cloud, Brain, Globe } from 'lucide-react';
@@ -61,12 +61,27 @@ const HorizontalShowcase: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    const updateViewport = () => setIsDesktop(mediaQuery.matches);
+
+    updateViewport();
+    mediaQuery.addEventListener('change', updateViewport);
+    return () => mediaQuery.removeEventListener('change', updateViewport);
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
     const trigger = triggerRef.current;
     const progress = progressRef.current;
     if (!section || !trigger || !progress) return;
+    if (!isDesktop) {
+      gsap.set(section, { clearProps: 'transform' });
+      gsap.set(progress, { scaleX: 0 });
+      return;
+    }
 
     // Calculate scroll distance
     const scrollDistance = section.scrollWidth - window.innerWidth;
@@ -93,7 +108,7 @@ const HorizontalShowcase: React.FC = () => {
 
     // Animate cards on scroll
     const cards = section.querySelectorAll('.service-card');
-    cards.forEach((card, i) => {
+    cards.forEach((card) => {
       gsap.fromTo(card, 
         { 
           opacity: 0.5, 
@@ -116,14 +131,15 @@ const HorizontalShowcase: React.FC = () => {
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      scrollTween.scrollTrigger?.kill();
+      scrollTween.kill();
     };
-  }, []);
+  }, [isDesktop]);
 
   return (
-    <section id="services" ref={triggerRef} className="relative bg-[#0a0a0f] overflow-hidden">
+    <section id="services" ref={triggerRef} className="relative bg-[#0a0a0f] overflow-hidden py-24 lg:py-0">
       {/* Progress bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50">
+      <div className="fixed top-0 left-0 right-0 h-1 bg-white/5 z-50 hidden lg:block">
         <div 
           ref={progressRef}
           className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 origin-left scale-x-0"
@@ -131,20 +147,35 @@ const HorizontalShowcase: React.FC = () => {
       </div>
 
       {/* Section Header - Fixed */}
-      <div className="absolute top-8 left-8 z-20">
+      <div className="absolute top-8 left-8 z-20 hidden lg:block">
         <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium">
           Services
         </span>
       </div>
 
+      <div className="lg:hidden max-w-7xl mx-auto px-6 mb-12 text-center">
+        <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-5">
+          Services
+        </span>
+        <h2 className="text-4xl sm:text-5xl font-bold text-white leading-tight mb-5">
+          What We
+          <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+            Build
+          </span>
+        </h2>
+        <p className="text-base text-gray-400 font-light max-w-xl mx-auto">
+          We architect digital solutions that drive measurable results. Each service is tailored to your unique needs.
+        </p>
+      </div>
+
       {/* Horizontal scroll container */}
       <div 
         ref={sectionRef}
-        className="flex items-center h-screen"
-        style={{ width: `${services.length * 100}vw` }}
+        className={`${isDesktop ? 'flex items-center h-screen' : 'flex flex-col gap-8 max-w-7xl mx-auto px-6'} lg:px-0`}
+        style={isDesktop ? { width: `${(services.length + 2) * 100}vw` } : undefined}
       >
         {/* First panel - Title */}
-        <div className="flex-shrink-0 w-screen h-full flex items-center justify-center px-8">
+        <div className="hidden lg:flex flex-shrink-0 w-screen h-full items-center justify-center px-8">
           <div className="max-w-4xl">
             <h2 className="text-[10vw] md:text-[8vw] font-bold text-white leading-[0.9] tracking-[-0.04em] mb-8">
               <span className="block">What We</span>
@@ -171,11 +202,11 @@ const HorizontalShowcase: React.FC = () => {
           return (
             <div 
               key={i}
-              className="service-card flex-shrink-0 w-screen h-full flex items-center justify-center px-8"
+              className="service-card flex-shrink-0 w-full lg:w-screen lg:h-full flex items-center justify-center lg:px-8"
               style={{ perspective: '1000px' }}
             >
               <div 
-                className="relative w-full max-w-4xl aspect-[3/4] md:aspect-[4/3] rounded-3xl overflow-hidden group cursor-pointer"
+                className="relative w-full max-w-4xl min-h-[420px] sm:min-h-[460px] lg:min-h-0 aspect-auto lg:aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden group cursor-pointer"
                 data-cursor-hover
                 data-cursor-text="Explore"
               >
@@ -231,7 +262,7 @@ const HorizontalShowcase: React.FC = () => {
         })}
 
         {/* Final CTA panel */}
-        <div className="flex-shrink-0 w-screen h-full flex items-center justify-center px-8">
+        <div className="flex-shrink-0 w-full lg:w-screen lg:h-full flex items-center justify-center lg:px-8 pt-4 lg:pt-0">
           <div className="text-center">
             <h3 className="text-4xl md:text-6xl font-bold text-white mb-6">
               Ready to Start?

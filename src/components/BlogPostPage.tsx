@@ -92,9 +92,9 @@ const BlogPostPage = () => {
             transition={{ duration: 0.5 }}
           >
             {/* Article Header */}
-            <header className="mb-12">
+            <header className="mb-8 md:mb-12">
               {/* Category Badge */}
-              <div className="flex items-center gap-3 mb-6">
+              <div className="flex flex-wrap items-center gap-3 mb-6">
                 <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${post.gradient} flex items-center justify-center`}>
                   <IconComponent size={20} className="text-white" />
                 </div>
@@ -104,7 +104,7 @@ const BlogPostPage = () => {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-8 leading-tight">
                 {post.title}
               </h1>
 
@@ -129,7 +129,7 @@ const BlogPostPage = () => {
             </header>
 
             {/* Article Content */}
-            <div className="glass-panel rounded-2xl p-8 md:p-12 mb-12">
+            <div className="glass-panel rounded-2xl p-5 sm:p-8 md:p-12 mb-12">
               <div className="prose prose-invert prose-lg max-w-none">
                 {post.content.split('\n\n').map((paragraph, index) => {
                   // Handle bold headers like **Header**
@@ -168,7 +168,7 @@ const BlogPostPage = () => {
                   }
 
                   return (
-                    <p key={index} className="text-gray-300 leading-relaxed mb-6 text-lg">
+                    <p key={index} className="text-gray-300 leading-relaxed mb-6 text-base sm:text-lg">
                       {paragraph}
                     </p>
                   );
@@ -194,7 +194,7 @@ const BlogPostPage = () => {
                   <Share2 size={16} />
                   Share this article
                 </span>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
                   <button
                     onClick={shareOnTwitter}
                     className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-blue-400 hover:bg-blue-500/10 transition-all"
@@ -285,7 +285,7 @@ const BlogPostPage = () => {
               transition={{ delay: 0.2 }}
               className="mt-16"
             >
-              <div className="glass-panel rounded-3xl p-10 md:p-14 border border-white/10 relative overflow-hidden text-center">
+              <div className="glass-panel rounded-2xl md:rounded-3xl p-6 sm:p-10 md:p-14 border border-white/10 relative overflow-hidden text-center">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-50" />
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 relative z-10">
                   Ready to Transform Your Business with AI?
@@ -295,7 +295,7 @@ const BlogPostPage = () => {
                 </p>
                 <Link
                   to="/#contact"
-                  className="relative z-10 inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
+                  className="relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
                 >
                   Get in Touch
                   <ArrowRight size={20} />

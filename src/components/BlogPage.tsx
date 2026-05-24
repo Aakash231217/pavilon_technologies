@@ -19,7 +19,7 @@ const BlogPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background pt-32 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-background pt-28 md:pt-32 pb-16 md:pb-20 relative overflow-hidden">
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-neon-purple/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-neon-blue/10 rounded-full blur-[120px] pointer-events-none" />
@@ -30,7 +30,7 @@ const BlogPage = () => {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-14 md:mb-20"
         >
           <Link
             to="/"
@@ -40,13 +40,13 @@ const BlogPage = () => {
             Back to Home
           </Link>
 
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
             Pavion{' '}
             <span className="text-gradient">
               Insights
             </span>
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Expert perspectives on technology, innovation, and digital transformation from our engineering team.
           </p>
         </motion.div>
@@ -83,7 +83,7 @@ const BlogPage = () => {
                   </div>
                   
                   {/* Featured Content */}
-                  <div className="p-8 md:p-12 flex flex-col justify-center">
+                  <div className="p-6 sm:p-8 md:p-12 flex flex-col justify-center">
                     <span className={`text-sm font-bold bg-gradient-to-r ${blogPosts[0].gradient} bg-clip-text text-transparent mb-4`}>
                       {blogPosts[0].category}
                     </span>
@@ -93,7 +93,7 @@ const BlogPage = () => {
                     <p className="text-gray-400 mb-6 leading-relaxed">
                       {blogPosts[0].excerpt}
                     </p>
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
                       <span className="flex items-center gap-1.5">
                         <Calendar size={14} />
                         {blogPosts[0].date}
@@ -148,7 +148,7 @@ const BlogPage = () => {
                     </div>
 
                     {/* Card Content */}
-                    <div className="p-8 flex flex-col h-[calc(100%-160px)]">
+                    <div className="p-6 sm:p-8 flex flex-col h-[calc(100%-160px)]">
                       <h2 className="text-xl font-bold text-white mb-4 group-hover:text-indigo-400 transition-colors line-clamp-2">
                         {blog.title}
                       </h2>
@@ -157,8 +157,8 @@ const BlogPage = () => {
                       </p>
 
                       {/* Meta Info */}
-                      <div className="flex items-center justify-between text-xs text-gray-500 pt-6 border-t border-white/10 mt-auto">
-                        <div className="flex items-center gap-4">
+                      <div className="flex items-center justify-between gap-3 text-xs text-gray-500 pt-6 border-t border-white/10 mt-auto">
+                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
                           <span className="flex items-center gap-1.5">
                             <Calendar size={14} />
                             {blog.date}
@@ -188,17 +188,17 @@ const BlogPage = () => {
           transition={{ delay: 0.2 }}
           className="mt-24 text-center"
         >
-          <div className="glass-panel rounded-3xl p-10 md:p-14 border border-white/10 relative overflow-hidden">
+          <div className="glass-panel rounded-2xl md:rounded-3xl p-6 sm:p-10 md:p-14 border border-white/10 relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 opacity-50" />
             <h3 className="text-2xl md:text-4xl font-bold text-white mb-6 relative z-10">
               Ready to Transform Your Business?
             </h3>
-            <p className="text-gray-300 mb-8 max-w-xl mx-auto text-lg relative z-10">
+            <p className="text-gray-300 mb-8 max-w-xl mx-auto text-base sm:text-lg relative z-10">
               Let's discuss how Pavion Technologies can help you achieve your goals with innovative technology solutions.
             </p>
             <Link
               to="/#contact"
-              className="relative z-10 inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
+              className="relative z-10 w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
             >
               Get in Touch
               <ArrowRight size={20} />

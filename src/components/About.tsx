@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { teamMembers } from '../data/teamData';
 
 // Using Unsplash for reliable image loading
@@ -34,19 +34,19 @@ const About: React.FC = () => {
   return (
     <>
       {/* --- ABOUT SECTION --- */}
-      <section id="about" className="relative py-32 bg-[#0a0a0f] text-white overflow-hidden">
+      <section id="about" className="relative py-20 md:py-32 bg-[#0a0a0f] text-white overflow-hidden">
         {/* Gradient Orbs */}
         <div className="absolute top-0 right-[20%] w-[600px] h-[600px] bg-gradient-to-br from-indigo-600/20 to-purple-600/15 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute bottom-0 left-[10%] w-[500px] h-[500px] bg-gradient-to-tr from-pink-600/15 to-rose-600/10 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Label */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-            className="mb-20"
+            className="mb-12 md:mb-20"
           >
             <span className="text-[12px] tracking-[0.3em] uppercase text-indigo-400 font-medium">
               About Us
@@ -54,7 +54,7 @@ const About: React.FC = () => {
           </motion.div>
 
           {/* Main two-column content */}
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start mb-32">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start mb-20 md:mb-32">
             {/* Left - Large Text */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -62,12 +62,12 @@ const About: React.FC = () => {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }}
             >
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-8">
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-[-0.02em] mb-8">
                 <span className="text-white">We help brands create</span>
                 <span className="block text-gradient-accent mt-2">
                   digital experiences
                 </span>
-                <span className="block text-gray-400 text-3xl md:text-4xl lg:text-5xl mt-4 font-normal">
+                <span className="block text-gray-400 text-3xl sm:text-4xl lg:text-5xl mt-4 font-normal">
                   that connect
                 </span>
               </h2>
@@ -81,7 +81,7 @@ const About: React.FC = () => {
               transition={{ duration: 1, delay: 0.2, ease: [0.23, 1, 0.32, 1] }}
               className="lg:pt-8"
             >
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed mb-8 font-light">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed mb-8 font-light">
                 Pavion is a digital production studio that brings your ideas to life through 
                 visually captivating designs and interactive experiences. We push boundaries 
                 by solving complex problems with tailored solutions.
@@ -124,7 +124,7 @@ const About: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-            className="relative mb-32"
+            className="relative mb-20 md:mb-32"
           >
             <div className="relative rounded-3xl overflow-hidden aspect-[16/9] md:aspect-[21/9]">
               <img
@@ -135,7 +135,7 @@ const About: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
               
               {/* Overlay Text */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+              <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 md:p-12">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -143,9 +143,9 @@ const About: React.FC = () => {
                   transition={{ delay: 0.3, duration: 0.8 }}
                 >
                   <span className="text-[11px] tracking-[0.3em] uppercase text-gray-300 mb-4 block">Our Approach</span>
-                  <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white max-w-2xl leading-tight">
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white max-w-2xl leading-tight">
                     Creative Development
-                    <span className="block text-gray-400 text-xl md:text-2xl mt-2 font-normal">
+                    <span className="block text-gray-400 text-lg md:text-2xl mt-2 font-normal">
                       Where technology meets artistry
                     </span>
                   </h3>
@@ -166,7 +166,7 @@ const About: React.FC = () => {
               <motion.div
                 key={index}
                 variants={itemVariants}
-                className="bg-[#0a0a0f] p-8 md:p-10 group hover:bg-white/[0.04] transition-all duration-500"
+                className="bg-[#0a0a0f] p-6 sm:p-8 md:p-10 group hover:bg-white/[0.04] transition-all duration-500"
                 data-cursor-hover
               >
                 <span className="text-5xl font-bold text-indigo-500/40 group-hover:text-indigo-400/60 transition-colors duration-500 block mb-6">
@@ -187,12 +187,12 @@ const About: React.FC = () => {
       {/* --- TEAM SECTION --- */}
       <section
         id="team"
-        className="relative py-32 bg-[#0a0a0f] overflow-hidden"
+        className="relative py-20 md:py-32 bg-[#0a0a0f] overflow-hidden"
       >
         {/* Gradient accent */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-purple-600/15 to-indigo-600/15 rounded-full blur-[150px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-8">
             <motion.div
@@ -221,8 +221,8 @@ const About: React.FC = () => {
             </motion.p>
           </div>
 
-          {/* Team cards - More Visible Design */}
-          <div className="grid gap-6 md:grid-cols-2">
+          {/* Founder profiles */}
+          <div className="divide-y divide-white/[0.08] border-y border-white/[0.08]">
             {teamMembers.map((m, index) => (
               <motion.div
                 key={m.id}
@@ -232,34 +232,30 @@ const About: React.FC = () => {
                 transition={{ delay: index * 0.1, duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
               >
                 <Link to={`/team/${m.id}`} className="group block" data-cursor-hover>
-                  <article className="relative bg-white/[0.03] border border-white/[0.08] rounded-2xl p-8 flex items-center gap-6 hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-500">
-                    {/* Avatar */}
-                    <div className="flex-shrink-0">
-                      <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-2 ring-white/10 group-hover:ring-indigo-400/50 transition-all duration-500">
-                        <img
-                          src={m.img}
-                          alt={m.name}
-                          className="w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700"
-                        />
-                      </div>
+                  <article className="grid gap-6 py-10 sm:grid-cols-[160px_1fr_auto] sm:items-center md:grid-cols-[220px_1fr_auto] md:py-14">
+                    <div className="mx-auto sm:mx-0 w-36 h-44 md:w-48 md:h-60 overflow-hidden bg-white/[0.03]">
+                      <img
+                        src={m.img}
+                        alt={m.name}
+                        className="h-full w-full object-cover object-center grayscale-[15%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                      />
                     </div>
 
-                    {/* Info */}
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xl font-semibold text-white group-hover:text-indigo-400 transition-all duration-500 mb-1">
+                    <div className="min-w-0 text-center sm:text-left">
+                      <span className="text-[11px] tracking-[0.25em] uppercase text-indigo-400 font-medium block mb-3">
+                        {m.role.replace(' ,', ',')}
+                      </span>
+                      <h3 className="text-3xl md:text-4xl font-semibold text-white mb-4 group-hover:text-indigo-300 transition-colors duration-500">
                         {m.name}
                       </h3>
-                      <span className="text-sm text-indigo-400 block mb-3">
-                        {m.role}
-                      </span>
-                      <p className="text-sm text-gray-400 line-clamp-2 font-light">
+                      <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed max-w-2xl">
                         {m.shortBio}
                       </p>
                     </div>
 
-                    {/* Arrow */}
-                    <div className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <ArrowRight size={20} className="text-indigo-400" />
+                    <div className="flex items-center justify-center sm:justify-end gap-3 text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+                      <span>Read profile</span>
+                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </article>
                 </Link>

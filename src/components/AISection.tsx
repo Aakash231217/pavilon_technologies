@@ -76,13 +76,13 @@ const AISection: React.FC = () => {
             <Sparkles size={14} />
             Powered by Advanced AI
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 leading-tight">
             Artificial Intelligence
             <span className="block mt-2 text-gradient-accent">
               That Transforms Business
             </span>
           </h2>
-          <p className="text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg text-gray-400 max-w-3xl mx-auto leading-relaxed">
             Harness the power of cutting-edge AI and Machine Learning to automate processes,
             gain insights, and create intelligent experiences that drive growth.
           </p>
@@ -98,7 +98,7 @@ const AISection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -5 }}
-              className={`bg-white/[0.03] rounded-xl p-8 border border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-300 group`}
+              className={`bg-white/[0.03] rounded-xl p-6 sm:p-8 border border-white/[0.08] hover:bg-white/[0.06] hover:border-white/[0.15] transition-all duration-300 group`}
             >
               <div className={`inline-flex p-4 rounded-xl bg-white/[0.05] ${service.color} mb-6 group-hover:scale-110 transition-all`}>
                 {service.icon}
@@ -118,7 +118,7 @@ const AISection: React.FC = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-gray-900 to-indigo-900 rounded-3xl p-8 md:p-12 border border-gray-800 relative overflow-hidden"
+          className="bg-gradient-to-br from-gray-900 to-indigo-900 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-12 border border-gray-800 relative overflow-hidden"
         >
           {/* Background decoration */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-full blur-[100px]" />
@@ -126,11 +126,11 @@ const AISection: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
             {/* Left side - Content */}
             <div>
-              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">
                 Enterprise-Ready AI
                 <span className="text-neon-blue"> Capabilities</span>
               </h3>
-              <p className="text-gray-300 mb-8 leading-relaxed text-lg opacity-90">
+              <p className="text-gray-300 mb-8 leading-relaxed text-base sm:text-lg opacity-90">
                 From proof-of-concept to production deployment, we build AI solutions that scale
                 with your business needs while maintaining security and compliance standards.
               </p>
@@ -150,7 +150,7 @@ const AISection: React.FC = () => {
 
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 mt-10 px-8 py-4 bg-gradient-to-r from-neon-blue to-indigo-600 text-white rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all duration-300 font-bold"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 mt-10 px-8 py-4 bg-gradient-to-r from-neon-blue to-indigo-600 text-white rounded-xl hover:shadow-[0_0_20px_rgba(0,243,255,0.4)] transition-all duration-300 font-bold"
               >
                 Start Your AI Journey
                 <ArrowRight size={18} />
@@ -201,7 +201,7 @@ const AISection: React.FC = () => {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <p className="text-center text-gray-600 text-sm mb-8 uppercase tracking-widest font-semibold flex items-center justify-center gap-4">
+          <p className="text-center text-gray-600 text-xs sm:text-sm mb-8 uppercase tracking-widest font-semibold flex items-center justify-center gap-4">
             <span className="w-12 h-px bg-gray-300"></span>
             AI Applications We Build
             <span className="w-12 h-px bg-gray-300"></span>

@@ -1,7 +1,7 @@
 // src/components/TeamMemberDetail.tsx
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Linkedin, Twitter, Facebook, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Linkedin, Twitter, Facebook } from 'lucide-react';
 import { teamMembers } from '../data/teamData';
 
 const TeamMemberDetail: React.FC = () => {
@@ -51,15 +51,10 @@ const TeamMemberDetail: React.FC = () => {
           Back to Team
         </button>
 
-        <div className="glass-panel rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden">
-          {/* Glow Line */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-neon-blue via-neon-purple to-pink-500" />
-
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
-            {/* Image Column */}
-            <div className="flex-shrink-0 relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-neon-blue to-neon-purple rounded-full blur-[20px] opacity-40" />
-              <div className="relative w-56 h-56 md:w-72 md:h-72 rounded-full overflow-hidden border-2 border-white/20 shadow-2xl mx-auto">
+        <div className="border-y border-white/10 py-10 md:py-14">
+          <div className="grid gap-10 md:grid-cols-[320px_1fr] md:gap-14 lg:gap-16 items-start">
+            <div className="relative mx-auto w-full max-w-[280px] md:max-w-none">
+              <div className="aspect-[4/5] overflow-hidden bg-white/[0.03]">
                 <img
                   src={member.img}
                   alt={member.name}
@@ -67,47 +62,44 @@ const TeamMemberDetail: React.FC = () => {
                 />
               </div>
 
-              {/* Socials (Desktop) */}
-              <div className="hidden md:flex justify-center gap-4 mt-8">
+              <div className="flex justify-center md:justify-start gap-4 mt-8">
                 {member.socials?.map((s, i) => (
                   <a
                     key={i}
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white/5 text-gray-400 hover:bg-neon-blue hover:text-black transition-all duration-300 border border-white/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                    className="inline-flex items-center gap-2 border-b border-white/20 pb-1 text-sm text-gray-400 hover:text-white hover:border-indigo-400 transition-colors duration-300"
                   >
                     <SocialIcon label={s.label} />
+                    <span className="capitalize">{s.label}</span>
                   </a>
                 ))}
               </div>
             </div>
 
-            {/* Info Column */}
-            <div className="flex-1 text-center md:text-left">
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">{member.name}</h1>
-              <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 text-neon-blue border border-neon-blue/20 mb-8 font-medium tracking-wide">
-                {member.role}
+            <div className="text-center md:text-left">
+              <span className="text-[11px] tracking-[0.28em] uppercase text-indigo-400 font-medium block mb-4">
+                {member.role.replace(' ,', ',')}
+              </span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">{member.name}</h1>
+
+              <div className="mb-10 space-y-5 border-t border-white/10 pt-8">
+                {member.fullBio.split('\n').filter(Boolean).map((paragraph) => (
+                  <p key={paragraph} className="text-gray-300 leading-relaxed text-base sm:text-lg font-light">
+                    {paragraph}
+                  </p>
+                ))}
               </div>
 
-              <div className="mb-8">
-                <h3 className="text-lg font-bold text-white mb-4 uppercase tracking-widest text-opacity-80">
-                  About
-                </h3>
-                <p className="text-gray-300 leading-relaxed text-lg">
-                  {member.fullBio}
-                </p>
-              </div>
-
-              {/* Skills Section */}
               {member.skills && (
-                <div className="mb-8">
-                  <h3 className="text-lg font-bold text-white mb-4 uppercase tracking-widest text-opacity-80">Expertise</h3>
+                <div>
+                  <h3 className="text-[11px] tracking-[0.28em] uppercase text-gray-500 font-medium mb-5">Expertise</h3>
                   <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                     {member.skills.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-4 py-2 bg-white/5 rounded-lg text-sm text-gray-300 border border-white/10 shadow-sm hover:border-neon-purple/50 transition-colors"
+                        className="px-4 py-2 border border-white/10 text-sm text-gray-300 hover:border-indigo-400/50 hover:text-white transition-colors"
                       >
                         {skill}
                       </span>
@@ -115,21 +107,6 @@ const TeamMemberDetail: React.FC = () => {
                   </div>
                 </div>
               )}
-
-              {/* Mobile Socials */}
-              <div className="md:hidden flex justify-center gap-4 mt-8 pt-8 border-t border-white/10">
-                {member.socials?.map((s, i) => (
-                  <a
-                    key={i}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white/5 text-gray-400 hover:bg-neon-blue hover:text-black transition-all duration-300 border border-white/10"
-                  >
-                    <SocialIcon label={s.label} />
-                  </a>
-                ))}
-              </div>
             </div>
           </div>
         </div>

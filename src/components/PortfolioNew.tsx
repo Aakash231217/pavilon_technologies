@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowUpRight, X, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -142,35 +142,35 @@ const PortfolioNew: React.FC = () => {
   }, [selectedProject]);
 
   return (
-    <section ref={sectionRef} id="portfolio" className="relative py-32 bg-[#0a0a0f] overflow-hidden">
+    <section ref={sectionRef} id="portfolio" className="relative py-20 md:py-32 bg-[#0a0a0f] overflow-hidden">
       {/* Background */}
       <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-indigo-600/10 to-transparent rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-purple-600/10 to-transparent rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-6">
             Featured Work
           </span>
-          <h2 className="text-5xl md:text-7xl font-bold text-white mb-6">
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
             Selected
             <span className="block bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
               Projects
             </span>
           </h2>
-          <p className="text-xl text-gray-400 font-light max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 font-light max-w-2xl mx-auto">
             A showcase of our most passionately crafted works with forward-thinking clients.
           </p>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-16">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 md:mb-16">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ${
                 filter === cat
                   ? 'bg-white text-black'
                   : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white border border-white/10'
@@ -192,7 +192,7 @@ const PortfolioNew: React.FC = () => {
               data-cursor-hover
               data-cursor-text="View"
             >
-              <div className="relative h-full min-h-[300px] bg-white/[0.02] border border-white/[0.08] rounded-2xl overflow-hidden hover:border-white/[0.15] transition-all duration-700">
+              <div className="relative h-full min-h-[300px] sm:min-h-[340px] bg-white/[0.02] border border-white/[0.08] rounded-2xl overflow-hidden hover:border-white/[0.15] transition-all duration-700">
                 {/* Project Image */}
                 <div className="absolute inset-0">
                   <img 
@@ -207,10 +207,10 @@ const PortfolioNew: React.FC = () => {
                 <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${project.color}`} />
 
                 {/* Content */}
-                <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+                <div className="relative z-10 h-full p-6 sm:p-8 flex flex-col justify-between">
                   <div>
                     {/* Category & Year */}
-                    <div className="flex items-center justify-between mb-6">
+                    <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
                       <span className="px-3 py-1 text-xs rounded-full bg-white/10 backdrop-blur-sm text-white border border-white/20">
                         {project.category}
                       </span>
@@ -246,7 +246,7 @@ const PortfolioNew: React.FC = () => {
                 </div>
 
                 {/* Large Number */}
-                <div className="absolute bottom-4 left-4 text-[100px] font-bold text-white/[0.03] leading-none pointer-events-none">
+                <div className="absolute bottom-4 left-4 text-[72px] sm:text-[100px] font-bold text-white/[0.03] leading-none pointer-events-none">
                   0{project.id}
                 </div>
               </div>
@@ -278,7 +278,7 @@ const PortfolioNew: React.FC = () => {
           
           {/* Modal Content */}
           <div 
-            className="modal-content relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0d0d14] border border-white/10 rounded-3xl"
+            className="modal-content relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-[#0d0d14] border border-white/10 rounded-2xl md:rounded-3xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header with Image */}
@@ -303,15 +303,15 @@ const PortfolioNew: React.FC = () => {
               </button>
               
               {/* Title overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
                 <span className="text-sm text-indigo-400 uppercase tracking-wider">{selectedProject.category}</span>
-                <h3 className="text-4xl md:text-5xl font-bold text-white mt-2">{selectedProject.title}</h3>
+                <h3 className="text-3xl md:text-5xl font-bold text-white mt-2 leading-tight">{selectedProject.title}</h3>
                 <span className="text-gray-500 text-sm mt-2 block">{selectedProject.year}</span>
               </div>
             </div>
 
             {/* Body */}
-            <div className="p-8 md:p-12 space-y-8">
+            <div className="p-6 md:p-12 space-y-8">
               {/* Description */}
               <div>
                 <h4 className="text-sm uppercase tracking-wider text-gray-500 mb-4">Overview</h4>
@@ -347,12 +347,12 @@ const PortfolioNew: React.FC = () => {
               </div>
 
               {/* CTA */}
-              <div className="pt-8 border-t border-white/10 flex items-center justify-between">
+              <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
                 <p className="text-gray-500">Interested in a similar project?</p>
                 <a
                   href="#contact"
                   onClick={() => setSelectedProject(null)}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black rounded-full font-medium hover:bg-gray-100 transition-colors"
                   data-cursor-hover
                 >
                   Let's Talk

@@ -285,9 +285,9 @@ const HeroNew: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-8 pt-24 pb-20">
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-8 pt-24 pb-20">
         {/* Showcase Section with Phone Mockup and Service Cards */}
-        <div ref={showcaseRef} className="relative max-w-7xl mx-auto px-4" style={{ perspective: '1500px' }}>
+        <div ref={showcaseRef} className="relative max-w-7xl mx-auto px-0 sm:px-4" style={{ perspective: '1500px' }}>
           {/* Glassmorphism glow that follows mouse */}
           <div 
             ref={glowRef}
@@ -450,13 +450,13 @@ const HeroNew: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8 py-6 lg:py-12">
+          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-8 py-4 sm:py-6 lg:py-12">
             
             {/* Mobile: Side phones shown smaller alongside main phone */}
             {/* Left Small Phone - with 3D transform */}
             <div 
               ref={leftCardRef}
-              className="absolute lg:relative left-2 sm:left-4 lg:left-auto z-10 w-20 sm:w-24 lg:w-48"
+              className="absolute lg:relative left-1 sm:left-4 lg:left-auto z-10 w-16 min-[380px]:w-20 sm:w-24 lg:w-48"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection line from left phone to center phone */}
@@ -532,7 +532,7 @@ const HeroNew: React.FC = () => {
             {/* Center Phone Mockup - BIGGER with 3D transforms */}
             <div 
               ref={phoneRef}
-              className="relative z-20 w-52 sm:w-60 lg:w-80 mx-auto"
+              className="relative z-20 w-44 min-[380px]:w-52 sm:w-60 lg:w-80 mx-auto"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection line from center phone to right phone */}
@@ -646,7 +646,7 @@ const HeroNew: React.FC = () => {
             {/* Right Small Phone - with 3D transform */}
             <div 
               ref={rightCardRef}
-              className="absolute lg:relative right-2 sm:right-4 lg:right-auto z-10 w-20 sm:w-24 lg:w-48"
+              className="absolute lg:relative right-1 sm:right-4 lg:right-auto z-10 w-16 min-[380px]:w-20 sm:w-24 lg:w-48"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {/* Connection dot */}

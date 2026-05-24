@@ -96,22 +96,22 @@ const TestimonialsNew: React.FC = () => {
   const currentTestimonial = testimonials[activeIndex];
 
   return (
-    <section ref={sectionRef} className="relative py-32 bg-[#0a0a0f] overflow-hidden">
+    <section ref={sectionRef} className="relative py-20 md:py-32 bg-[#0a0a0f] overflow-hidden">
       {/* Background elements */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-br from-indigo-600/5 to-purple-600/5 rounded-full blur-[150px] pointer-events-none" />
 
       {/* Large quote mark */}
-      <div className="absolute top-1/4 left-1/4 opacity-[0.02] pointer-events-none">
+      <div className="absolute top-1/4 left-1/4 opacity-[0.02] pointer-events-none hidden sm:block">
         <Quote size={400} strokeWidth={0.5} />
       </div>
 
-      <div ref={containerRef} className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <div ref={containerRef} className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 md:mb-16">
           <span className="text-[11px] tracking-[0.3em] uppercase text-indigo-400 font-medium block mb-6">
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
+          <h2 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
             What Our Clients
             <span className="block text-gray-500">Say About Us</span>
           </h2>
@@ -119,7 +119,7 @@ const TestimonialsNew: React.FC = () => {
 
         {/* Testimonial card */}
         <div className="relative">
-          <div className="bg-white/[0.02] border border-white/[0.08] rounded-3xl p-8 md:p-16 backdrop-blur-sm">
+          <div className="bg-white/[0.02] border border-white/[0.08] rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-16 backdrop-blur-sm">
             {/* Rating */}
             <div className="flex gap-1 mb-8 justify-center">
               {[...Array(currentTestimonial.rating)].map((_, i) => (
@@ -129,7 +129,7 @@ const TestimonialsNew: React.FC = () => {
 
             {/* Quote */}
             <div ref={quoteRef} className="text-center">
-              <p className="text-2xl md:text-4xl font-light text-white leading-relaxed mb-12 max-w-4xl mx-auto">
+              <p className="text-xl sm:text-2xl md:text-4xl font-light text-white leading-relaxed mb-10 md:mb-12 max-w-4xl mx-auto">
                 "{currentTestimonial.quote}"
               </p>
 
