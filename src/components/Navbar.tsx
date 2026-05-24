@@ -18,6 +18,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -116,8 +123,10 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-black"
+            className="md:hidden relative z-[120] p-2 text-black"
             data-cursor-hover
+            aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </motion.button>
@@ -128,13 +137,13 @@ const Navbar = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-            className="md:hidden fixed inset-0 top-0 left-0 right-0 bottom-0 bg-white z-[100]"
+            className="md:hidden absolute top-full left-0 right-0 z-[100] h-[calc(100dvh-5rem)] overflow-y-auto bg-white border-t border-gray-100 shadow-2xl"
           >
-            <div className="flex flex-col items-center justify-center h-full px-8 pt-24 pb-20">
+            <div className="flex min-h-full flex-col items-center justify-center gap-1 px-6 py-10 sm:py-14">
               {navLinks.map((link, index) => {
                 const commonProps = {
                   key: link.name,
@@ -142,7 +151,7 @@ const Navbar = () => {
                   animate: { opacity: 1, y: 0 },
                   exit: { opacity: 0, y: -20 },
                   transition: { delay: index * 0.08, duration: 0.5, ease: [0.23, 1, 0.32, 1] },
-                  className: "block py-4 text-3xl font-light text-gray-600 hover:text-black transition-colors duration-300",
+                  className: "block py-3 text-2xl sm:text-3xl font-light text-gray-600 hover:text-black transition-colors duration-300",
                   onClick: () => setIsOpen(false)
                 };
 
@@ -172,7 +181,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ delay: 0.5, duration: 0.5 }}
-                className="mt-8 px-8 py-3 text-lg font-normal text-white bg-black rounded-full"
+                className="mt-6 inline-flex w-full max-w-xs items-center justify-center px-8 py-3 text-base font-normal text-white bg-black rounded-full"
                 onClick={() => setIsOpen(false)}
               >
                 Contact Us
